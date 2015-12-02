@@ -1,0 +1,107 @@
+.settings_page_facetwp-logic select,
+.settings_page_facetwp-logic button,
+.settings_page_facetwp-logic textarea {
+    vertical-align: top;
+}
+
+.settings_page_facetwp-logic select {
+    margin: 0;
+    font-size: inherit;
+    border: 1px solid #ccc;
+}
+
+.fs-wrap {
+    position: inherit;
+    line-height: 18px;
+    width: 180px;
+}
+
+.fs-dropdown {
+    width: 170px;
+}
+
+.fs-optgroup .fs-option {
+    padding-left: 16px;
+}
+
+.fs-label-wrap {
+    background-color: #fff;
+}
+
+/* Admin styles */
+
+.facetwp-region {
+    font-size: 13px;
+    border: 1px solid #ccc;
+}
+
+.facetwp-region input,
+.facetwp-region select,
+.facetwp-region textarea {
+    font-size: 12px;
+}
+
+.facetwp-content-wrap {
+    overflow: auto;
+    background-color: #fff;
+    padding: 20px;
+}
+
+/* Action buttons */
+
+.flexbox {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flexbox > div {
+    width: 50%;
+}
+
+.flexbox h3 {
+    margin-top: 0;
+}
+
+.flexbox.menubar {
+    padding: 10px;
+    background: #fafafa;
+    border-bottom: 1px solid #ccc;
+}
+
+.flexbox.menubar .right-side {
+    text-align: right;
+}
+
+.ruleset {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #a00;
+}
+
+.ruleset:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/* Drop buttons */
+
+.btn-drop {
+    display: inline-block;
+    vertical-align: top;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    color: #a00;
+}
+
+.btn-drop:before {
+    content: '\f182';
+    font: 400 20px/1 dashicons;
+    vertical-align: middle;
+}
+
+.hidden {
+    display: none;
+}
