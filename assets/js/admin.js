@@ -1,8 +1,13 @@
 var FWPCL = FWPCL || {};
-FWPCL.rules = [{"conditions":[[{"object":"pageload","compare":"is","value":""},{"object":"facets-empty","compare":"is","value":""}],[{"object":"template-lessons","compare":"is","value":""}]],"actions":[{"toggle":"hide","object":["facets"]}]},{"conditions":[[{"object":"facets-not-empty","compare":"is","value":""}]],"actions":[{"toggle":"show","object":["template"]},{"toggle":"show","object":["facets"]}]}];
+//FWPCL.rules = [{"conditions":[[{"object":"pageload","compare":"is","value":""},{"object":"facets-empty","compare":"is","value":""}],[{"object":"template-lessons","compare":"is","value":""}]],"actions":[{"toggle":"hide","object":["facets"]}]},{"conditions":[[{"object":"facets-not-empty","compare":"is","value":""}]],"actions":[{"toggle":"show","object":["template"]},{"toggle":"show","object":["facets"]}]}];
 
 
 (function($) {
+
+
+    $(function() {
+        FWPCL.load();
+    });
 
 
     function init_scripts() {
@@ -62,7 +67,7 @@ FWPCL.rules = [{"conditions":[[{"object":"pageload","compare":"is","value":""},{
     }
 
 
-    FWPCL.save = function() {
+    FWPCL.parse_data = function() {
         var rules = [];
 
         $('.facetwp-region .ruleset').each(function(rule_num) {
@@ -100,6 +105,21 @@ FWPCL.rules = [{"conditions":[[{"object":"pageload","compare":"is","value":""},{
 
         return rules;
     }
+
+
+    $(document).on('click', '.facetwp-save', function() {
+        $('.facetwp-response').html('Saving...');
+        $('.facetwp-response').show();
+
+        var data = FWPCL.parse_data();
+
+        $.post(ajaxurl, {
+            'action': 'fwpcl_save',
+            'data': JSON.stringify(data)
+        }, function(response) {
+            $('.facetwp-response').html(response);
+        });
+    });
 
 
     $(document).on('click', '.add-rule', function() {

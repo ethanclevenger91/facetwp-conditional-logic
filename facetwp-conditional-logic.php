@@ -29,19 +29,51 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class FacetWP_Conditional_Logic
 {
 
-    public $facets;
-    public $templates;
+    public $rules;
+    public $facets = array();
+    public $templates = array();
 
 
     function __construct() {
+        define( 'FWPCL_VERSION', '2.2.8' );
+        define( 'FWPCL_DIR', dirname( __FILE__ ) );
+        define( 'FWPCL_URL', plugins_url( basename( FWPCL_DIR ) ) );
+        define( 'FWPCL_BASENAME', plugin_basename( __FILE__ ) );
+
         add_action( 'init', array( $this, 'init' ), 12 );
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );
     }
 
 
     function init() {
+        add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
+
         $this->facets = FWP()->helper->get_facets();
         $this->templates = FWP()->helper->get_templates();
+
+        $rules = get_option( 'fwpcl_rules' );
+        $this->rules = empty( $rules ) ? '[]' : $rules;
+    }
+
+
+    /**
+     * Save rules
+     */
+    function save_rules() {
+        if ( current_user_can( 'manage_options' ) ) {
+            $rules = stripslashes( $_POST['data'] );
+            $json_test = json_decode( $rules, true );
+
+            // Check for valid JSON
+            if ( is_array( $json_test ) ) {
+                update_option( 'fwpcl_rules', $rules );
+                echo __( 'Rules saved', 'fwpcl' );
+            }
+            else {
+                echo __( 'Error: invalid JSON', 'fwpcl' );
+            }
+        }
+        exit;
     }
 
 

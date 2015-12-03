@@ -1,95 +1,102 @@
+<script src="<?php echo FACETWP_URL; ?>/assets/js/fSelect/fSelect.js?ver=<?php echo FACETWP_VERSION; ?>"></script>
+<script src="<?php echo FWPCL_URL; ?>/assets/js/admin.js?ver=<?php echo FWPCL_VERSION; ?>"></script>
 <script>
-(function($) {
-    $(document).on('click', '.condition-and', function() {
-        var $wrap = $(this).closest('.condition-wrap');
-        $wrap.after($wrap.clone());
-    });
-
-    $(document).on('click', '.condition-drop', function() {
-        $(this).closest('.condition-wrap').remove();
-    });
-
-    $(document).on('click', '.condition-or', function() {
-
-    });
-
-    $(document).on('click', '.action-and', function() {
-        var $wrap = $(this).closest('.action-wrap');
-        $wrap.after($wrap.clone());
-    });
-
-    $(document).on('click', '.action-drop', function() {
-        $(this).closest('.action-wrap').remove();
-    });
-
-    $(document).on('change', '.condition-object', function() {
-        var val = $(this).val();
-
-    });
-})(jQuery);
+FWPCL.rules = <?php echo $this->rules; ?>;
 </script>
-
-<style>
-.condition-wrap .condition-drop:first-child { display: none; }
-.action-wrap .action-drop:first-child { display: none; }
-</style>
-
+<link href="<?php echo FACETWP_URL; ?>/assets/js/fSelect/fSelect.css?ver=<?php echo FACETWP_VERSION; ?>" rel="stylesheet">
+<link href="<?php echo FWPCL_URL; ?>/assets/css/admin.css?ver=<?php echo FWPCL_VERSION; ?>" rel="stylesheet">
 
 <div class="wrap">
-    <h1>Conditional Logic <a class="page-title-action">Add Rule</a></h1>
+    <h1>Conditional Logic</h1>
 
-    <table style="width:100%">
-        <tr>
-            <td>If...</td>
-            <td>Then...</td>
-        </tr>
-        <tr>
-            <td valign="top">
-                <div class="condition-wrap">
-                    <select class="condition-object">
+    <div class="facetwp-response"></div>
+
+    <div class="facetwp-region">
+        <div class="flexbox menubar">
+            <div class="left-side">
+                <a class="button add-rule">Add Rule</a>
+            </div>
+            <div class="right-side">
+                <a class="button-primary facetwp-save">Save Changes</a>
+            </div>
+        </div>
+        <div class="facetwp-content-wrap">
+            <div class="flexbox">
+                <div class="left-side"><h3>If...</h3></div>
+                <div class="right-side"><h3>Then...</h3></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- [Begin] Clone HTML -->
+
+    <div class="clone hidden">
+        <div class="clone-rule">
+            <div class="flexbox ruleset">
+                <div class="left-side"></div>
+                <div class="right-side"></div>
+            </div>
+        </div>
+
+        <div class="clone-condition-group">
+            <div class="group-wrap">
+                <div class="condition-wrap"></div>
+                <div style="font-weight:bold">or</div>
+            </div>
+            <button class="button condition-or">Add Rule Group</button>
+        </div>
+
+        <div class="clone-condition">
+            <div class="condition">
+                <select class="condition-object">
+                    <optgroup label="Basic">
                         <option value="pageload">Pageload</option>
+                        <option value="uri">Page URI</option>
                         <option value="facets-empty">Facets are empty</option>
                         <option value="facets-not-empty">Facets are not empty</option>
-                        <optgroup label="Facet Value">
-                            <option value="facet-1">Facet 1</option>
-                            <option value="facet-2">Facet 2</option>
-                            <option value="facet-3">Facet 3</option>
-                        </optgroup>
-                        <optgroup label="Template Name">
-                            <option value="template-1">Template 1</option>
-                            <option value="template-2">Template 2</option>
-                            <option value="template-3">Template 3</option>
-                        </optgroup>
-                        <option value="uri">Page URI</option>
-                    </select>
-                    <select class="condition-operator">
-                        <option value="is">is</option>
-                        <option value="not">is not</option>
-                    </select>
-                    <button class="condition-drop">x</button>
-                    <button class="condition-and">and</button>
-                </div>
-                <div>Or...</div>
-                <button class="condition-or">add subset</button>
-            </td>
-            <td valign="top">
-                <div class="action-wrap">
-                    <select class="action-toggle">
-                        <option value="show">Show</option>
-                        <option value="hide">Hide</option>
-                    </select>
-                    <select class="action-object">
-                        <option value="template">Template</option>
-                        <option value="facets">All Facets</option>
-                        <option value="facet-1">facet 1</option>
-                        <option value="facet-2">facet 2</option>
-                        <option value="facet-3">facet 3</option>
-                    </select>
-                    <button class="action-drop">x</button>
-                    <button class="action-and">and</button>
-                </div>
-            </td>
-        </tr>
-    </table>
+                    </optgroup>
+                    <optgroup label="Facet Value">
+<?php foreach ( $this->facets as $facet ) : ?>
+                        <option value="facet-<?php echo $facet['name']; ?>"><?php echo $facet['label']; ?></option>
+<?php endforeach; ?>
+                    </optgroup>
+                    <optgroup label="Template Name">
+<?php foreach ( $this->templates as $template ) : ?>
+                        <option value="template-<?php echo $template['name']; ?>"><?php echo $template['label']; ?></option>
+<?php endforeach; ?>
+                    </optgroup>
+                </select>
+                <select class="condition-compare">
+                    <option value="is">is</option>
+                    <option value="not">is not</option>
+                </select>
+                <textarea class="condition-value"></textarea>
+                <button class="button condition-and">and</button>
+                <span class="condition-drop btn-drop"></span>
+            </div>
+        </div>
+
+        <div class="clone-action">
+            <div class="action">
+                <select class="action-toggle">
+                    <option value="show">Show</option>
+                    <option value="hide">Hide</option>
+                </select>
+                <select class="action-object" multiple="multiple">
+                    <option value="template">Template</option>
+                    <option value="facets">All Facets</option>
+                    <optgroup label="Facets">
+<?php foreach ( $this->facets as $facet ) : ?>
+                        <option value="facet-<?php echo $facet['name']; ?>"><?php echo $facet['label']; ?></option>
+<?php endforeach; ?>
+                    </optgroup>
+                </select>
+                <button class="button action-and">and</button>
+                <span class="action-drop btn-drop"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- [End] Clone HTML -->
 
 </div>
