@@ -1,7 +1,7 @@
 <script src="<?php echo FACETWP_URL; ?>/assets/js/fSelect/fSelect.js?ver=<?php echo FACETWP_VERSION; ?>"></script>
 <script src="<?php echo FWPCL_URL; ?>/assets/js/admin.js?ver=<?php echo FWPCL_VERSION; ?>"></script>
 <script>
-FWPCL.rules = <?php echo $this->rules; ?>;
+FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
 </script>
 <link href="<?php echo FACETWP_URL; ?>/assets/js/fSelect/fSelect.css?ver=<?php echo FACETWP_VERSION; ?>" rel="stylesheet">
 <link href="<?php echo FWPCL_URL; ?>/assets/css/admin.css?ver=<?php echo FWPCL_VERSION; ?>" rel="stylesheet">

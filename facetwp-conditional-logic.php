@@ -46,13 +46,14 @@ class FacetWP_Conditional_Logic
 
 
     function init() {
+        add_action( 'wp_footer', array( $this, 'render_js' ), 25 );
         add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
 
         $this->facets = FWP()->helper->get_facets();
         $this->templates = FWP()->helper->get_templates();
 
         $rules = get_option( 'fwpcl_rules' );
-        $this->rules = empty( $rules ) ? '[]' : $rules;
+        $this->rules = empty( $rules ) ? array() : json_decode( $rules, true );
     }
 
 
@@ -74,6 +75,23 @@ class FacetWP_Conditional_Logic
             }
         }
         exit;
+    }
+
+
+    function render_js() {
+        echo '<pre>';
+        var_dump($this->rules);
+        echo '</pre>';
+
+        
+?>
+<script>
+(function($) {
+    $(document).on('facetwp-loaded', function() {
+    });
+})(jQuery);
+</script>
+<?php
     }
 
 

@@ -1,5 +1,4 @@
 var FWPCL = FWPCL || {};
-//FWPCL.rules = [{"conditions":[[{"object":"pageload","compare":"is","value":""},{"object":"facets-empty","compare":"is","value":""}],[{"object":"template-lessons","compare":"is","value":""}]],"actions":[{"toggle":"hide","object":["facets"]}]},{"conditions":[[{"object":"facets-not-empty","compare":"is","value":""}]],"actions":[{"toggle":"show","object":["template"]},{"toggle":"show","object":["facets"]}]}];
 
 
 (function($) {
