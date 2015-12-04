@@ -78,23 +78,6 @@ class FacetWP_Conditional_Logic
     }
 
 
-    function render_js() {
-        echo '<pre>';
-        var_dump($this->rules);
-        echo '</pre>';
-
-        
-?>
-<script>
-(function($) {
-    $(document).on('facetwp-loaded', function() {
-    });
-})(jQuery);
-</script>
-<?php
-    }
-
-
     /**
      * Register the FacetWP settings page
      */
@@ -105,6 +88,120 @@ class FacetWP_Conditional_Logic
 
     function settings_page() {
         include( dirname( __FILE__ ) . '/page-settings.php' );
+    }
+
+
+    function render_js() {
+        $if_statements = array();
+        $group_or = array();
+        $actions = array();
+
+        foreach ( $this->rules as $rule_num => $ruleset ) {
+            foreach ( $ruleset['conditions'] as $or_num => $group ) {
+                $group_and = array();
+
+                foreach ( $group as $condition ) {
+                    $group_and[] = $this->build_if_clause( $condition );
+                }
+
+                $group_or[ $rule_num ][ $or_num ] = implode( ' && ', $group_and );
+            }
+
+            foreach ( $ruleset['actions'] as $action ) {
+                $actions[ $rule_num ][] = $this->build_action( $action );
+            }
+
+            $if_statements[ $rule_num ] = array(
+                'if'    => implode( ' || ', $group_or[ $rule_num ] ),
+                'then'  => $actions[ $rule_num ]
+            );
+        }
+?>
+
+<script>
+function is_intersect(array1, array2) {
+    var result = array1.filter(function(n) {
+        return array2.indexOf(n) != -1;
+    });
+
+    return result.length > 0;
+}
+
+(function($) {
+    $(document).on('facetwp-loaded', function() {
+<?php foreach ( $if_statements as $clause ) :
+?>
+        if (<?php echo $clause['if']; ?>) {
+            <?php echo implode( "\n            ", $clause['then'] ); ?>
+
+        }
+<?php endforeach; ?>
+    });
+})(jQuery);
+</script>
+
+<?php
+    }
+
+
+    function build_if_clause( $condition ) {
+        $clause = '';
+        $object = $condition['object'];
+        $compare = $condition['compare'];
+        $value = $condition['value'];
+
+        if ( 'pageload' == $object ) {
+            $clause = '! FWP.loaded';
+        }
+        elseif ( 'uri' == $object ) {
+            $operator = ( 'is' == $compare ) ? '==' : '!=';
+            $clause = "FWP_HTTP.uri $operator '$value'";
+        }
+        elseif ( 'facets-empty' == $object ) {
+            $clause = "FWP.build_query_string() == ''";
+        }
+        elseif ( 'facets-not-empty' == $object ) {
+            $clause = "FWP.build_query_string() != ''";
+        }
+        elseif ( 'facet-' == substr( $object, 0, 6 ) ) {
+            $name = substr( $object, 6 );
+            $values = explode( "\n", trim( $value ) );
+            $values = array_map( 'trim', $values );
+            $values = implode( "','", $values );
+            $values = empty( $values ) ? '' : "'$values'";
+
+            $operator = ( 'is' == $compare ) ? '' : '! ';
+            $clause = "{$operator}is_intersect(FWP.facets['$name'], [$values])";
+        }
+        elseif ( 'template-' == substr( $object, 0, 9 ) ) {
+            $name = substr( $object, 9 );
+            $operator = ( 'is' == $compare ) ? '==' : '!=';
+            $clause = "FWP.template $operator '$name'";
+        }
+
+        return $clause;
+    }
+
+
+    function build_action( $action ) {
+        $selectors = array();
+        $toggle = $action['toggle'];
+        $object = $action['object'];
+
+        foreach ( $object as $item ) {
+            if ( 'template' == $item ) {
+                $selectors[] = '.facetwp-template';
+            }
+            elseif ( 'facets' == $item ) {
+                $selectors[] = '.facetwp-facet';
+            }
+            elseif ( 'facet-' == substr( $item, 0, 6 ) ) {
+                $selectors[] = '.facetwp-' . $item;
+            }
+        }
+
+        $selectors = implode( ', ', $selectors );
+        return "$('$selectors').$toggle();";
     }
 }
 
