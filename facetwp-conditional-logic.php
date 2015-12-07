@@ -26,7 +26,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-class FacetWP_Conditional_Logic
+class FacetWP_Conditional_Logic_Addon
 {
 
     public $rules;
@@ -214,4 +214,4 @@ function is_intersect(array1, array2) {
 }
 
 
-new FacetWP_Conditional_Logic();
+new FacetWP_Conditional_Logic_Addon();
