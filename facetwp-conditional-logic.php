@@ -203,9 +203,13 @@ function is_intersect(array1, array2) {
             }
         }
 
-        $selectors = implode( ', ', $selectors );
-        $action = ( 'show' == $action ) ? 'removeClass' : 'addClass';
-        return "$('$selectors').$action('hidden');";
+        if ( ! empty( $selectors ) ) {
+            $selectors = implode( ', ', $selectors );
+            $toggle = ( 'show' == $toggle ) ? 'removeClass' : 'addClass';
+            return "$('$selectors').$toggle('hidden');";
+        }
+
+        return '';
     }
 }
 
