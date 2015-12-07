@@ -35,7 +35,7 @@ class FacetWP_Conditional_Logic
 
 
     function __construct() {
-        define( 'FWPCL_VERSION', '2.2.8' );
+        define( 'FWPCL_VERSION', '0.1' );
         define( 'FWPCL_DIR', dirname( __FILE__ ) );
         define( 'FWPCL_URL', plugins_url( basename( FWPCL_DIR ) ) );
         define( 'FWPCL_BASENAME', plugin_basename( __FILE__ ) );
@@ -118,17 +118,20 @@ class FacetWP_Conditional_Logic
         }
 ?>
 
+<style type="text/css">
+.hidden { display: none; }
+</style>
 <script>
 function is_intersect(array1, array2) {
     var result = array1.filter(function(n) {
         return array2.indexOf(n) != -1;
     });
-
     return result.length > 0;
 }
 
 (function($) {
     $(document).on('facetwp-loaded', function() {
+        $('.facetwp-template, .facetwp-facet').removeClass('hidden');
 <?php foreach ( $if_statements as $clause ) :
 ?>
         if (<?php echo $clause['if']; ?>) {
@@ -201,7 +204,8 @@ function is_intersect(array1, array2) {
         }
 
         $selectors = implode( ', ', $selectors );
-        return "$('$selectors').$toggle();";
+        $action = ( 'show' == $action ) ? 'removeClass' : 'addClass';
+        return "$('$selectors').$action('hidden');";
     }
 }
 

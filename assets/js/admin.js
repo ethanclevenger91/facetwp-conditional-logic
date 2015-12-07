@@ -1,4 +1,6 @@
-var FWPCL = FWPCL || {};
+var FWPCL = FWPCL || {
+    loaded: false
+};
 
 
 (function($) {
@@ -6,11 +8,18 @@ var FWPCL = FWPCL || {};
 
     $(function() {
         FWPCL.load();
+        FWPCL.loaded = true;
+        init_scripts();
+        hide_x();
     });
 
 
     function init_scripts() {
-        /*
+
+        if (! FWPCL.loaded) {
+            return;
+        }
+
         $('.left-side .condition-object:not(.ready)').fSelect({
             placeholder: 'Select a condition'
         }).addClass('ready');
@@ -18,17 +27,21 @@ var FWPCL = FWPCL || {};
         $('.right-side .action-object:not(.ready)').fSelect({
             placeholder: 'Select actions'
         }).addClass('ready');
-        */
     }
 
 
     function hide_x() {
-        if (1 < $('.right-side .action').length) {
-            $('.action-drop').removeClass('hidden');
-        }
-        else {
-            $('.action-drop').addClass('hidden');
-        }
+
+        $('.ruleset').each(function() {
+            var $this = $(this);
+
+            if (1 < $this.find('.action').length) {
+                $this.find('.action-drop').removeClass('hidden');
+            }
+            else {
+                $this.find('.action-drop').addClass('hidden');
+            }
+        });
     }
 
 
@@ -139,11 +152,41 @@ var FWPCL = FWPCL || {};
     });
 
 
+    $(document).on('change', '.condition-object', function() {
+        var $wrap = $(this).closest('.condition');
+        var val = $(this).val();
+
+        $wrap.find('.condition-value').show();
+        $wrap.find('.condition-compare').show();
+        var is_template = ( 'template-' == val.substr(0, 9));
+        if ('pageload' == val || 'facets-empty' == val || 'facets-not-empty' == val || is_template) {
+            $wrap.find('.condition-compare').hide();
+            $wrap.find('.condition-value').hide();
+        }
+
+        hide_x();
+    });
+
+
     $(document).on('click', '.condition-and', function() {
         var html = $('.clone-condition').html();
         $(this).closest('.condition-wrap').append(html);
 
         init_scripts();
+        hide_x();
+    });
+
+
+    $(document).on('click', '.condition-or', function() {
+        var $rule = $(this).closest('.left-side');
+        var $clone = $('.clone').clone();
+        var $group = $clone.find('.clone-condition-group');
+        var $condition = $clone.find('.clone-condition');
+
+        $group.find('.condition-wrap').html($condition.html());
+        $rule.find('.condition-or').remove();
+        $rule.append($group.html());
+        $rule.find('.condition-object').trigger('change');
     });
 
 
@@ -162,19 +205,6 @@ var FWPCL = FWPCL || {};
     });
 
 
-    $(document).on('click', '.condition-or', function() {
-        var $rule = $(this).closest('.left-side');
-        var $clone = $('.clone').clone();
-        var $group = $clone.find('.clone-condition-group');
-        var $condition = $clone.find('.clone-condition');
-
-        $group.find('.condition-wrap').html($condition.html());
-        $rule.find('.condition-or').remove();
-        $rule.append($group.html());
-        $rule.find('.condition-object').trigger('change');
-    });
-
-
     $(document).on('click', '.action-and', function() {
         var html = $('.clone-action').html();
         $(this).closest('.right-side').append(html);
@@ -186,21 +216,6 @@ var FWPCL = FWPCL || {};
 
     $(document).on('click', '.action-drop', function() {
         $(this).closest('.action').remove();
-
-        hide_x();
     });
 
-
-    $(document).on('change', '.condition-object', function() {
-        var $wrap = $(this).closest('.condition');
-        var val = $(this).val();
-
-        $wrap.find('.condition-value').show();
-        $wrap.find('.condition-compare').show();
-        var is_template = ( 'template-' == val.substr(0, 9));
-        if ('pageload' == val || 'facets-empty' == val || 'facets-not-empty' == val || is_template) {
-            $wrap.find('.condition-compare').hide();
-            $wrap.find('.condition-value').hide();
-        }
-    });
 })(jQuery);

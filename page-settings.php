@@ -52,8 +52,8 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     <optgroup label="Basic">
                         <option value="pageload">Pageload</option>
                         <option value="uri">Page URI</option>
-                        <option value="facets-empty">Facets are empty</option>
-                        <option value="facets-not-empty">Facets are not empty</option>
+                        <option value="facets-empty">Facets empty</option>
+                        <option value="facets-not-empty">Facets not empty</option>
                     </optgroup>
                     <optgroup label="Facet Value">
 <?php foreach ( $this->facets as $facet ) : ?>
