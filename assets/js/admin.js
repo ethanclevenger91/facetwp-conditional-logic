@@ -159,7 +159,7 @@ var FWPCL = FWPCL || {
         $wrap.find('.condition-value').show();
         $wrap.find('.condition-compare').show();
         var is_template = ( 'template-' == val.substr(0, 9));
-        if ('pageload' == val || 'facets-empty' == val || 'facets-not-empty' == val || is_template) {
+        if ('pageload' == val || 'refresh' == val || 'facets-empty' == val || 'facets-not-empty' == val || is_template) {
             $wrap.find('.condition-compare').hide();
             $wrap.find('.condition-value').hide();
         }

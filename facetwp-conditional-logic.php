@@ -131,8 +131,8 @@ function is_intersect(array1, array2) {
 
 (function($) {
     $(document).on('facetwp-loaded', function() {
-        $('.facetwp-template, .facetwp-facet').removeClass('hidden');
-<?php foreach ( $if_statements as $clause ) :
+<?php
+foreach ( $if_statements as $clause ) :
 ?>
         if (<?php echo $clause['if']; ?>) {
             <?php echo implode( "\n            ", $clause['then'] ); ?>
@@ -155,6 +155,9 @@ function is_intersect(array1, array2) {
 
         if ( 'pageload' == $object ) {
             $clause = '! FWP.loaded';
+        }
+        elseif ( 'refresh' == $object ) {
+            $clause = '1';
         }
         elseif ( 'uri' == $object ) {
             $operator = ( 'is' == $compare ) ? '==' : '!=';

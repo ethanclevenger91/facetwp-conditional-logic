@@ -51,6 +51,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                 <select class="condition-object">
                     <optgroup label="Basic">
                         <option value="pageload">Pageload</option>
+                        <option value="refresh">Refresh</option>
                         <option value="uri">Page URI</option>
                         <option value="facets-empty">Facets empty</option>
                         <option value="facets-not-empty">Facets not empty</option>
