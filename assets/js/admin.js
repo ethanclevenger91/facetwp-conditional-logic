@@ -216,6 +216,7 @@ var FWPCL = FWPCL || {
 
     $(document).on('click', '.action-drop', function() {
         $(this).closest('.action').remove();
+        hide_x();
     });
 
 })(jQuery);
