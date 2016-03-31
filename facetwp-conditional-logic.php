@@ -37,7 +37,7 @@ class FacetWP_Conditional_Logic_Addon
     function __construct() {
         define( 'FWPCL_VERSION', '0.1' );
         define( 'FWPCL_DIR', dirname( __FILE__ ) );
-        define( 'FWPCL_URL', plugins_url( basename( FWPCL_DIR ) ) );
+        define( 'FWPCL_URL', plugins_url( '', __FILE__ ) );
         define( 'FWPCL_BASENAME', plugin_basename( __FILE__ ) );
 
         add_action( 'init', array( $this, 'init' ), 12 );
@@ -122,9 +122,12 @@ class FacetWP_Conditional_Logic_Addon
         }
 ?>
 
+<!-- BEGIN: FacetWP Conditional Logic -->
+
 <style type="text/css">
 .fwp-hidden { display: none !important; }
 </style>
+
 <script>
 function is_intersect(array1, array2) {
     var result = array1.filter(function(n) {
@@ -146,6 +149,8 @@ foreach ( $if_statements as $clause ) :
     });
 })(jQuery);
 </script>
+
+<!-- END: FacetWP Conditional Logic -->
 
 <?php
     }
@@ -196,7 +201,7 @@ foreach ( $if_statements as $clause ) :
     function build_action( $action ) {
         $selectors = array();
         $toggle = $action['toggle'];
-        $object = $action['object'];
+        $object = (array) $action['object'];
 
         foreach ( $object as $item ) {
             if ( 'template' == $item ) {
