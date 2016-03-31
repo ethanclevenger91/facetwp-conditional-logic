@@ -46,6 +46,10 @@ class FacetWP_Conditional_Logic_Addon
 
 
     function init() {
+        if ( ! function_exists( 'FWP' ) ) {
+            return;
+        }
+
         add_action( 'wp_footer', array( $this, 'render_js' ), 25 );
         add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
 
@@ -119,7 +123,7 @@ class FacetWP_Conditional_Logic_Addon
 ?>
 
 <style type="text/css">
-.hidden { display: none; }
+.fwp-hidden { display: none !important; }
 </style>
 <script>
 function is_intersect(array1, array2) {
@@ -209,7 +213,7 @@ foreach ( $if_statements as $clause ) :
         if ( ! empty( $selectors ) ) {
             $selectors = implode( ', ', $selectors );
             $toggle = ( 'show' == $toggle ) ? 'removeClass' : 'addClass';
-            return "$('$selectors').$toggle('hidden');";
+            return "$('$selectors').$toggle('fwp-hidden');";
         }
 
         return '';

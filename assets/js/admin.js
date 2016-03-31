@@ -47,7 +47,7 @@ var FWPCL = FWPCL || {
 
     FWPCL.load = function() {
         $.each(FWPCL.rules, function(index, ruleset) {
-            $('.add-rule').click();
+            $('.add-ruleset').click();
 
             $.each(ruleset.actions, function(index, action) {
                 if (0 < index) {
@@ -134,7 +134,7 @@ var FWPCL = FWPCL || {
     });
 
 
-    $(document).on('click', '.add-rule', function() {
+    $(document).on('click', '.add-ruleset', function() {
         var $clone = $('.clone').clone();
         var $rule = $clone.find('.clone-rule');
 

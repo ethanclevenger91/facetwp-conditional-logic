@@ -14,7 +14,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
     <div class="facetwp-region">
         <div class="flexbox menubar">
             <div class="left-side">
-                <a class="button add-rule">Add Rule</a>
+                <a class="button add-ruleset">Add Ruleset</a>
             </div>
             <div class="right-side">
                 <a class="button-primary facetwp-save">Save Changes</a>
@@ -43,7 +43,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                 <div class="condition-wrap"></div>
                 <div style="font-weight:bold">or</div>
             </div>
-            <button class="button condition-or">Add Rule Group</button>
+            <button class="button condition-or">Add Rule</button>
         </div>
 
         <div class="clone-condition">
@@ -58,12 +58,12 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     </optgroup>
                     <optgroup label="Facet Value">
 <?php foreach ( $this->facets as $facet ) : ?>
-                        <option value="facet-<?php echo $facet['name']; ?>"><?php echo $facet['label']; ?></option>
+                        <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                     </optgroup>
                     <optgroup label="Template Name">
 <?php foreach ( $this->templates as $template ) : ?>
-                        <option value="template-<?php echo $template['name']; ?>"><?php echo $template['label']; ?></option>
+                        <option value="template-<?php echo $template['name']; ?>">Template: <?php echo $template['label']; ?></option>
 <?php endforeach; ?>
                     </optgroup>
                 </select>
@@ -71,7 +71,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     <option value="is">is</option>
                     <option value="not">is not</option>
                 </select>
-                <textarea class="condition-value"></textarea>
+                <textarea class="condition-value" placeholder="one value per line"></textarea>
                 <button class="button condition-and">and</button>
                 <span class="condition-drop btn-drop"></span>
             </div>
@@ -83,12 +83,12 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     <option value="show">Show</option>
                     <option value="hide">Hide</option>
                 </select>
-                <select class="action-object" multiple="multiple">
+                <select class="action-object">
                     <option value="template">Template</option>
                     <option value="facets">All Facets</option>
                     <optgroup label="Facets">
 <?php foreach ( $this->facets as $facet ) : ?>
-                        <option value="facet-<?php echo $facet['name']; ?>"><?php echo $facet['label']; ?></option>
+                        <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                     </optgroup>
                 </select>
