@@ -41,7 +41,13 @@
 						</optgroup>
 
 					</select>
-					<select class="condition-field-compare" name="{{:name}}[compare]">
+					<select class="condition-field-compare" name="{{:name}}[compare]"
+					{{#is field value="pageload"}}style="display:none;"{{/is}}
+					{{#is field value="refresh"}}style="display:none;"{{/is}}
+					{{#is field value="facets-empty"}}style="display:none;"{{/is}}
+					{{#is field value="facets-not-empty"}}style="display:none;"{{/is}}
+					
+					>
 						<option value="is" {{#is compare value="is"}}selected="selected"{{/is}}>is</option>
 						<option value="isnot" {{#is compare value="isnot"}}selected="selected"{{/is}}>is not</option>
 						<option value="isin" {{#is compare value="isin"}}selected="selected"{{/is}}>in</option>
