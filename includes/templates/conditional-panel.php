@@ -49,7 +49,7 @@
 					data-buttons="save delete"
 					data-footer="conduitModalFooter"
 
-				><span class="dashicons dashicons-admin-generic"></span></td>
+				><span class="dashicons dashicons-edit"></span></td>
 				<td>{{name}}<input type="hidden" name="{{:name}}[name]" value="{{name}}"></td>
 				<td class="uix-control-bar-action right">
 					<label class="dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input data-live-sync="true" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
