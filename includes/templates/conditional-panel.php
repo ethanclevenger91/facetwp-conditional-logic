@@ -51,11 +51,14 @@
 
 				><span class="dashicons dashicons-admin-generic"></span></td>
 				<td>{{name}}<input type="hidden" name="{{:name}}[name]" value="{{name}}"></td>
+				<td class="uix-control-bar-action right">
+					<label class="dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input data-live-sync="true" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
+				</td>
 
 			</tr>
 		</table>
 		
-		<div class="uix-control-box-content">
+		<div class="uix-control-box-content" {{#if hide}}style="display: none;"{{/if}}>
 
 			<div class="uix-grid">
 				<div class="row">
