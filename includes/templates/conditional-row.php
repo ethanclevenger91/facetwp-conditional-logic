@@ -1,8 +1,6 @@
 	<?php
 
 	$basic = apply_filters( 'facetwp-conditional-logic-actions', array(
-			"pageload" => "Pageload",
-			"refresh" => "Refresh",
 			"uri" => "Page URI",
 			"facets-empty" => "Facets empty",
 			"facets-not-empty" => "Facets not empty",
@@ -42,11 +40,12 @@
 
 					</select>
 					<select class="condition-field-compare" name="{{:name}}[compare]"
-					{{#is field value="pageload"}}style="display:none;"{{/is}}
-					{{#is field value="refresh"}}style="display:none;"{{/is}}
+
 					{{#is field value="facets-empty"}}style="display:none;"{{/is}}
 					{{#is field value="facets-not-empty"}}style="display:none;"{{/is}}
-					
+					<?php foreach( $templates as $template ){ ?>
+					{{#is field value="<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
+					<?php } ?>
 					>
 						<option value="is" {{#is compare value="is"}}selected="selected"{{/is}}>is</option>
 						<option value="isnot" {{#is compare value="isnot"}}selected="selected"{{/is}}>is not</option>
@@ -60,7 +59,14 @@
 						<option value="endswith" {{#is compare value="endswith"}}selected="selected"{{/is}}>ends with</option>
 						<option value="contains" {{#is compare value="contains"}}selected="selected"{{/is}}>contains</option>
 					</select>
-					<input type="text" id="field_{{_id}}" name="{{:name}}[value]" value="{{value}}">
+					<input 
+					{{#is field value="facets-empty"}}style="display:none;"{{/is}}
+					{{#is field value="facets-not-empty"}}style="display:none;"{{/is}}
+					<?php foreach( $templates as $template ){ ?>
+					{{#is field value="<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
+					<?php } ?>
+					
+					type="text" id="field_{{_id}}" name="{{:name}}[value]" value="{{value}}">
 				</td>
 				{{#is type value="and"}}
 				<td class="uix-control-bar-action right"><button type="button" data-add-node="{{_node_point}}.or" data-node-default='{"type":"or"}' class="button"><?php esc_html_e( 'OR', 'facetwp-conditional-logic' ); ?></button></td>
