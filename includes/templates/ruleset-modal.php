@@ -17,8 +17,11 @@
 				<label for="name"><?php esc_html_e( 'Name' ); ?></label>
 			</th>
 			<td>
-				<input type="text" class="regular-text" value="{{name}}" name="name" id="name" required="required">
+				<input type="text" class="regular-text" value="{{name}}" name="name" id="ruleset-name" required="required">
 			</td>
 		</tr>
 	</tbody>
 </table>
+{{#script}}
+setTimeout( function(){ jQuery('#ruleset-name').focus().select(); }, 250 );
+{{/script}}
