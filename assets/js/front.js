@@ -3,7 +3,7 @@
     var evaluate_condition = function( rule ){
 
         if( !rule.compare || !rule.field ){ return false; }
-        
+
         var is_valid = false,
             comparefield;
 
@@ -32,13 +32,11 @@
                 }
             }
             break;
-            case '>':
             case 'greater':
             if( comparefield.length){
                 is_valid = parseFloat(  comparefield.reduce(function(a, b) {return a + b;}) ) > parseFloat( rule.value );
             }
             break;
-            case '<':
             case 'smaller':
             if( comparefield.length){
                 is_valid = parseFloat(  comparefield.reduce(function(a, b) {return a + b;}) ) < parseFloat( rule.value );
