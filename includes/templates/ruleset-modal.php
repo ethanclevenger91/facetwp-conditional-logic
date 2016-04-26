@@ -22,6 +22,8 @@
 		</tr>
 	</tbody>
 </table>
-{{#script}}
-setTimeout( function(){ jQuery('#ruleset-name').focus().select(); }, 250 );
-{{/script}}
+{{#is name value="untitled"}}
+	{{#script}}
+	setTimeout( function(){ jQuery('#ruleset-name').focus().select(); }, 250 );
+	{{/script}}
+{{/is}}
