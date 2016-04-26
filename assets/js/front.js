@@ -2,54 +2,65 @@
 
     var evaluate_condition = function( rule ){
 
-        if( !rule.compare || !rule.field || !FWP.facets[ rule.field ] ){ return false; }
+        if( !rule.compare || !rule.field ){ return false; }
+        
+        var is_valid = false,
+            comparefield;
 
-        var is_valid = false;
+        if( FWP.facets[ rule.field ] ){
+            comparefield = FWP.facets[ rule.field ];
+        }else{
+            switch( rule.field ){
+                case 'result-count':
+                    comparefield = [ FWP.settings.pager.total_rows ];
+                break;
+            }
+        }
 
         switch( rule.compare ) {
             case 'is':
-            if(FWP.facets[ rule.field ].length){
-                if(FWP.facets[ rule.field ].indexOf(rule.value.toString()) >= 0){
+            if( comparefield.length){
+                if( comparefield.indexOf(rule.value.toString()) >= 0){
                     is_valid = true;
                 }
             }
             break;
             case 'isnot':
-            if(FWP.facets[ rule.field ].length){
-                if(FWP.facets[ rule.field ].indexOf(rule.value) < 0){
+            if( comparefield.length){
+                if( comparefield.indexOf(rule.value) < 0){
                     is_valid = true;
                 }
             }
             break;
             case '>':
             case 'greater':
-            if(FWP.facets[ rule.field ].length){
-                is_valid = parseFloat( FWP.facets[ rule.field ].reduce(function(a, b) {return a + b;}) ) > parseFloat( rule.value );
+            if( comparefield.length){
+                is_valid = parseFloat(  comparefield.reduce(function(a, b) {return a + b;}) ) > parseFloat( rule.value );
             }
             break;
             case '<':
             case 'smaller':
-            if(FWP.facets[ rule.field ].length){
-                is_valid = parseFloat( FWP.facets[ rule.field ].reduce(function(a, b) {return a + b;}) ) < parseFloat( rule.value );
+            if( comparefield.length){
+                is_valid = parseFloat(  comparefield.reduce(function(a, b) {return a + b;}) ) < parseFloat( rule.value );
             }
             break;
             case 'startswith':
-            for( var i = 0; i<FWP.facets[ rule.field ].length; i++){
-                if( FWP.facets[ rule.field ][i].toLowerCase().substr(0, rule.value.toLowerCase().length ) === rule.value.toLowerCase()){
+            for( var i = 0; i< comparefield.length; i++){
+                if(  comparefield[i].toLowerCase().substr(0, rule.value.toLowerCase().length ) === rule.value.toLowerCase()){
                     is_valid = true;
                 }
             }
             break;
             case 'endswith':
-            for( var i = 0; i<FWP.facets[ rule.field ].length; i++){
-                if( FWP.facets[ rule.field ][i].toLowerCase().substr(FWP.facets[ rule.field ][i].toLowerCase().length - rule.value.toLowerCase().length ) === rule.value.toLowerCase()){
+            for( var i = 0; i< comparefield.length; i++){
+                if(  comparefield[i].toLowerCase().substr( comparefield[i].toLowerCase().length - rule.value.toLowerCase().length ) === rule.value.toLowerCase()){
                     is_valid = true;
                 }
             }
             break;
             case 'contains':
-            for( var i = 0; i<FWP.facets[ rule.field ].length; i++){
-                if( FWP.facets[ rule.field ][i].toLowerCase().indexOf( rule.value ) >= 0 ){
+            for( var i = 0; i< comparefield.length; i++){
+                if(  comparefield[i].toLowerCase().indexOf( rule.value ) >= 0 ){
                     is_valid = true;
                 }
             }
@@ -117,7 +128,7 @@
                 result.push( this_result );
             }
             // yup- do the actions
-            for( var action in FWPCL.ruleset[ set ][ 'action'] ){
+            for( var action in FWPCL.ruleset[ set ][ 'action'] ){                
                 var type = FWPCL.ruleset[ set ][ 'action'][ action ].do;
                 if( result.indexOf( false ) > -1 ){
                     type = get_opposite( type );

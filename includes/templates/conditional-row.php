@@ -1,9 +1,10 @@
 	<?php
 
 	$basic = apply_filters( 'facetwp-conditional-logic-actions', array(
-			"uri" => "Page URI",
-			"facets-empty" => "Facets empty",
-			"facets-not-empty" => "Facets not empty",
+			"uri" => esc_html__( 'Page URI', 'facetwp-conditional-logic' ),
+			"result-count" => esc_html__( 'Result Count', 'facetwp-conditional-logic' ),			
+			"facets-empty" => esc_html__( 'Facets empty', 'facetwp-conditional-logic' ),
+			"facets-not-empty" => esc_html__( 'Facets not empty', 'facetwp-conditional-logic' ),
 		) );
 	$facets = FWP()->helper->get_facets();
 	$templates = FWP()->helper->get_templates();
@@ -65,7 +66,7 @@
 					<?php foreach( $templates as $template ){ ?>
 					{{#is field value="<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
 					<?php } ?>
-					
+
 					type="text" id="field_{{_id}}" name="{{:name}}[value]" value="{{value}}">
 				</td>
 				{{#is type value="and"}}
