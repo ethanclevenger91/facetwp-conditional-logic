@@ -30,13 +30,19 @@
 								<option value="<?php echo $key; ?>" {{#is thing value="<?php echo $key; ?>"}}selected="selected"{{/is}}><?php echo $value; ?></option>
 							<?php } ?>
 						</optgroup>
-						<optgroup label="<?php esc_html_e( 'Facet Value', 'facetwp-conditional-logic' ); ?>">
+						<optgroup label="<?php esc_html_e( 'Facet', 'facetwp-conditional-logic' ); ?>">
 							<?php foreach( $facets as $facet ){ ?>
 								<option value="<?php echo $facet['name']; ?>" {{#is thing value="<?php echo $facet['name']; ?>"}}selected="selected"{{/is}}><?php echo esc_html__( 'Facet', 'facetwp-conditional-logic' ) . ': ' . $facet['label']; ?></option>
 							<?php } ?>
 						</optgroup>
+						<optgroup label="<?php esc_html_e( 'Custom', 'facetwp-conditional-logic' ); ?>">							
+							<option value="_custom" {{#is thing value="_custom"}}selected="selected"{{/is}}><?php echo esc_html__( 'Selector', 'facetwp-conditional-logic' ); ?></option>
+						</optgroup>
 
 					</select>
+					{{#is thing value="_custom"}}
+						<input style="width: 124px;" placeholder="<?php esc_html_e( 'Custom Selector', 'facetwp-conditional-logic' ); ?>" type="text" name="{{:name}}[selector]" value="{{selector}}">
+					{{/is}}
 				</td>
 				
 			</tr>

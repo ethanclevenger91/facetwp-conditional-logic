@@ -68,32 +68,33 @@
 
     var do_action = function( action, type ){
 
-        var facet;
+        var item;
         if( action.thing === 'all_facets' ){
-            facet = $('.facetwp-facet');
+            item = $('.facetwp-facet');
         }else if( action.thing === 'template' ){
-            facet = $('.facetwp-template');
+            item = $('.facetwp-template');
+        }else if( action.thing === '_custom' ){
+            item = $( action.selector );
         }else{
-            facet = $('.facetwp-facet-' + action.thing );
+            item = $('.facetwp-facet-' + action.thing );
         }
-        if( ! facet.length ){
+        if( ! item.length ){
             return;
         }
         switch( type ){
             case 'hide':
-                facet.hide();
+                item.hide();
             break;
             case 'show':
-                facet.show();
+                item.show();
             break;
         }
-        facet.addClass('fwpcl-applied-logic');
+        item.addClass('fwpcl-applied-logic');
     }
 
     $(document).on('facetwp-loaded', function() {
 
         $('.fwpcl-applied-logic').removeClass('fwpcl-applied-logic').show();
-        console.log( FWPCL );
         // each set
         for( var set in FWPCL.ruleset ){
             // each condition
