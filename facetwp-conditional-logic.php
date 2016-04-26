@@ -60,8 +60,11 @@ class FacetWP_Conditional_Logic_Addon
         $uix = fwpcl_uix::get_instance( 'fwpcl' );
         $uix->register_pages( $structure );
 
-        add_action( 'wp_footer', array( $this, 'render_js' ), 25 );
+        add_action( 'wp_print_scripts', array( $this, 'render_js' ), 25 );
         add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
+
+        // register frontend script
+        wp_register_script( 'fwpcl-front-handler', FWPCL_URL . '/assets/js/front.js', array( 'jquery' ), FWPCL_VERSION, true );
 
         $this->facets = FWP()->helper->get_facets();
         $this->templates = FWP()->helper->get_templates();
@@ -106,6 +109,16 @@ class FacetWP_Conditional_Logic_Addon
 
 
     function render_js() {
+
+        $rulesets = fwpcl_uix::get_setting( 'admin.filters' );
+
+        if( !empty( $rulesets ) ){
+
+            wp_enqueue_script( 'fwpcl-front-handler' );
+            wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $rulesets );
+        }
+
+        return;
         $if_statements = array();
         $group_or = array();
         $actions = array();

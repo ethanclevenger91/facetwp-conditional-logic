@@ -59,7 +59,7 @@
 
 			<div class="uix-grid">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-7">
 						<div class="uix-control-box">
 							<table class="uix-control-bar" cellspacing="0" cellpadding="0">
 								<tr>
@@ -90,7 +90,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="col-sm-6">
+					<div class="col-sm-5">
 						<div class="uix-control-box">
 							<table class="uix-control-bar" cellspacing="0" cellpadding="0">
 								<tr>
