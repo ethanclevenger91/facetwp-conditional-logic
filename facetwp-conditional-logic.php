@@ -49,6 +49,16 @@ class FacetWP_Conditional_Logic_Addon
         if ( ! function_exists( 'FWP' ) ) {
             return;
         }
+    
+        // include the library
+        include_once FWPCL_DIR . '/uix/uix.php';
+
+        // get settings structure
+        $structure = include FWPCL_DIR . '/includes/settings.php';
+
+        // initialize admin UI
+        $uix = fwpcl_uix::get_instance( 'fwpcl' );
+        $uix->register_pages( $structure );
 
         add_action( 'wp_footer', array( $this, 'render_js' ), 25 );
         add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
@@ -86,7 +96,7 @@ class FacetWP_Conditional_Logic_Addon
      * Register the FacetWP settings page
      */
     function admin_menu() {
-        add_options_page( 'FacetWP Logic', 'FacetWP Logic', 'manage_options', 'facetwp-logic', array( $this, 'settings_page' ) );
+        //add_options_page( 'FacetWP Logic', 'FacetWP Logic', 'manage_options', 'facetwp-logic', array( $this, 'settings_page' ) );
     }
 
 
