@@ -39,10 +39,9 @@
 							<option value="_custom" {{#is thing value="_custom"}}selected="selected"{{/is}}><?php echo esc_html__( 'Selector', 'facetwp-conditional-logic' ); ?></option>
 						</optgroup>
 
-					</select>
-					{{#is thing value="_custom"}}
-						<input style="width: 124px;" placeholder="<?php esc_html_e( 'Custom Selector', 'facetwp-conditional-logic' ); ?>" type="text" name="{{:name}}[selector]" value="{{selector}}">
-					{{/is}}
+					</select>				
+					<input style="width: 124px;{{#is thing not="_custom"}}display:none;{{/is}}" placeholder="<?php esc_html_e( 'Custom Selector', 'facetwp-conditional-logic' ); ?>" type="text" name="{{:name}}[selector]" value="{{selector}}">
+					
 				</td>
 				
 			</tr>
