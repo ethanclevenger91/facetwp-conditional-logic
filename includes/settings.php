@@ -20,17 +20,22 @@ $pages = array(
 		'modals'	  =>  array(
 			'ruleset'	=> FWPCL_DIR . '/includes/templates/ruleset-modal.php',
 		),
-		'tabs'        =>  array(                                                        // tabs array are for setting the tab / section templates
+		'tabs'        =>  array(
 			'filters'		=> array(
+				'menu_title'  =>  esc_html__( 'Logic', 'facetwp-conditional-logic' ),
 				'partials'			=> array(
-					'conditional_row' => FWPCL_DIR . '/includes/templates/conditional-row.php',           // the template to define the tab content and values
-					'action'          => FWPCL_DIR . '/includes/templates/action.php',           // the template to define the tab content and values
+					'conditional_row' => FWPCL_DIR . '/includes/templates/conditional-row.php',
+					'action'          => FWPCL_DIR . '/includes/templates/action.php',
 				),
-				'template'          => FWPCL_DIR . '/includes/templates/conditional-panel.php',           // the template to define the tab content and values
+				'template'          => FWPCL_DIR . '/includes/templates/conditional-panel.php',
 				'styles'	=> array(
 					'conditionals' => FWPCL_URL . '/includes/templates/conditionals.css'
 				),
 				'default'	=> true,
+			),
+			'export_import'		=> array(
+				'menu_title'  =>  esc_html__( 'Export / Import', 'facetwp-conditional-logic' ),
+				'template'          => FWPCL_DIR . '/includes/templates/export-import.php',
 			),
 		),
 		'help'	=> array(
