@@ -93,8 +93,8 @@
 							<?php _e('Add a Rule', 'facetwp-conditional-logic'); ?>
 						</button>
 					{{else}}
-						<button type="button" class="button button-small" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
-							<?php _e('add an And rule', 'facetwp-conditional-logic'); ?>
+						<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
+							<?php _e('And', 'facetwp-conditional-logic'); ?>
 						</button>
 					{{/unless}}
 				</td>
