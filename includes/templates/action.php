@@ -10,9 +10,15 @@
 	<div class="condition-row-line-{{_id}}">
 		<table class="uix-control-bar" cellspacing="0" cellpadding="0">
 			<tr>
-				<td class="uix-control-bar-action left" style="text-align: center; width: 61px; background: rgb(239, 239, 239) none repeat scroll 0% 0%; text-transform: uppercase; font-weight: bold; color: rgb(151, 151, 151);"><?php _e('Then', 'facetwp-conditional-logic'); ?></td>
+				<td class="uix-control-bar-action left"><span class="dashicons dashicons-no-alt" data-remove-element=".condition-row-line-{{_id}}"></span></td>
+				<td class="uix-control-bar-action left" style="text-align: center; width: 61px; background: rgb(239, 239, 239) none repeat scroll 0% 0%; text-transform: uppercase; font-weight: bold; color: rgb(151, 151, 151);">
+				{{#if @first}}<?php _e('Then', 'facetwp-conditional-logic'); ?>{{else}}<?php _e('And', 'facetwp-conditional-logic'); ?>{{/if}}
+				</td>
 				<td>
 					{{:node_point}}
+					{{#if type}}
+						<input type="hidden" name="{{:name}}[type]" value="{{type}}">
+					{{/if}}
 					<select class="condition-field-select" name="{{:name}}[do]">
 						<option value="show" {{#is do value="how"}}selected="selected"{{/is}}><?php esc_html_e( 'Show', 'facetwp-conditional-logic' ); ?></option>
 						<option value="hide" {{#is do value="hide"}}selected="selected"{{/is}}><?php esc_html_e( 'Hide', 'facetwp-conditional-logic' ); ?></option>
@@ -32,6 +38,7 @@
 
 					</select>
 				</td>
+				
 			</tr>
 		</table>
 	</div>
