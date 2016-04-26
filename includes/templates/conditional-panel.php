@@ -78,7 +78,7 @@
 								<tr>
 									<td class="uix-control-bar-action left">
 										{{#unless condition}}
-											<button type="button" class="button button-small" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
+											<button type="button" class="button" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
 												<?php _e('Add a Condition', 'facetwp-conditional-logic'); ?>
 											</button>
 										{{else}}
@@ -109,8 +109,8 @@
 								<tr>
 									<td class="uix-control-bar-action left">
 										{{#unless action}}
-											<button type="button" class="button button-small" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
-												<?php _e('Add an action', 'facetwp-conditional-logic'); ?>
+											<button type="button" class="button" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
+												<?php _e('Add an Action', 'facetwp-conditional-logic'); ?>
 											</button>
 										{{else}}
 											<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
