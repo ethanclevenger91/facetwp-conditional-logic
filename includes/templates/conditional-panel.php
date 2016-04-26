@@ -50,9 +50,9 @@
 					data-footer="conduitModalFooter"
 
 				><span class="dashicons dashicons-edit"></span></td>
-				<td>{{name}}<input type="hidden" name="{{:name}}[name]" value="{{name}}"></td>
+				<td><label for="ruleset-{{_id}}" style="width: 100%; display: block;">{{name}}<input type="hidden" name="{{:name}}[name]" value="{{name}}"></label></td>
 				<td class="uix-control-bar-action right">
-					<label class="dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input data-live-sync="true" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
+					<label class="dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input id="ruleset-{{_id}}" data-live-sync="true" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
 				</td>
 
 			</tr>
