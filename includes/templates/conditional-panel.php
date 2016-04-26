@@ -57,8 +57,11 @@
 
 			</tr>
 		</table>
-		
-		<div class="uix-control-box-content" {{#if hide}}style="display: none;"{{/if}}>
+		{{#if hide}}
+			<input type="hidden" name="{{:name}}[condition]" value="{{json condition}}">
+			<input type="hidden" name="{{:name}}[action]" value="{{json action}}">
+		{{else}}
+		<div class="uix-control-box-content">
 
 			<div class="uix-grid">
 				<div class="row">
@@ -126,10 +129,9 @@
 					<div class="clear"></div>
 				</div>
 			</div>
-
-
-
 		</div>
+
+		{{/if}}
 
 	</div>					
 {{/each}}
