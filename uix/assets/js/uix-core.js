@@ -293,6 +293,23 @@ var conduitApp = {},
 			}
 			conduitApp[ app ].app.html( coduitTemplates[ app ]( data ) );
 		}
+
+		// sortables
+		if( $('.uix-sortable').length ){
+			$('.uix-sortable').each( function(){
+				var sort = $(this),
+					options = {
+						forcePlaceholderSize : true,
+						placeholder: "uix-sortable-placeholder"
+					};
+
+				options = $.extend({}, options, sort.data() );
+				console.log( options );
+
+				$(this).sortable( options );
+			});
+		}
+
 		$(window).trigger('uix.init');
 		$(window).trigger('modal.init');		
 	}

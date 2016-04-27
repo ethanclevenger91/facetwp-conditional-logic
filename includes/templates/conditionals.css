@@ -88,3 +88,13 @@
 .dataTables_length {
   margin-bottom: 12px;
 }
+.uix-sortable-placeholder {
+  border: 1px dashed #9f9f9f;
+  margin-bottom: 4px;
+}
+.uix-sort-box{
+  margin-bottom: 4px;
+}
+.uix-sort-box.ui-sortable-helper {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
+}
