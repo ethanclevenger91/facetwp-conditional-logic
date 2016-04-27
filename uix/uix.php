@@ -224,7 +224,7 @@ class fwpcl_uix{
 					$config = apply_filters( $this->plugin_slug . '_pre_save_config', $config, $page );
 
 
-					$success = __( 'Settings saved.', $this->plugin_slug );
+					$success = __( 'Settings saved.', 'facetwp-conditional-logic' );
 					if( !empty( $page['saved_message'] ) ){
 						$success = $page['saved_message'];
 					}
@@ -245,13 +245,13 @@ class fwpcl_uix{
 				}
 
 			}else{
-				wp_send_json_error( esc_html__( 'Could not verify nonce', $this->plugin_slug ) );
+				wp_send_json_error( esc_html__( 'Could not verify nonce', 'facetwp-conditional-logic' ) );
 			}
 
 		}
 
 		// nope
-		wp_send_json_error( esc_html__( 'Could not save, sorry.', $this->plugin_slug ) );
+		wp_send_json_error( esc_html__( 'Could not save, sorry.', 'facetwp-conditional-logic' ) );
 	}
 
 
@@ -278,7 +278,7 @@ class fwpcl_uix{
 			$prefix = null;
 		}
 		// base styles
-		wp_enqueue_style( $this->plugin_slug . '-base-icons', $uix_url . 'assets/css/icons' . $prefix . '.css' );
+		
 		wp_enqueue_style( $this->plugin_slug . '-base-styles', $uix_url . 'assets/css/admin' . $prefix . '.css' );
 		wp_enqueue_style( $this->plugin_slug . '-base-controls', $uix_url . 'assets/css/controls' . $prefix . '.css' );
 		wp_enqueue_style( $this->plugin_slug . '-base-grid', $uix_url . 'assets/css/grid' . $prefix . '.css' );
@@ -470,12 +470,12 @@ class fwpcl_uix{
 		}
 		?>
 		<div class="wrap">
-			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , $this->plugin_slug ); ?>
-				<?php if( !empty( $uix['version'] ) ){ ?><small><?php esc_html_e( $uix['version'], $this->plugin_slug ); ?></small><?php } ?>
+			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , 'facetwp-conditional-logic' ); ?>
+				<?php if( !empty( $uix['version'] ) ){ ?><small><?php esc_html_e( $uix['version'], 'facetwp-conditional-logic' ); ?></small><?php } ?>
 				<?php if( !empty( $uix['save_button'] ) ){ ?>
 				<a class="page-title-action" href="#save-object" data-save-object="true">
 					<span class="spinner uix-save-spinner"></span>
-					<?php esc_html_e( $uix['save_button'], $this->plugin_slug ); ?>
+					<?php esc_html_e( $uix['save_button'], 'facetwp-conditional-logic' ); ?>
 				</a>
 				<?php } ?>
 			</h1>
@@ -506,7 +506,7 @@ class fwpcl_uix{
 										echo '{{> ' . $tab_slug . '_' . $part_key . '}}';
 									}
 								}else{
-									echo esc_html__( 'No Template or Controls found: ', $this->plugin_slug ) . $tab['page_title'];
+									echo esc_html__( 'No Template or Controls found: ', 'facetwp-conditional-logic' ) . $tab['page_title'];
 								}
 							}
 						?>
@@ -520,7 +520,7 @@ class fwpcl_uix{
 									if( !empty( $partial ) && file_exists( $partial ) ){
 										include $partial;
 									}else{
-										echo esc_html__( 'Partial Template not found: ', $this->plugin_slug ) . $partial_id;
+										echo esc_html__( 'Partial Template not found: ', 'facetwp-conditional-logic' ) . $partial_id;
 									}
 								?>
 							</script>
@@ -542,7 +542,7 @@ class fwpcl_uix{
 							if( !empty( $modal ) && file_exists( $modal ) ){
 								include $modal;
 							}else{
-								echo esc_html__( 'Modal Template not found: ', $this->plugin_slug ) . $modal_id;
+								echo esc_html__( 'Modal Template not found: ', 'facetwp-conditional-logic' ) . $modal_id;
 							}
 						?>
 					</script>
@@ -562,7 +562,7 @@ class fwpcl_uix{
 		<div class="{{#if success}}updated{{else}}error{{/if}} notice uix-notice is-dismissible">
 			<p>{{{data}}}</p>
 			<button class="notice-dismiss" type="button">
-				<span class="screen-reader-text">Dismiss this notice.</span>
+				<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.','' ); ?></span>
 			</button>
 		</div>
 		</script>
@@ -571,7 +571,7 @@ class fwpcl_uix{
 				{{#if __callback}}data-callback="{{__callback}}"{{/if}}
 				{{#if __before}}data-before="{{__before}}"{{/if}}
 			>
-				Save Changes
+				<?php esc_html_e( 'Save Changes', '' ); ?>
 			</button>
 		</script>
 		<script type="text/html" id="__partial_create">
@@ -579,7 +579,7 @@ class fwpcl_uix{
 				{{#if __callback}}data-callback="{{__callback}}"{{/if}}
 				{{#if __before}}data-before="{{__before}}"{{/if}}
 			>
-				Create
+				<?php esc_html_e( 'Create' , '' ); ?>
 			</button>
 		</script>
 		<script type="text/html" id="__partial_delete">
@@ -587,7 +587,7 @@ class fwpcl_uix{
 				{{#if __callback}}data-callback="{{__callback}}"{{/if}}
 				{{#if __before}}data-before="{{__before}}"{{/if}}
 			>
-				Remove
+				<?php esc_html_e( 'Remove', '' ); ?>
 			</button>
 		</script>
 		<?php

@@ -25,27 +25,27 @@
 						<option></option>
 						<optgroup label="<?php esc_html_e( 'Basic', 'facetwp-conditional-logic' ); ?>">
 							<?php foreach( $basic as $key=>$value ){ ?>
-								<option value="<?php echo $key; ?>" {{#is field value="<?php echo $key; ?>"}}selected="selected"{{/is}}><?php echo $value; ?></option>
+								<option value="_basic_<?php echo $key; ?>" {{#is field value="_basic_<?php echo $key; ?>"}}selected="selected"{{/is}}><?php echo $value; ?></option>
 							<?php } ?>
 						</optgroup>
 						<optgroup label="<?php esc_html_e( 'Facet Value', 'facetwp-conditional-logic' ); ?>">
 							<?php foreach( $facets as $facet ){ ?>
-								<option value="<?php echo $facet['name']; ?>" {{#is field value="<?php echo $facet['name']; ?>"}}selected="selected"{{/is}}><?php echo esc_html__( 'Facet', 'facetwp-conditional-logic' ) . ': ' . $facet['label']; ?></option>
+								<option value="_facet_<?php echo $facet['name']; ?>" {{#is field value="_facet_<?php echo $facet['name']; ?>"}}selected="selected"{{/is}}><?php echo esc_html__( 'Facet', 'facetwp-conditional-logic' ) . ': ' . $facet['label']; ?></option>
 							<?php } ?>
 						</optgroup>
 						<optgroup label="<?php esc_html_e( 'Template', 'facetwp-conditional-logic' ); ?>">
 							<?php foreach( $templates as $template ){ ?>
-								<option value="<?php echo $template['name']; ?>" {{#is field value="<?php echo $template['name']; ?>"}}selected="selected"{{/is}}><?php echo esc_html__( 'Template', 'facetwp-conditional-logic' ) . ': ' . $template['label']; ?></option>
+								<option value="_template_<?php echo $template['name']; ?>" {{#is field value="_template_<?php echo $template['name']; ?>"}}selected="selected"{{/is}}><?php echo esc_html__( 'Template', 'facetwp-conditional-logic' ) . ': ' . $template['label']; ?></option>
 							<?php } ?>
 						</optgroup>
 
 					</select>
 					<select class="condition-field-compare" name="{{:name}}[compare]"
 
-					{{#is field value="facets-empty"}}style="display:none;"{{/is}}
-					{{#is field value="facets-not-empty"}}style="display:none;"{{/is}}
+					{{#is field value="_basic_facets-empty"}}style="display:none;"{{/is}}
+					{{#is field value="_basic_facets-not-empty"}}style="display:none;"{{/is}}
 					<?php foreach( $templates as $template ){ ?>
-					{{#is field value="<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
+					{{#is field value="_template_<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
 					<?php } ?>
 					>
 						<option value="is" {{#is compare value="is"}}selected="selected"{{/is}}>is</option>
@@ -61,10 +61,10 @@
 						<option value="contains" {{#is compare value="contains"}}selected="selected"{{/is}}>contains</option>
 					</select>
 					<input 
-					{{#is field value="facets-empty"}}style="display:none;"{{/is}}
-					{{#is field value="facets-not-empty"}}style="display:none;"{{/is}}
+					{{#is field value="_basic_facets-empty"}}style="display:none;"{{/is}}
+					{{#is field value="_basic_facets-not-empty"}}style="display:none;"{{/is}}
 					<?php foreach( $templates as $template ){ ?>
-					{{#is field value="<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
+					{{#is field value="_template_<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
 					<?php } ?>
 
 					type="text" id="field_{{_id}}" name="{{:name}}[value]" value="{{value}}">
