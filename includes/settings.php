@@ -29,7 +29,7 @@ $pages = array(
 				),
 				'template'          => FWPCL_DIR . '/includes/templates/conditional-panel.php',
 				'styles'	=> array(
-					'conditionals' => FWPCL_URL . '/includes/templates/conditionals.css'
+					'conditionals' => FWPCL_URL . '/assets/css/admin.min.css'
 				),
 				'default'	=> true,
 			),

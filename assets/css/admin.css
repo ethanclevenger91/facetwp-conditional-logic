@@ -1,116 +1,100 @@
-.settings_page_facetwp-logic select,
-.settings_page_facetwp-logic button,
-.settings_page_facetwp-logic textarea {
-    vertical-align: top;
+
+.condition-wrapper {
+  border-bottom: 1px solid #dfdfdf;
+  border-left: 1px solid #dfdfdf;
+  margin: 6px 0 6px 30px;
 }
 
-.settings_page_facetwp-logic select {
-    margin: 0;
-    font-size: inherit;
-    border: 1px solid #ccc;
+.baldrick-modal-body .condition-wrapper {
+  border-bottom: 1px solid #dfdfdf;
+  box-shadow: 19px 0 0 #fff inset, 20px 0 0 #dfdfdf inset;
+  margin: 6px 0;
 }
 
-.fs-wrap {
-    position: inherit;
-    line-height: 18px;
-    width: 180px;
+
+.condition-item {
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #dfdfdf;
+  box-shadow: 18px 0 0 #e9e9e9 inset, 19px 0 0 #dfdfdf inset, 0 1px 3px rgba(0, 0, 0, 0.04), 101px 0 0 #f1f1f1 inset, 102px 0 0 #dfdfdf inset;
+  padding: 6px 6px 6px 23px;
+  margin-bottom: 6px;
+  position: relative;
 }
 
-.fs-dropdown {
-    width: 170px;
+.condition-item.condition-or {
+  border-top: medium none;
+  box-shadow: 18px 0 0 #e9e9e9 inset, 19px 0 0 #dfdfdf inset, 0 1px 3px rgba(0, 0, 0, 0.04), 59px 0 0 #f1f1f1 inset, 60px 0 0 #dfdfdf inset;
+  margin: -6px 0 6px 42px;
 }
 
-.fs-optgroup .fs-option {
-    padding-left: 16px;
+.condition-item .condition-clause {
+  color: #9f9f9f;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  width: 70px;
+}
+.condition-item.condition-or .condition-clause {
+  width: 33px;
+}
+.condition-remove-line {
+  color: #cfcfcf;
+  cursor: pointer;
+  left: -1px;
+  position: absolute;
+  top: -1px;
+}
+.condition-remove-line:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #d4d4d4;
+  color: #a2a2a2;
+}
+.condition-item .condition-field {
+  display: inline-block;
+  margin-left: 21px;
+}
+.condition-item.condition-or .condition-field {
+  margin-left: 16px;
+}
+.condition-item .condition-field select {
+  display: inline-block;
+  vertical-align: inherit;
+  width: auto;
+}
+.uix-control-box-content .condition-field-select {
+  width: 180px;
+  vertical-align: baseline;
+}
+.uix-control-box-content .condition-field-compare {
+  text-align: center;
+  vertical-align: baseline;
+}
+.condition-item .condition-actions {
+  display: inline;
+  margin-left: 24px;
+  text-transform: uppercase;
+}
+.condition-item .condition-actions .button {
+  margin-right: 6px;
+}
+.condition-item .condition-actions .dashicons {
+  padding: 2px 0;
+}
+.condition-item.condition-or .condition-action-or{
+  display: none;
 }
 
-.fs-label-wrap {
-    background-color: #fff;
+.dataTables_length {
+  margin-bottom: 12px;
 }
-
-.facetwp-response {
-    display: none;
-    margin: 10px 0;
-    padding: 6px 12px;
-    background-color: #fff;
-    border-left: 4px solid #7ad03a;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+.uix-sortable-placeholder {
+  border: 1px dashed #9f9f9f;
+  margin-bottom: 4px;
 }
-
-/* Admin styles */
-
-.facetwp-region {
-    font-size: 13px;
-    border: 1px solid #ccc;
+.uix-sort-box{
+  margin-bottom: 4px;
 }
-
-.facetwp-region input,
-.facetwp-region select,
-.facetwp-region textarea {
-    font-size: 12px;
-}
-
-.facetwp-content-wrap {
-    overflow: auto;
-    background-color: #fff;
-    padding: 20px;
-}
-
-/* Action buttons */
-
-.flexbox {
-    display: -ms-flex;
-    display: -webkit-flex;
-    display: flex;
-}
-
-.flexbox > div {
-    width: 50%;
-}
-
-.flexbox h3 {
-    margin-top: 0;
-}
-
-.flexbox.menubar {
-    padding: 10px;
-    background: #fafafa;
-    border-bottom: 1px solid #ccc;
-}
-
-.flexbox.menubar .right-side {
-    text-align: right;
-}
-
-.ruleset {
-    margin-bottom: 30px;
-    padding-bottom: 30px;
-    border-bottom: 2px solid #a00;
-}
-
-.ruleset:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-}
-
-/* Drop buttons */
-
-.btn-drop {
-    display: inline-block;
-    vertical-align: top;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    color: #a00;
-}
-
-.btn-drop:before {
-    content: '\f182';
-    font: 400 20px/1 dashicons;
-    vertical-align: middle;
-}
-
-.hidden {
-    display: none;
+.uix-sort-box.ui-sortable-helper {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
 }
