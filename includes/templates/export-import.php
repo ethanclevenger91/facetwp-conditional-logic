@@ -42,18 +42,14 @@ jQuery( '#process-import' ).on('focus', function(){
 			if( !data[ test ]._id || !data[ test ]._node_point ){
 				alert( 'Error: empty import')
 			}else{
-				if( !data[ test ].condition || !data[ test ].condition ){
-					alert( 'Error: no condtions or actions found');
-				}else{
-					// yay
-					if( confirm( 'This wil overwrite you current rulesets. Continue?' ) ){
-						conduitApp.filters.data.ruleset = data;
-						conduitBuildUI( 'filters' );
-						jQuery( '[data-tab="filters"]' ).trigger( 'click' );
-						conduitSaveObject();
-					}
-					break;
+				// yay
+				if( confirm( 'This wil overwrite you current rulesets. Continue?' ) ){
+					conduitApp.filters.data.ruleset = data;
+					conduitBuildUI( 'filters' );
+					jQuery( '[data-tab="filters"]' ).trigger( 'click' );
+					conduitSaveObject();
 				}
+				break;
 			}
 		}
 	}
