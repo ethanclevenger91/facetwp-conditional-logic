@@ -26,19 +26,24 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-class FacetWP_Conditional_Logic_Addon
-{
+class FacetWP_Conditional_Logic_Addon {
 
     /**
      * determins if a FacetWP hook was called to propt rendering JS
      *
-     * @since 1.0.0
+     * @since 0.1
      *
      * @var      bool
      */
     protected $in_use = false;
 
-    function __construct() {
+    /**
+     * Cunstruct 
+     *
+     * @since 0.1
+     *
+     */
+    public function __construct() {
         
         define( 'FWPCL_VERSION', '0.1' );
         define( 'FWPCL_DIR', dirname( __FILE__ ) );
@@ -48,7 +53,12 @@ class FacetWP_Conditional_Logic_Addon
         add_action( 'init', array( $this, 'init' ), 12 );
     }
 
-
+    /**
+     * Initialize the plugin, create admin page and setup actions and filters
+     *
+     * @since 0.1
+     *
+     */
     function init() {
 
         if ( ! function_exists( 'FWP' ) ) {
@@ -76,23 +86,37 @@ class FacetWP_Conditional_Logic_Addon
 
     }
 
+    /**
+     * Sets the in_use value when facetwp_render_output is run, allowing for the include and localization of rules
+     *
+     * @uses "facetwp_render_output" hook     
+     * @since 0.1
+     *
+     * @return    html    the original output, unchanged
+     */
     public function register_facet_use( $output ){
         $this->in_use = true;
         return $output;
     }
 
+    /**
+     * Enqueues the front logic handler and localizes the rules for
+     *
+     * @uses "wp_footer" hook     
+     * @since 0.1
+     *
+     */
     function render_js() {
         
-        if( false === $this->in_use ){
-            return;
-        }
+        if( true === $this->in_use ){
 
-        $rulesets = fwpcl_uix::get_setting( 'admin.filters' );
-        if( !empty( $rulesets ) ){
-            wp_enqueue_script( 'fwpcl-front-handler' );
-            wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $rulesets );
-        }
+            $rulesets = fwpcl_uix::get_setting( 'admin.filters' );
+            if( !empty( $rulesets ) ){
+                wp_enqueue_script( 'fwpcl-front-handler' );
+                wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $rulesets );
+            }
 
+        }
     }
 
 }
