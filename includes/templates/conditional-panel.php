@@ -13,7 +13,7 @@
 <button type="button" class="button"
 
 	data-title="<?php echo esc_attr( 'Add Ruleset' ); ?>"
-	data-height="190"
+	data-height="250"
 	data-width="500"
 
 	
@@ -22,7 +22,7 @@
 	data-focus="true"
 	data-buttons="create"
 	data-footer="conduitModalFooter"
-	data-default='{"name":"untitled"}'
+	data-default='{"name":"untitled", "animate" : "appear" }'
 
 	class="button" 
 
@@ -33,14 +33,15 @@
 	{{#each ruleset}}
 		
 		<div class="uix-sort-box uix-control-box ruleset-row-{{_id}}">
-			{{:node_point}}	
+			{{:node_point}}
+			<input type="hidden" name="{{:name}}[animate]" value="{{animate}}">
 			<table class="uix-control-bar" cellspacing="0" cellpadding="0">
 				<tr>
 					<td class="uix-sort-handle uix-control-bar-action left"><span style="cursor: s-resize;color: #a9a9a9;" class="dashicons dashicons-menu"></span></td>			
 					<td class="uix-control-bar-action left"
 
 						data-title="<?php echo esc_attr( 'Ruleset' ); ?>"
-						data-height="190"
+						data-height="250"
 						data-width="500"
 
 						

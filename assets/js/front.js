@@ -102,7 +102,7 @@
         }
     }
 
-    var do_action = function( action, type ){
+    var do_action = function( action, type, animate ){
 
         var item;
         if( action.thing === 'all_facets' ){
@@ -117,12 +117,34 @@
         if( ! item.length ){
             return;
         }
+
         switch( type ){
             case 'hide':
-                item.hide();
+                switch( animate ){
+                    case 'fade':
+                        item.fadeOut();
+                    break;
+                    case 'slide':
+                        item.slideUp();
+                    break;
+                    default:
+                        item.hide();
+                    break;
+                }                
             break;
             case 'show':
-                item.show();
+                switch( animate ){
+                    case 'fade':
+                        item.fadeIn();
+                    break;
+                    case 'slide':
+                        item.slideDown();
+                    break;
+                    default:
+                        item.show();
+                    break;
+                }
+
             break;
         }
         item.addClass('fwpcl-applied-logic');
@@ -130,7 +152,7 @@
 
     $(document).on('facetwp-loaded facetwp-refresh', function() {
 
-        $('.fwpcl-applied-logic').removeClass('fwpcl-applied-logic').show();
+        $('.fwpcl-applied-logic').removeClass('fwpcl-applied-logic');
         // each set
         for( var set in FWPCL.ruleset ){
             // each condition
@@ -154,11 +176,12 @@
             }
             // yup- do the actions
             for( var action in FWPCL.ruleset[ set ][ 'action'] ){                
-                var type = FWPCL.ruleset[ set ][ 'action'][ action ].do;
+                var type = FWPCL.ruleset[ set ][ 'action'][ action ].do,
+                    animate = FWPCL.ruleset[ set ].animate ? FWPCL.ruleset[ set ].animate : 'appear';
                 if( result.indexOf( false ) > -1 ){
                     type = get_opposite( type );
                 }
-                do_action( FWPCL.ruleset[ set ][ 'action'][ action ], type );
+                do_action( FWPCL.ruleset[ set ][ 'action'][ action ], type, animate );
             }
         }
         
