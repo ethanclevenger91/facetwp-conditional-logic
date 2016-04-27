@@ -122,26 +122,26 @@
             case 'hide':
                 switch( animate ){
                     case 'fade':
-                        item.fadeOut();
+                        item.stop().fadeOut();
                     break;
                     case 'slide':
-                        item.slideUp();
+                        item.stop().slideUp();
                     break;
                     default:
-                        item.hide();
+                        item.stop().hide();
                     break;
                 }                
             break;
             case 'show':
                 switch( animate ){
                     case 'fade':
-                        item.fadeIn();
+                        item.stop().fadeIn();
                     break;
                     case 'slide':
-                        item.slideDown();
+                       item.stop().slideDown();
                     break;
                     default:
-                        item.show();
+                        item.stop().show();
                     break;
                 }
 
@@ -150,22 +150,22 @@
         item.addClass('fwpcl-applied-logic');
     }
 
-    $(document).on('facetwp-loaded facetwp-refresh', function() {
+    $(document).on('facetwp-loaded facetwp-refresh', function( e ) {
 
         $('.fwpcl-applied-logic').removeClass('fwpcl-applied-logic');
         // each set
         for( var set in FWPCL.ruleset ){
             // each condition
-            if( !FWPCL.ruleset[ set ][ 'condition'] || !FWPCL.ruleset[ set ][ 'action'] ){
+            if( !FWPCL.ruleset[ set ].condition || !FWPCL.ruleset[ set ].action || FWPCL.ruleset[ set ].disabled ){
                 continue;
             }
             // found a condition and action
             var result = [];
-            for( var condition in FWPCL.ruleset[ set ][ 'condition'] ){
-                var this_result = evaluate_condition( FWPCL.ruleset[ set ][ 'condition'][ condition ] );                
-                if( FWPCL.ruleset[ set ][ 'condition'][ condition ].or ){
-                    for( var or in FWPCL.ruleset[ set ][ 'condition'][ condition ].or ){
-                        var this_or_result = evaluate_condition( FWPCL.ruleset[ set ][ 'condition'][ condition ].or[ or ] );
+            for( var condition in FWPCL.ruleset[ set ].condition ){
+                var this_result = evaluate_condition( FWPCL.ruleset[ set ].condition[ condition ] );                
+                if( FWPCL.ruleset[ set ].condition[ condition ].or ){
+                    for( var or in FWPCL.ruleset[ set ].condition[ condition ].or ){
+                        var this_or_result = evaluate_condition( FWPCL.ruleset[ set ].condition[ condition ].or[ or ] );
                         if( true === this_or_result ){
                             this_result = true;
                             break;
@@ -175,13 +175,14 @@
                 result.push( this_result );
             }
             // yup- do the actions
-            for( var action in FWPCL.ruleset[ set ][ 'action'] ){                
-                var type = FWPCL.ruleset[ set ][ 'action'][ action ].do,
+            for( var action in FWPCL.ruleset[ set ].action ){                
+                var type = FWPCL.ruleset[ set ].action[ action ].do,
                     animate = FWPCL.ruleset[ set ].animate ? FWPCL.ruleset[ set ].animate : 'appear';
+
                 if( result.indexOf( false ) > -1 ){
                     type = get_opposite( type );
                 }
-                do_action( FWPCL.ruleset[ set ][ 'action'][ action ], type, animate );
+                do_action( FWPCL.ruleset[ set ].action[ action ], type, animate );
             }
         }
         

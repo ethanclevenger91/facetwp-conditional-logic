@@ -27,7 +27,7 @@
 			<td>
 				<label><input type="radio" value="appear" name="animate" {{#is animate value="appear"}}checked="checked"{{/is}}><?php esc_html_e( 'Appear' ); ?></label>&nbsp;
 				<label><input type="radio" value="fade" name="animate" {{#is animate value="fade"}}checked="checked"{{/is}}><?php esc_html_e( 'Fade' ); ?></label>&nbsp;
-				<label><input type="radio" value="slide" name="animate" {{#is animate value="slide"}}checked="checked"{{/is}}><?php esc_html_e( 'Slide' ); ?></label>
+				<!-- <label><input type="radio" value="slide" name="animate" {{#is animate value="slide"}}checked="checked"{{/is}}><?php esc_html_e( 'Slide' ); ?></label> -->
 			</td>
 		</tr>
 	</tbody>
