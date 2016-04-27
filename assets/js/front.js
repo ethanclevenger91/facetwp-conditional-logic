@@ -7,13 +7,40 @@
         var is_valid = false,
             comparefield;
 
-        if( FWP.facets[ rule.field ] ){
-            comparefield = FWP.facets[ rule.field ];
-        }else{
-            switch( rule.field ){
+        // determin what thing this applies to.
+        if( rule.field.substr( 0, 10 ) === '_template_' ){
+            
+            comparefield = FWP.template;
+            rule.value = [ rule.field.substr( 10 ) ];
+
+        }else if( rule.field.substr( 0, 7 ) === '_basic_' ) {
+            // switch type
+            switch( rule.field.substr( 7 ) ){
                 case 'result-count':
                     comparefield = [ FWP.settings.pager.total_rows ];
                 break;
+                case 'uri':
+                    comparefield = [ window.location.href ];
+                break;
+                case 'facets-empty':
+                    if( FWP.build_query_string().length ){
+                        return false;
+                    }
+                    return true;
+                break;
+                case 'facets-not-empty':
+                    if( FWP.build_query_string().length ){
+                        return true;
+                    }
+                    return false;                
+                break;
+            }
+        }else if( rule.field.substr( 0, 7 ) === '_facet_' ) {
+            // only if the facet exists obviously.
+            if( FWP.facets[ rule.field ] ){
+                comparefield = FWP.facets[ rule.field ];
+            }else{
+                return false;
             }
         }
 
@@ -101,7 +128,7 @@
         item.addClass('fwpcl-applied-logic');
     }
 
-    $(document).on('facetwp-loaded', function() {
+    $(document).on('facetwp-loaded facetwp-refresh', function() {
 
         $('.fwpcl-applied-logic').removeClass('fwpcl-applied-logic').show();
         // each set
