@@ -157,6 +157,9 @@ var conduitApp = {},
 					obj[ app ] = conduitApp[ app ].data;
 				}
 			}
+			if( obj[ app ]._tab ){
+				delete obj[ app ]._tab;
+			}
 		}
 		return obj;
 	}
