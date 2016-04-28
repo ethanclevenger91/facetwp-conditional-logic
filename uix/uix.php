@@ -473,10 +473,12 @@ class fwpcl_uix{
 			<h1 class="uix-title"><?php esc_html_e( $uix['page_title'] , 'facetwp-conditional-logic' ); ?>
 				<?php if( !empty( $uix['version'] ) ){ ?><small><?php esc_html_e( $uix['version'], 'facetwp-conditional-logic' ); ?></small><?php } ?>
 				<?php if( !empty( $uix['save_button'] ) ){ ?>
-				<a class="page-title-action" href="#save-object" data-save-object="true">
-					<span class="spinner uix-save-spinner"></span>
+				<a class="page-title-action" href="#save-object" data-save-object="true">					
 					<?php esc_html_e( $uix['save_button'], 'facetwp-conditional-logic' ); ?>
 				</a>
+				<span>&nbsp;</span>
+				<span class="facetwp-loading uix-save-spinner" style="background-image: url(<?php echo FACETWP_URL . '/assets/images/loading.png'; ?>);"></span>
+				<span class="uix-save-confirm dashicons dashicons-yes"></span>
 				<?php } ?>
 			</h1>
 			<?php if( !empty( $uix['tabs'] ) ){ ?>

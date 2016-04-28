@@ -419,20 +419,22 @@ var conduitApp = {},
 		e.preventDefault();
 		var clicked = $( this ),
 			app = $( this ).data('saveObject'),
-			spinner = $('.page-title-action .spinner'),
+			spinner = $('.uix-save-spinner'),
+			confirm = $('.uix-save-confirm'),
 			sub_nav = $('.uix-sub-nav'),
 			obj;
 		
-		$('.uix-notice .notice-dismiss').trigger('click');
+		//$('.uix-notice .notice-dismiss').trigger('click');
 
 		if( true === app ){
 			obj = conduitPrepObject();
 		}else{
 			obj = conduitPrepObject( app );
 		}
-		//console.log( obj );
+		
 		clicked.addClass('saving');
-		spinner.slideDown(100);
+		confirm.hide();
+		spinner.css({ visibility: "visible", opacity:1, display : "inline-block"});
 		var data = {
 			action		:	uix.slug + "_save_config",
 			uix_setup	:	$('#uix_setup').val(),
@@ -443,11 +445,14 @@ var conduitApp = {},
 			data.params = uix.save_params;
 		}
 		$.post( ajaxurl, data, function(response) {
-			//console.log( response );
-			spinner.slideUp(100);
+			
+			spinner.css({ visibility: '', opacity:0, display: 'none'});
+			confirm.fadeIn();
+			setTimeout( function(){ confirm.fadeOut( 800 );}, 2000 );
 			clicked.removeClass('saving');
-			var notice = $( coduitTemplates.__notice( response ) );
-			notice.hide().insertAfter( sub_nav ).slideDown( 200 );
+			//var notice = $( coduitTemplates.__notice( response ) );
+			//notice.hide().insertAfter( sub_nav ).slideDown( 200 );
+
 			$( window ).trigger('uix.saved');
 		});
 

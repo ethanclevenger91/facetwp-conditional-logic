@@ -98,3 +98,70 @@
 .uix-sort-box.ui-sortable-helper {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.14);
 }
+
+
+.uix-save-confirm {
+  color: #00af10;
+  font-size: 28px;
+  margin: 2px 0 0 2px;
+  display: none;
+}
+.uix-save-spinner.facetwp-loading {
+    opacity: 0;
+    visibility: hidden;
+    display: none;
+    margin: 0 0 -2px 6px;  
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    -webkit-animation: rotate 700ms infinite linear;
+    -moz-animation: rotate 700ms infinite linear;
+    animation: rotate 700ms infinite linear;
+}
+
+/* CSS animations */
+
+@-o-keyframes rotate {
+    from {
+        -o-transform: rotate(0deg);
+    }
+    to {
+        -o-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes rotate {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-ms-keyframes rotate {
+    from {
+        -ms-transform: rotate(0deg);
+    }
+    to {
+        -ms-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
