@@ -245,6 +245,9 @@ var conduitApp = {},
 			}
 			
 		}
+		if( conduitApp[ app ].data._tab ){
+			delete conduitApp[ app ].data._tab;
+		}
 		return conduitApp[ app ].data;
 	}	
 
@@ -304,8 +307,6 @@ var conduitApp = {},
 					};
 
 				options = $.extend({}, options, sort.data() );
-				console.log( options );
-
 				$(this).sortable( options );
 			});
 		}
