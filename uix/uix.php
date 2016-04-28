@@ -236,7 +236,7 @@ class fwpcl_uix{
 					if( empty( $_POST['autosave'] ) ){
 						$previous = get_option( $option_tag );
 						if( !empty( $previous ) ){
-							update_option( $option_tag .'-' . current_time( 'timestamp' ), $previous );
+							//update_option( $option_tag .'-' . current_time( 'timestamp' ), $previous );
 						}
 					}
 					// save object
