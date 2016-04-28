@@ -19,7 +19,7 @@
 					{{#if type}}
 						<input type="hidden" name="{{:name}}[type]" value="{{type}}">
 					{{/if}}
-					<select class="condition-field-select" name="{{:name}}[do]">
+					<select class="condition-field-select" name="{{:name}}[do]" style="width:80px;">
 						<option value="show" {{#is do value="how"}}selected="selected"{{/is}}><?php esc_html_e( 'Show', 'facetwp-conditional-logic' ); ?></option>
 						<option value="hide" {{#is do value="hide"}}selected="selected"{{/is}}><?php esc_html_e( 'Hide', 'facetwp-conditional-logic' ); ?></option>
 					</select>					
