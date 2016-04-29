@@ -48,13 +48,13 @@
 					{{#is field value="_template_<?php echo $template['name']; ?>"}}style="display:none;"{{/is}}
 					<?php } ?>
 					>
-						<option value="is" {{#is compare value="is"}}selected="selected"{{/is}}>is</option>
-						<option value="isnot" {{#is compare value="isnot"}}selected="selected"{{/is}}>is not</option>
-						<option value="greater" {{#is compare value="greater"}}selected="selected"{{/is}}>greater than</option>
-						<option value="smaller" {{#is compare value="smaller"}}selected="selected"{{/is}}>smaller</option>
-						<option value="startswith" {{#is compare value="startswith"}}selected="selected"{{/is}}>starts with</option>
-						<option value="endswith" {{#is compare value="endswith"}}selected="selected"{{/is}}>ends with</option>
-						<option value="contains" {{#is compare value="contains"}}selected="selected"{{/is}}>contains</option>
+						<option value="is" {{#is compare value="is"}}selected="selected"{{/is}}><?php esc_html_e( 'is', 'facetwp-conditional-logic' ); ?></option>
+						<option value="isnot" {{#is compare value="isnot"}}selected="selected"{{/is}}><?php esc_html_e( 'is not', 'facetwp-conditional-logic' ); ?></option>
+						<option value="greater" {{#is compare value="greater"}}selected="selected"{{/is}}><?php esc_html_e( 'greater than', 'facetwp-conditional-logic' ); ?></option>
+						<option value="smaller" {{#is compare value="smaller"}}selected="selected"{{/is}}><?php esc_html_e( 'smaller than', 'facetwp-conditional-logic' ); ?></option>
+						<option value="startswith" {{#is compare value="startswith"}}selected="selected"{{/is}}><?php esc_html_e( 'starts with', 'facetwp-conditional-logic' ); ?></option>
+						<option value="endswith" {{#is compare value="endswith"}}selected="selected"{{/is}}><?php esc_html_e( 'ends with', 'facetwp-conditional-logic' ); ?></option>
+						<option value="contains" {{#is compare value="contains"}}selected="selected"{{/is}}><?php esc_html_e( 'contains', 'facetwp-conditional-logic' ); ?></option>
 					</select>
 					<input 
 					{{#is field value="_basic_facets-empty"}}style="display:none;"{{/is}}
