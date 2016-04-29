@@ -54,9 +54,9 @@
 						data-footer="conduitModalFooter"
 						style="margin: 1px; display: inline-block; height: 27px; padding: 4px;"
 					><span class="dashicons dashicons-editor-code"></span></button>
+					{{#if selector}}<input style="display:none; width: 124px;" placeholder="<?php esc_html_e( 'Custom Selector', 'facetwp-conditional-logic' ); ?>" type="text" name="{{:name}}[selector]" value="{{json selector}}">{{/if}}
 					{{/is}}	
-
-					<input style="display:none; width: 124px;{{#is thing not="_custom"}}display:none;{{/is}}" placeholder="<?php esc_html_e( 'Custom Selector', 'facetwp-conditional-logic' ); ?>" type="text" name="{{:name}}[selector]" value="{{#if selector}}{{json selector}}{{/if}}">
+					
 					
 				</td>
 				
