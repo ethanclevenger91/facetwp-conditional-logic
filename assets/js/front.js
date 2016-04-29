@@ -37,8 +37,8 @@
             }
         }else if( rule.field.substr( 0, 7 ) === '_facet_' ) {
             // only if the facet exists obviously.
-            if( FWP.facets[ rule.field ] ){
-                comparefield = FWP.facets[ rule.field ];
+            if( FWP.facets[ rule.field.substr( 7 ) ] ){                
+                comparefield = FWP.facets[ rule.field.substr( 7 ) ];
             }else{
                 return false;
             }
