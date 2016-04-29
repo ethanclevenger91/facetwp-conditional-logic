@@ -50,12 +50,8 @@
 					>
 						<option value="is" {{#is compare value="is"}}selected="selected"{{/is}}>is</option>
 						<option value="isnot" {{#is compare value="isnot"}}selected="selected"{{/is}}>is not</option>
-						<option value="isin" {{#is compare value="isin"}}selected="selected"{{/is}}>in</option>
-						<option value="isnotin" {{#is compare value="isnotin"}}selected="selected"{{/is}}>not in</option>
 						<option value="greater" {{#is compare value="greater"}}selected="selected"{{/is}}>greater than</option>
-						<option value="greatereq" {{#is compare value="greatereq"}}selected="selected"{{/is}}>greater or equal</option>
 						<option value="smaller" {{#is compare value="smaller"}}selected="selected"{{/is}}>smaller</option>
-						<option value="smallereq" {{#is compare value="smallereq"}}selected="selected"{{/is}}>smaller or equal</option>
 						<option value="startswith" {{#is compare value="startswith"}}selected="selected"{{/is}}>starts with</option>
 						<option value="endswith" {{#is compare value="endswith"}}selected="selected"{{/is}}>ends with</option>
 						<option value="contains" {{#is compare value="contains"}}selected="selected"{{/is}}>contains</option>
