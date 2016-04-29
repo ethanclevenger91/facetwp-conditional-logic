@@ -110,7 +110,14 @@
             item = $('.facetwp-template');
         }else if( action.thing === '_custom' ){
             var lines = action.selector.lines.split("\n");
-            item = $( lines.join(',') );
+            var selectors = [];
+            for( var i = 0; i < lines.length; i++ ){
+                var selector = lines[i].replace(/^\s+|\s+$/gm,'');
+                if( selector.length ){
+                    selectors.push( selector );
+                }
+            }
+            item = $( selectors.join(',') );
         }else{
             item = $('.facetwp-facet-' + action.thing );
         }
@@ -160,6 +167,12 @@
                 continue;
             }
             // found a condition and action
+            // can this happen in this event?
+            //facetwp-loaded facetwp-refresh
+            if( e.type !== FWPCL.ruleset[ set ].event && FWPCL.ruleset[ set ].event !== '_all_' ){
+                continue;
+            }
+
             var result = [];
             for( var condition in FWPCL.ruleset[ set ].condition ){
                 var this_result = evaluate_condition( FWPCL.ruleset[ set ].condition[ condition ] );                

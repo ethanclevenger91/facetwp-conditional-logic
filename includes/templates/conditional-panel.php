@@ -68,8 +68,7 @@
 					<input type="hidden" name="{{:name}}[action]" value="{{json action}}">
 				{{/if}}
 			{{else}}
-			<div class="uix-control-box-content">
-
+			<div class="uix-control-box-content">			
 				<div class="uix-grid">
 					<div class="row">
 						<div class="col-sm-7">
@@ -79,7 +78,19 @@
 										<td><?php _e('Conditions', 'facetwp-conditional-logic'); ?></td>							
 									</tr>
 								</table>
-								<div class="uix-control-box-content">						
+								<div class="uix-control-box-content">
+									<table class="uix-control-bar" cellspacing="0" cellpadding="0">
+										<tr>
+											<td class="uix-control-bar-action left" style="background: #f8f8f8; text-transform: uppercase; font-weight: bold; color: rgb(151, 151, 151);text-align: center;">On</td>
+											<td>
+												<select name="{{:name}}[event]">
+													<option value="_all_" {{#is event value="_all_"}}selected="selected"{{/is}}><?php _e('Refresh & Loaded', 'facetwp-conditional-logic'); ?></option>
+													<option value="facetwp-loaded" {{#is event value="facetwp-loaded"}}selected="selected"{{/is}}><?php _e('Loaded', 'facetwp-conditional-logic'); ?></option>
+													<option value="facetwp-refresh" {{#is event value="facetwp-refresh"}}selected="selected"{{/is}}><?php _e('Refresh', 'facetwp-conditional-logic'); ?></option>
+													</select></td>
+										</tr>
+									</table>
+									
 									{{#each condition}}
 										{{> conditional_row}}
 									{{/each}}
