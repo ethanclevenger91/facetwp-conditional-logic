@@ -19,6 +19,7 @@ $pages = array(
 		'base_color'  => '#906fbc',
 		'modals'	  =>  array(
 			'ruleset'	=> FWPCL_DIR . '/includes/templates/ruleset-modal.php',
+			'selectors'	=> FWPCL_DIR . '/includes/templates/selectors-modal.php',
 		),
 		'tabs'        =>  array(
 			'filters'		=> array(

@@ -39,8 +39,23 @@
 							<option value="_custom" {{#is thing value="_custom"}}selected="selected"{{/is}}><?php echo esc_html__( 'Selector', 'facetwp-conditional-logic' ); ?></option>
 						</optgroup>
 
-					</select>				
-					<input style="width: 124px;{{#is thing not="_custom"}}display:none;{{/is}}" placeholder="<?php esc_html_e( 'Custom Selector', 'facetwp-conditional-logic' ); ?>" type="text" name="{{:name}}[selector]" value="{{selector}}">
+					</select>
+					{{#is thing value="_custom"}}
+					<button type="button" class="button button-small"
+						data-title="<?php echo esc_attr( 'Custom Selectors' ); ?>"
+						data-height="350"
+						data-width="350"
+
+						
+						data-modal="{{_node_point}}"
+						data-template="selectors"
+						data-focus="true"
+						data-buttons="save"
+						data-footer="conduitModalFooter"
+						style="margin: 1px; display: inline-block; height: 27px; padding: 4px;"
+					><span class="dashicons dashicons-editor-code"></span></button>
+					{{/is}}	
+					<input style="display:none; width: 124px;{{#is thing not="_custom"}}display:none;{{/is}}" placeholder="<?php esc_html_e( 'Custom Selector', 'facetwp-conditional-logic' ); ?>" type="text" name="{{:name}}[selector]" value="{{json selector}}">
 					
 				</td>
 				

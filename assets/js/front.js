@@ -103,14 +103,14 @@
     }
 
     var do_action = function( action, type, animate ){
-
         var item;
         if( action.thing === 'all_facets' ){
             item = $('.facetwp-facet');
         }else if( action.thing === 'template' ){
             item = $('.facetwp-template');
         }else if( action.thing === '_custom' ){
-            item = $( action.selector );
+            var lines = action.selector.lines.split("\n");
+            item = $( lines.join(',') );
         }else{
             item = $('.facetwp-facet-' + action.thing );
         }
