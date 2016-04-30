@@ -126,6 +126,7 @@ td.uix-control-bar-action.action-type-text,
 .condition-row-wrapper > div:first-child .conditional-type-text span.type-if {
   display: block;
 }
+.condition-row-wrapper > div .inner-row .conditional-type-text span.type-and,
 .condition-row-wrapper > div .inner-row .conditional-type-text span.type-if {
   display: none;
 }
