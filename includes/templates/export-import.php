@@ -14,7 +14,6 @@
 	<table class="uix-control-bar" cellspacing="0" cellpadding="0">
 		<tr>
 			<td><?php esc_html_e( 'Export / Import', 'facetwp-conditional-logic' ); ?></td>
-			<td class="uix-control-bar-action left"><button type="button" class="button"><?php esc_html_e( 'Process Import', 'facetwp-conditional-logic' ); ?></button></td>
 		</tr>
 	</table>
 	<div class="uix-control-box-content">
@@ -25,6 +24,7 @@
 	<table class="uix-control-bar" cellspacing="0" cellpadding="0">
 		<tr>
 			<td class="uix-control-bar-action left"><button id="process-import" type="button" class="button"><?php esc_html_e( 'Process Import', 'facetwp-conditional-logic' ); ?></button></td>
+			<td></td>
 		</tr>
 	</table>
 </div>
