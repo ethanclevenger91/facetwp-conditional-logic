@@ -83,7 +83,7 @@
 													</select></td>
 										</tr>
 									</table>
-									<div class="condition-row-wrapper" data-node-point="{{_node_point}}.condition">
+									<div class="condition-row-wrapper" data-node-point="{{_node_point}}.condition" data-template="conditional_row">
 									{{#each condition}}
 										{{> conditional_row}}
 									{{/each}}
@@ -93,11 +93,11 @@
 									<tr>
 										<td class="uix-control-bar-action left">
 											{{#unless condition}}
-												<button type="button" class="button" data-add-node="{{_node_point}}.condition" data-template="conditional_row" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
 													<?php _e('Add a Condition', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{else}}
-												<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.condition" data-template="conditional_row" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
 													<?php _e('And', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{/unless}}
@@ -115,7 +115,7 @@
 										<td><?php _e('Actions', 'facetwp-conditional-logic'); ?></td>							
 									</tr>
 								</table>
-								<div class="uix-control-box-content action-row-wrapper" data-node-point="{{_node_point}}.action">
+								<div class="uix-control-box-content action-row-wrapper" data-template="action" data-node-point="{{_node_point}}.action">
 								{{#each action}}
 									{{> action}}
 								{{/each}}
@@ -124,11 +124,11 @@
 									<tr>
 										<td class="uix-control-bar-action left">
 											{{#unless action}}
-												<button type="button" class="button" data-template="action" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
 													<?php _e('Add an Action', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{else}}
-												<button type="button" class="button" style="text-transform: uppercase;" data-template="action" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
 													<?php _e('And', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{/unless}}

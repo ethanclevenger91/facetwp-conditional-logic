@@ -37,7 +37,7 @@ var conduitApp = {},
 		return this;
 	}
 
-	$.fn.getObject = function(){
+	$.fn.getObject = function( forex ){
 		var element = $(this);
 
 		var fields   = element.find('[name]'),
@@ -48,6 +48,12 @@ var conduitApp = {},
 			name    = field.prop('name').replace(/\]/gi,'').split('['),
 			value     = field.val(),
 			lineconf  = {};
+
+			if( forex ){
+				if( name.indexOf('_id') >= 0 || name.indexOf('_node_point') >= 0 ){
+					continue;
+				}
+			}
 
 			if( field.is(':radio') || field.is(':checkbox') ){
 				if( !field.is(':checked') ){
@@ -345,7 +351,8 @@ var conduitApp = {},
 			nodes = node.data ? node.data('addNode').split('.') : node.split('.'),
 			node_default = data ? data : node.data('nodeDefault'),
 			node_point_record = nodes.join('.') + '.' + id,
-			node_defaults = JSON.parse( '{ "_id" : "' + id + '", "_node_point" : "' + node_point_record + '" }' );
+			node_defaults = JSON.parse( '{ "_id" : "' + id + '", "_node_point" : "' + node_point_record + '" }' )
+			node_point_wrappers = $('[data-node-point="' + nodes.join('.') + '"]');
 
 		if( node_default && typeof node_default === 'object' ){
 			$.extend( true, node_defaults, node_default );
@@ -360,9 +367,15 @@ var conduitApp = {},
 
 		$.extend( true, conduitApp[ app ].data, new_nodes );
 
-		if( node.data && node.data('template') && coduitTemplates[ '__partial_' + node.data('template') ] ){
-			$('[data-node-point="' + node.data('addNode') + '"]').append( coduitTemplates[ '__partial_' + node.data('template') ]( node_defaults ) );
-			//coduitTemplates[ '__partial_' + partial.data('handlebarsPartial') ]
+		if( node_point_wrappers.length && node_point_wrappers.data('template') ){ 
+			node_point_wrappers.each( function(){
+				var wrapper = $(this),
+					template = wrapper.data('template');
+				if( template && coduitTemplates[ '__partial_' + template ] ){
+					wrapper.append( coduitTemplates[ '__partial_' + template ]( node_defaults ) );
+				}		
+			});
+			
 		}else{
 			// rebuild all
 			conduitBuildUI( app );

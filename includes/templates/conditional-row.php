@@ -70,11 +70,11 @@
 					type="text" id="field_{{_id}}" name="{{:name}}[value]" value="{{value}}">
 				</td>
 				{{#is type value="and"}}
-				<td class="uix-control-bar-action right"><button type="button" data-add-node="{{_node_point}}.or" data-template="conditional_row" data-node-default='{"type":"or"}' class="button"><?php esc_html_e( 'OR', 'facetwp-conditional-logic' ); ?></button></td>
+				<td class="uix-control-bar-action right"><button type="button" data-add-node="{{_node_point}}.or" data-node-default='{"type":"or"}' class="button"><?php esc_html_e( 'OR', 'facetwp-conditional-logic' ); ?></button></td>
 				{{/is}}
 			</tr>
 		</table>
-		<div class="inner-row" data-node-point="{{_node_point}}.or">
+		<div class="inner-row" data-node-point="{{_node_point}}.or" data-template="conditional_row">
 		{{#each or}}
 			{{> conditional_row}}
 		{{/each}}
