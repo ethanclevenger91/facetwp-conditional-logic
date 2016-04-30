@@ -17,7 +17,11 @@
 					<td class="uix-control-bar-action left" style="background: #f8f8f8;">&nbsp;</td>
 				{{/is}}
 				<td class="uix-control-bar-action left"><span class="dashicons dashicons-no-alt" data-remove-element=".condition-row-line-{{_id}}"></span></td>
-				<td class="uix-control-bar-action left" style="text-align: center; width: {{#is type value="or"}}61{{else}}94{{/is}}px; background: rgb(239, 239, 239) none repeat scroll 0% 0%; text-transform: uppercase; font-weight: bold; color: rgb(151, 151, 151);">{{#is type value="and"}}{{#unless @first}}<?php _e('and', 'facetwp-conditional-logic'); ?>{{else}}<?php _e('If', 'facetwp-conditional-logic'); ?>{{/unless}}{{else}}<?php _e('or', 'facetwp-conditional-logic'); ?>{{/is}}</td>
+				<td class="uix-control-bar-action left conditional-type-text">
+					<span class="type-and"><?php _e('and', 'facetwp-conditional-logic'); ?></span>
+					<span class="type-if"><?php _e('If', 'facetwp-conditional-logic'); ?></span>
+					<span class="type-or"><?php _e('Or', 'facetwp-conditional-logic'); ?></span>
+				</td>
 				<td>
 					{{:node_point}}
 					<input type="hidden" name="{{:name}}[type]" value="{{type}}">
@@ -56,7 +60,7 @@
 						<option value="endswith" {{#is compare value="endswith"}}selected="selected"{{/is}}><?php esc_html_e( 'ends with', 'facetwp-conditional-logic' ); ?></option>
 						<option value="contains" {{#is compare value="contains"}}selected="selected"{{/is}}><?php esc_html_e( 'contains', 'facetwp-conditional-logic' ); ?></option>
 					</select>
-					<input 
+					<input class="condition-field-value"
 					{{#is field value="_basic_facets-empty"}}style="display:none;"{{/is}}
 					{{#is field value="_basic_facets-not-empty"}}style="display:none;"{{/is}}
 					<?php foreach( $templates as $template ){ ?>
@@ -66,12 +70,13 @@
 					type="text" id="field_{{_id}}" name="{{:name}}[value]" value="{{value}}">
 				</td>
 				{{#is type value="and"}}
-				<td class="uix-control-bar-action right"><button type="button" data-add-node="{{_node_point}}.or" data-node-default='{"type":"or"}' class="button"><?php esc_html_e( 'OR', 'facetwp-conditional-logic' ); ?></button></td>
+				<td class="uix-control-bar-action right"><button type="button" data-add-node="{{_node_point}}.or" data-template="conditional_row" data-node-default='{"type":"or"}' class="button"><?php esc_html_e( 'OR', 'facetwp-conditional-logic' ); ?></button></td>
 				{{/is}}
 			</tr>
 		</table>
-
+		<div class="inner-row" data-node-point="{{_node_point}}.or">
 		{{#each or}}
 			{{> conditional_row}}
 		{{/each}}
+		</div>
 </div>

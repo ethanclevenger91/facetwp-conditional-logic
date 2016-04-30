@@ -54,21 +54,14 @@
 					><span class="dashicons dashicons-edit"></span></td>
 					<td><label for="ruleset-{{_id}}" style="width: 100%; display: block;">{{name}}<input type="hidden" name="{{:name}}[name]" value="{{name}}"></label></td>
 					<td class="uix-control-bar-action right">
-						<label class="dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input id="ruleset-{{_id}}" data-live-sync="true" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
+						<label class="dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input class="collapse-ruleset" data-ruleset="{{_id}}" id="ruleset-{{_id}}" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
 					</td>
 					<td class="uix-control-bar-action right" data-remove-element=".ruleset-row-{{_id}}" data-confirm="<?php echo esc_html__( 'Are you sure you want to remove this ruleset?', 'facetwp-conditional-logic' ); ?>"><span class="dashicons dashicons-trash"></span></td>
 
 				</tr>
 			</table>
-			{{#if hide}}
-				{{#if condition}}
-					<input type="hidden" name="{{:name}}[condition]" value="{{json condition}}">
-				{{/if}}
-				{{#if action}}
-					<input type="hidden" name="{{:name}}[action]" value="{{json action}}">
-				{{/if}}
-			{{else}}
-			<div class="uix-control-box-content">			
+
+			<div class="uix-control-box-content ruleset-{{_id}}" {{#if hide}}style="display: none;"{{/if}}>			
 				<div class="uix-grid">
 					<div class="row">
 						<div class="col-sm-7">
@@ -90,20 +83,21 @@
 													</select></td>
 										</tr>
 									</table>
-									
+									<div class="condition-row-wrapper" data-node-point="{{_node_point}}.condition">
 									{{#each condition}}
 										{{> conditional_row}}
 									{{/each}}
+									</div>
 								</div>
 								<table class="uix-control-bar" cellspacing="0" cellpadding="0">
 									<tr>
 										<td class="uix-control-bar-action left">
 											{{#unless condition}}
-												<button type="button" class="button" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" data-add-node="{{_node_point}}.condition" data-template="conditional_row" data-node-default='{"type":"and"}'>
 													<?php _e('Add a Condition', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{else}}
-												<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.condition" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.condition" data-template="conditional_row" data-node-default='{"type":"and"}'>
 													<?php _e('And', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{/unless}}
@@ -121,7 +115,7 @@
 										<td><?php _e('Actions', 'facetwp-conditional-logic'); ?></td>							
 									</tr>
 								</table>
-								<div class="uix-control-box-content">
+								<div class="uix-control-box-content action-row-wrapper" data-node-point="{{_node_point}}.action">
 								{{#each action}}
 									{{> action}}
 								{{/each}}
@@ -130,11 +124,11 @@
 									<tr>
 										<td class="uix-control-bar-action left">
 											{{#unless action}}
-												<button type="button" class="button" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" data-template="action" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
 													<?php _e('Add an Action', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{else}}
-												<button type="button" class="button" style="text-transform: uppercase;" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
+												<button type="button" class="button" style="text-transform: uppercase;" data-template="action" data-add-node="{{_node_point}}.action" data-node-default='{"type":"and"}'>
 													<?php _e('And', 'facetwp-conditional-logic'); ?>
 												</button>
 											{{/unless}}
@@ -151,7 +145,7 @@
 
 
 			</div>
-			{{/if}}
+			
 
 		</div>					
 	{{/each}}

@@ -257,7 +257,7 @@ var conduitApp = {},
 
 	conduitSyncData = function( app ){
 		conduitBuildData( app );
-		conduitBuildUI( app );
+		//conduitBuildUI( app );
 	}
 
 	conduitRegisterApps = function(){
@@ -360,7 +360,13 @@ var conduitApp = {},
 
 		$.extend( true, conduitApp[ app ].data, new_nodes );
 
-		conduitBuildUI( app );
+		if( node.data && node.data('template') && coduitTemplates[ '__partial_' + node.data('template') ] ){
+			$('[data-node-point="' + node.data('addNode') + '"]').append( coduitTemplates[ '__partial_' + node.data('template') ]( node_defaults ) );
+			//coduitTemplates[ '__partial_' + partial.data('handlebarsPartial') ]
+		}else{
+			// rebuild all
+			conduitBuildUI( app );
+		}
 	};
 
 
@@ -511,6 +517,7 @@ var conduitApp = {},
 	$('script[data-handlebars-partial]').each( function(){
 		var partial = $( this );
 		Handlebars.registerPartial( partial.data('handlebarsPartial'), partial.html() );
+		coduitTemplates[ '__partial_' + partial.data('handlebarsPartial') ] = Handlebars.compile( partial.html(), { data : true } );
 	});
 	// modal capture
 	$(document).on( 'click', '[data-modal-node]', function( e ) {
@@ -567,6 +574,47 @@ var conduitApp = {},
 		if( active ){
 			conduitBuildUI( active );
 		}
+	});
+
+	$( document ).on('change', '.collapse-ruleset', function(){
+		var clicked = $(this),
+			ruleset = clicked.data('ruleset'),
+			rule_container = $('.ruleset-' + ruleset );
+
+		if( clicked.is(':checked') ){
+			rule_container.hide();
+		}else{
+			rule_container.show();
+		}
+	});
+
+	$( document ).on('change', '.condition-field-select', function(){
+			
+			var select = $(this),
+				value = select.val(),
+				fields = select.parent().find('.condition-field-compare,.condition-field-value');
+
+			if( value === '_basic_facets-empty' || value === '_basic_facets-not-empty' || value === '_basic_facets-not-empty' || value.substr( 0, 10 ) === '_template_' ){
+				fields.hide();
+			}else{
+				fields.show();
+			}
+
+	});
+	$( document ).on('change', '.action-thing-select', function(){
+
+		var select = $(this),
+			value = select.val(),
+			trigger = select.parent().find('.selector-trigger'),
+			input = select.parent().find('.selector-input');
+
+		if( value !== '_custom' ){
+			trigger.hide();
+			input.val('');
+		}else{
+			trigger.show();
+		}
+
 	});
 
 

@@ -100,6 +100,39 @@
 }
 
 
+td.uix-control-bar-action.action-type-text,
+td.uix-control-bar-action.conditional-type-text{
+  text-align: center;
+  width: 94px;
+  background: rgb(239, 239, 239) none repeat scroll 0% 0%;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: rgb(151, 151, 151);
+}
+td.uix-control-bar-action.action-type-text,
+.inner-row td.uix-control-bar-action.conditional-type-text{
+  width: 61px;
+}
+.action-row-wrapper .action-type-text span.type-then,
+.condition-row-wrapper .conditional-type-text span.type-if,
+.condition-row-wrapper .conditional-type-text span.type-or{
+  display: none;
+}
+.action-row-wrapper > div:first-child .action-type-text span.type-and,
+.condition-row-wrapper > div:first-child .conditional-type-text span.type-and {
+  display: none;
+}
+.action-row-wrapper > div:first-child .action-type-text span.type-then,
+.condition-row-wrapper > div:first-child .conditional-type-text span.type-if {
+  display: block;
+}
+.condition-row-wrapper > div .inner-row .conditional-type-text span.type-if {
+  display: none;
+}
+.condition-row-wrapper > div .inner-row .conditional-type-text span.type-or {
+  display: block;
+}
+
 .uix-save-confirm {
   color: #00af10;
   font-size: 28px;
@@ -165,3 +198,4 @@
         transform: rotate(360deg);
     }
 }
+
