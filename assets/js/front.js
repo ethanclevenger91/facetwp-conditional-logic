@@ -157,13 +157,13 @@
         item.addClass('fwpcl-applied-logic');
     }
 
-    $(document).on('facetwp-loaded facetwp-refresh', function( e ) {
+    $(document).on('page-loaded facetwp-loaded facetwp-refresh', function( e ) {
 
         $('.fwpcl-applied-logic').removeClass('fwpcl-applied-logic');
         // each set
         for( var set in FWPCL.ruleset ){
             // each condition
-            if( !FWPCL.ruleset[ set ].condition || !FWPCL.ruleset[ set ].action || FWPCL.ruleset[ set ].disabled ){
+            if( !FWPCL.ruleset[ set ].action || FWPCL.ruleset[ set ].disabled ){
                 continue;
             }
             // found a condition and action
@@ -198,6 +198,9 @@
                 do_action( FWPCL.ruleset[ set ].action[ action ], type, animate );
             }
         }
-        
+
     });
+
+    $(document).trigger( 'page-loaded' );
+
 })(jQuery);
