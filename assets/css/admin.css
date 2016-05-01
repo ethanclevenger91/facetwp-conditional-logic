@@ -103,7 +103,7 @@
 td.uix-control-bar-action.action-type-text,
 td.uix-control-bar-action.conditional-type-text{
   text-align: center;
-  width: 94px;
+  width: 68px;
   background: rgb(239, 239, 239) none repeat scroll 0% 0%;
   text-transform: uppercase;
   font-weight: bold;
@@ -111,7 +111,10 @@ td.uix-control-bar-action.conditional-type-text{
 }
 td.uix-control-bar-action.action-type-text,
 .inner-row td.uix-control-bar-action.conditional-type-text{
-  width: 61px;
+  width: 35px;
+}
+.action-row-wrapper .action-type-text span.type-then{
+ width: 55px; 
 }
 .action-row-wrapper .action-type-text span.type-then,
 .condition-row-wrapper .conditional-type-text span.type-if,
