@@ -54,7 +54,7 @@
 					><span class="dashicons dashicons-edit"></span></td>
 					<td><label for="ruleset-{{_id}}" style="width: 100%; display: block;">{{name}}<input type="hidden" name="{{:name}}[name]" value="{{name}}"></label></td>
 					<td class="uix-control-bar-action right">
-						<label class="dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input class="collapse-ruleset" data-ruleset="{{_id}}" id="ruleset-{{_id}}" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
+						<label class="ruleset-toggle dashicons dashicons-arrow-{{#if hide}}down{{else}}up{{/if}}"><input class="collapse-ruleset" data-ruleset="{{_id}}" id="ruleset-{{_id}}" type="checkbox" name="{{:name}}[hide]" value="1" style="display:none;" {{#if hide}}checked="checked"{{/if}}></label>
 					</td>
 					<td class="uix-control-bar-action right" data-remove-element=".ruleset-row-{{_id}}" data-confirm="<?php echo esc_html__( 'Are you sure you want to remove this ruleset?', 'facetwp-conditional-logic' ); ?>"><span class="dashicons dashicons-trash"></span></td>
 

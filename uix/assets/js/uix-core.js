@@ -592,12 +592,15 @@ var conduitApp = {},
 	$( document ).on('change', '.collapse-ruleset', function(){
 		var clicked = $(this),
 			ruleset = clicked.data('ruleset'),
+			toggle = clicked.closest('.uix-control-bar').find('.ruleset-toggle'),
 			rule_container = $('.ruleset-' + ruleset );
 
 		if( clicked.is(':checked') ){
 			rule_container.hide();
+			toggle.removeClass( 'dashicons-arrow-up' ).addClass( 'dashicons-arrow-down' );
 		}else{
 			rule_container.show();
+			toggle.removeClass( 'dashicons-arrow-down' ).addClass( 'dashicons-arrow-up' );
 		}
 	});
 
