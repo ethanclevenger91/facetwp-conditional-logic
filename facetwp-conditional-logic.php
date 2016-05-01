@@ -6,7 +6,7 @@ Description: Show / hide facets depending on certain conditions
 Version: 0.1
 Author: Matt Gibbs
 
-Copyright 2015 Matt Gibbs
+Copyright 2016 Matt Gibbs
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -22,9 +22,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, see <http://www.gnu.org/licenses/>.
 */
 
-// exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
-
+defined( 'ABSPATH' ) or exit;
 
 class FacetWP_Conditional_Logic_Addon
 {
@@ -72,6 +70,7 @@ class FacetWP_Conditional_Logic_Addon
             // Check for valid JSON
             if ( is_array( $json_test ) ) {
                 update_option( 'fwpcl_rules', $rules );
+                var_dump( $rules );
                 echo __( 'Rules saved', 'fwpcl' );
             }
             else {
@@ -162,13 +161,7 @@ foreach ( $if_statements as $clause ) :
         $compare = $condition['compare'];
         $value = $condition['value'];
 
-        if ( 'pageload' == $object ) {
-            $clause = '! FWP.loaded';
-        }
-        elseif ( 'refresh' == $object ) {
-            $clause = '1';
-        }
-        elseif ( 'uri' == $object ) {
+        if ( 'uri' == $object ) {
             $operator = ( 'is' == $compare ) ? '==' : '!=';
             $clause = "FWP_HTTP.uri $operator '$value'";
         }

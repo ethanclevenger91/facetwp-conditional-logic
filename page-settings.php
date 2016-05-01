@@ -1,17 +1,22 @@
-<script src="<?php echo FACETWP_URL; ?>/assets/js/fSelect/fSelect.js?ver=<?php echo FACETWP_VERSION; ?>"></script>
 <script src="<?php echo FWPCL_URL; ?>/assets/js/admin.js?ver=<?php echo FWPCL_VERSION; ?>"></script>
+<link href="<?php echo FACETWP_URL; ?>/assets/css/admin.css?ver=<?php echo FACETWP_VERSION; ?>" rel="stylesheet">
+<link href="<?php echo FWPCL_URL; ?>/assets/css/admin.css?ver=<?php echo FWPCL_VERSION; ?>" rel="stylesheet">
 <script>
 FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
 </script>
-<link href="<?php echo FACETWP_URL; ?>/assets/js/fSelect/fSelect.css?ver=<?php echo FACETWP_VERSION; ?>" rel="stylesheet">
-<link href="<?php echo FWPCL_URL; ?>/assets/css/admin.css?ver=<?php echo FWPCL_VERSION; ?>" rel="stylesheet">
+
+<div class="facetwp-header">
+    <span class="facetwp-logo" title="FacetWP">&nbsp;</span>
+    <span class="facetwp-header-nav">
+        <a class="facetwp-tab" rel="rulesets"><?php _e( 'Rulesets', 'fwp' ); ?></a>
+        <a class="facetwp-tab" rel="settings"><?php _e( 'Settings', 'fwp' ); ?></a>
+    </span>
+</div>
 
 <div class="wrap">
-    <h1>Conditional Logic</h1>
-
     <div class="facetwp-response"></div>
 
-    <div class="facetwp-region">
+    <div class="facetwp-region facetwp-region-rulesets">
         <div class="flexbox menubar">
             <div class="left-side">
                 <a class="button add-ruleset">Add Ruleset</a>
@@ -20,18 +25,25 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                 <a class="button-primary facetwp-save">Save Changes</a>
             </div>
         </div>
+
+        <div class="facetwp-content-wrap"></div>
+    </div>
+
+    <div class="facetwp-region facetwp-region-settings">
         <div class="facetwp-content-wrap">
-            <div class="flexbox">
-                <div class="left-side"><h3>If...</h3></div>
-                <div class="right-side"><h3>Then...</h3></div>
-            </div>
+            <p class="description">To export, copy the code below.</p>
+            <input type="text" class="export-code" readonly="readonly" />
+            <p class="description" style="margin-top:20px">To import, paste code into the field below.</p>
+            <textarea class="import-code"></textarea>
+            <p class="description" style="color:red"><strong>NOTE:</strong> importing will replace any existing rulesets.</p>
+            <input type="button" class="button" value="Process Import" />
         </div>
     </div>
 
     <!-- [Begin] Clone HTML -->
 
     <div class="clone hidden">
-        <div class="clone-rule">
+        <div class="clone-ruleset">
             <div class="flexbox ruleset">
                 <div class="left-side"></div>
                 <div class="right-side"></div>
@@ -43,16 +55,16 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                 <div class="condition-wrap"></div>
                 <div style="font-weight:bold">or</div>
             </div>
-            <button class="button condition-or">Add Rule</button>
+            <button class="button condition-or">Add Condition</button>
         </div>
 
         <div class="clone-condition">
             <div class="condition">
+                <span class="condition-drop btn-drop"></span>
                 <select class="condition-object">
                     <optgroup label="Basic">
-                        <option value="pageload">Pageload</option>
-                        <option value="refresh">Refresh</option>
                         <option value="uri">Page URI</option>
+                        <option value="total-rows">Result count</option>
                         <option value="facets-empty">Facets empty</option>
                         <option value="facets-not-empty">Facets not empty</option>
                     </optgroup>
@@ -61,7 +73,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                         <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                     </optgroup>
-                    <optgroup label="Template Name">
+                    <optgroup label="Template">
 <?php foreach ( $this->templates as $template ) : ?>
                         <option value="template-<?php echo $template['name']; ?>">Template: <?php echo $template['label']; ?></option>
 <?php endforeach; ?>
@@ -71,14 +83,14 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     <option value="is">is</option>
                     <option value="not">is not</option>
                 </select>
-                <textarea class="condition-value" placeholder="one value per line"></textarea>
+                <input type="text" class="condition-value" placeholder="enter values" title="comma-separate multiple values"></input>
                 <button class="button condition-and">and</button>
-                <span class="condition-drop btn-drop"></span>
             </div>
         </div>
 
         <div class="clone-action">
             <div class="action">
+                <span class="action-drop btn-drop"></span>
                 <select class="action-toggle">
                     <option value="show">Show</option>
                     <option value="hide">Hide</option>
@@ -91,9 +103,11 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                         <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                     </optgroup>
+                    <optgroup label="Custom">
+                        <option value="selector">Selector</option>
+                    </optgroup>
                 </select>
-                <button class="button action-and">and</button>
-                <span class="action-drop btn-drop"></span>
+                <input type="button" class="button action-and" value="and" />
             </div>
         </div>
     </div>

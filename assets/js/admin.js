@@ -1,6 +1,4 @@
-var FWPCL = FWPCL || {
-    loaded: false
-};
+var FWPCL = FWPCL || {};
 
 
 (function($) {
@@ -8,26 +6,30 @@ var FWPCL = FWPCL || {
 
     $(function() {
         FWPCL.load();
-        FWPCL.loaded = true;
-        init_scripts();
         hide_x();
+
+        // Topnav
+        $(document).on('click', '.facetwp-tab', function() {
+            var tab = $(this).attr('rel');
+            $('.facetwp-tab').removeClass('active');
+            $(this).addClass('active');
+            $('.facetwp-region').removeClass('active');
+            $('.facetwp-region-' + tab).addClass('active');
+
+            // Populate the export code
+            if ('settings' == tab) {
+                var code = JSON.stringify(FWPCL.parse_data());
+                $('.export-code').val(code);
+            }
+        });
+
+        $('.export-code').on('focus', function() {
+            $(this).select();
+        });
+
+        // Trigger click
+        $('.facetwp-header-nav a:first').click();
     });
-
-
-    function init_scripts() {
-
-        if (! FWPCL.loaded) {
-            return;
-        }
-
-        $('.left-side .condition-object:not(.ready)').fSelect({
-            placeholder: 'Select a condition'
-        }).addClass('ready');
-
-        $('.right-side .action-object:not(.ready)').fSelect({
-            placeholder: 'Select actions'
-        }).addClass('ready');
-    }
 
 
     function hide_x() {
@@ -51,25 +53,25 @@ var FWPCL = FWPCL || {
 
             $.each(ruleset.actions, function(index, action) {
                 if (0 < index) {
-                    $('.facetwp-region .action-and:last').click();
+                    $('.facetwp-region-rulesets .action-and:last').click();
                 }
 
-                var $last = $('.facetwp-region .action:last');
+                var $last = $('.facetwp-region-rulesets .action:last');
                 $last.find('.action-toggle').val(action.toggle);
                 $last.find('.action-object').val(action.object);
             });
 
             $.each(ruleset.conditions, function(index, cond_or) {
                 if (0 < index) {
-                    $('.facetwp-region .condition-or:last').click();
+                    $('.facetwp-region-rulesets .condition-or:last').click();
                 }
 
                 $.each(cond_or, function(index, cond_and) {
                     if (0 < index) {
-                        $('.facetwp-region .condition-and:last').click();
+                        $('.facetwp-region-rulesets .condition-and:last').click();
                     }
 
-                    var $last = $('.facetwp-region .condition:last');
+                    var $last = $('.facetwp-region-rulesets .condition:last');
                     $last.find('.condition-object').val(cond_and.object);
                     $last.find('.condition-compare').val(cond_and.compare);
                     $last.find('.condition-value').val(cond_and.value);
@@ -82,8 +84,10 @@ var FWPCL = FWPCL || {
     FWPCL.parse_data = function() {
         var rules = [];
 
-        $('.facetwp-region .ruleset').each(function(rule_num) {
+        $('.facetwp-region-rulesets .ruleset').each(function(rule_num) {
             rules[rule_num] = {
+                'label': '',
+                'event': '',
                 'conditions': [],
                 'actions': []
             };
@@ -108,7 +112,8 @@ var FWPCL = FWPCL || {
             $(this).find('.action').each(function() {
                 var action = {
                     'toggle': $(this).find('.action-toggle').val(),
-                    'object': $(this).find('.action-object').val()
+                    'object': $(this).find('.action-object').val(),
+                    'selector': ''
                 };
 
                 rules[rule_num]['actions'].push(action);
@@ -136,7 +141,7 @@ var FWPCL = FWPCL || {
 
     $(document).on('click', '.add-ruleset', function() {
         var $clone = $('.clone').clone();
-        var $rule = $clone.find('.clone-rule');
+        var $rule = $clone.find('.clone-ruleset');
 
         var $group = $clone.find('.clone-condition-group');
         var $condition = $clone.find('.clone-condition');
@@ -145,9 +150,8 @@ var FWPCL = FWPCL || {
         $group.find('.condition-wrap').html($condition.html());
         $rule.find('.left-side').html($group.html());
         $rule.find('.right-side').html($action.html());
-        $('.facetwp-content-wrap').append($rule.html());
+        $('.facetwp-region-rulesets .facetwp-content-wrap').append($rule.html());
 
-        init_scripts();
         hide_x();
     });
 
@@ -172,7 +176,6 @@ var FWPCL = FWPCL || {
         var html = $('.clone-condition').html();
         $(this).closest('.condition-wrap').append(html);
 
-        init_scripts();
         hide_x();
     });
 
@@ -193,10 +196,11 @@ var FWPCL = FWPCL || {
     $(document).on('click', '.condition-drop', function() {
         var group_count = $(this).closest('.left-side').find('.group-wrap').length;
         var count = $(this).closest('.condition-wrap').find('.condition').length;
+        /*
         if (1 == group_count && 1 == count) {
             $(this).closest('.flexbox').remove(); // remove ruleset
         }
-        else if (1 == count) {
+        else */if (1 == count) {
             $(this).closest('.group-wrap').remove(); // remove group
         }
         else {
@@ -209,7 +213,6 @@ var FWPCL = FWPCL || {
         var html = $('.clone-action').html();
         $(this).closest('.right-side').append(html);
 
-        init_scripts();
         hide_x();
     });
 
