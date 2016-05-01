@@ -80,6 +80,7 @@
 													<option value="_all_" {{#is event value="_all_"}}selected="selected"{{/is}}><?php _e('Refresh & Loaded', 'facetwp-conditional-logic'); ?></option>
 													<option value="facetwp-loaded" {{#is event value="facetwp-loaded"}}selected="selected"{{/is}}><?php _e('Loaded', 'facetwp-conditional-logic'); ?></option>
 													<option value="facetwp-refresh" {{#is event value="facetwp-refresh"}}selected="selected"{{/is}}><?php _e('Refresh', 'facetwp-conditional-logic'); ?></option>
+													<option value="page-loaded" {{#is event value="page-loaded"}}selected="selected"{{/is}}><?php _e('Page Loaded', 'facetwp-conditional-logic'); ?></option>
 													</select></td>
 										</tr>
 									</table>
