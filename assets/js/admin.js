@@ -58,6 +58,7 @@ var FWPCL = FWPCL || {
                 var $last = $('.facetwp-region-rulesets .action:last');
                 $last.find('.action-toggle').val(action.toggle);
                 $last.find('.action-object').val(action.object).trigger('change');
+                $last.find('.action-selector').val(action.selector);
             });
 
             // set the conditions
