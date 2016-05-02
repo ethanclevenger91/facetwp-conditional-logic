@@ -33,6 +33,7 @@ class FacetWP_Conditional_Logic_Addon
 
 
     function __construct() {
+
         define( 'FWPCL_VERSION', '0.1' );
         define( 'FWPCL_DIR', dirname( __FILE__ ) );
         define( 'FWPCL_URL', plugins_url( '', __FILE__ ) );
@@ -55,8 +56,15 @@ class FacetWP_Conditional_Logic_Addon
         $this->facets = FWP()->helper->get_facets();
         $this->templates = FWP()->helper->get_templates();
 
+        // load settings
         $rules = get_option( 'fwpcl_rules' );
         $this->rules = empty( $rules ) ? array() : json_decode( $rules, true );
+
+        // register frontend script
+        wp_register_script( 'fwpcl-front-handler', FWPCL_URL . '/assets/js/front.js', array( 'jquery' ), FWPCL_VERSION, true );
+
+        // do rules on front
+        add_action( 'wp_footer', array( $this, 'render_js' ) );
     }
 
 
@@ -65,7 +73,7 @@ class FacetWP_Conditional_Logic_Addon
             $rules = stripslashes( $_POST['data'] );
             $json_test = json_decode( $rules, true );
 
-            // Check for valid JSON
+            // check for valid JSON
             if ( is_array( $json_test ) ) {
                 update_option( 'fwpcl_rules', $rules );
                 echo __( 'Rules saved', 'fwpcl' );

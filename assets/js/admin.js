@@ -26,6 +26,10 @@ var FWPCL = FWPCL || {};
             $(this).select();
         });
 
+        $(document).on('click', '.ruleset-label', function() {
+            e.preventDefault();
+        });
+
         $(document).on('click', '.ruleset .title', function() {
             $(this).closest('.ruleset').toggleClass('collapsed');
         });
@@ -39,6 +43,10 @@ var FWPCL = FWPCL || {};
         $.each(FWPCL.rules, function(index, ruleset) {
             $('.add-ruleset').click();
 
+            // set the ruleset label
+            $('.facetwp-region-rulesets .ruleset:last .ruleset-label').text(ruleset.label);
+
+            // set the ations
             $.each(ruleset.actions, function(index, action) {
                 $('.facetwp-region-rulesets .action-and:last').click();
 
@@ -47,6 +55,7 @@ var FWPCL = FWPCL || {};
                 $last.find('.action-object').val(action.object);
             });
 
+            // set the conditions
             $.each(ruleset.conditions, function(index, cond_group) {
                 $('.facetwp-region-rulesets .condition-and:last').click();
 
@@ -72,7 +81,7 @@ var FWPCL = FWPCL || {};
 
         $('.facetwp-region-rulesets .ruleset').each(function(rule_num) {
             rules[rule_num] = {
-                'label': '',
+                'label': $(this).find('.ruleset-label').text(),
                 'event': '',
                 'conditions': [],
                 'actions': []

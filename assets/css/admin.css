@@ -1,6 +1,12 @@
 
 /* Action buttons */
 
+.facetwp-region .ruleset-label {
+    display: inline-block;
+    min-width: 40px;
+    cursor: text;
+}
+
 .facetwp-region .condition-object,
 .facetwp-region .action-object {
     width: 180px;

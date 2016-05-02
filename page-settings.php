@@ -45,8 +45,8 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                 <table class="header-bar">
                     <tr>
                         <td class="toggle"><span class="dashicons dashicons-menu"></span></td>
-                        <td class="edit"><span class="dashicons dashicons-edit"></span></td>
-                        <td class="title">The Title</td>
+                        <!--<td class="edit"><span class="dashicons dashicons-edit"></span></td>-->
+                        <td class="title"><span class="ruleset-label" contenteditable="true">Edit me</span></td>
                         <td class="delete"><span class="dashicons dashicons-trash"></span></td>
                     </tr>
                 </table>
