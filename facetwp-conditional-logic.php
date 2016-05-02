@@ -101,6 +101,17 @@ class FacetWP_Conditional_Logic_Addon
     function settings_page() {
         include( dirname( __FILE__ ) . '/page-settings.php' );
     }
+
+
+    function render_js() {
+
+        //if( true === $this->in_use ){
+
+        wp_enqueue_script( 'fwpcl-front-handler' );
+        wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $this->rules );
+
+        //}
+    }
 }
 
 

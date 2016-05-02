@@ -1,206 +1,118 @@
 (function($) {
 
-    var evaluate_condition = function( rule ){
+    var evaluate_condition = function(cond) {
+        var is_valid = false;
+        var compare_field;
 
-        if( !rule.compare || !rule.field ){ return false; }
-
-        var is_valid = false,
-            comparefield;
-
-        // determin what thing this applies to.
-        if( rule.field.substr( 0, 10 ) === '_template_' ){
-            
-            comparefield = FWP.template;
-            rule.value = [ rule.field.substr( 10 ) ];
-
-        }else if( rule.field.substr( 0, 7 ) === '_basic_' ) {
-            // switch type
-            switch( rule.field.substr( 7 ) ){
-                case 'result-count':
-                    comparefield = [ FWP.settings.pager.total_rows ];
-                break;
-                case 'uri':
-                    comparefield = [ window.location.href ];
-                break;
-                case 'facets-empty':
-                    if( FWP.build_query_string().length ){
-                        return false;
-                    }
-                    return true;
-                break;
-                case 'facets-not-empty':
-                    if( FWP.build_query_string().length ){
-                        return true;
-                    }
-                    return false;                
-                break;
-            }
-        }else if( rule.field.substr( 0, 7 ) === '_facet_' ) {
-            // only if the facet exists obviously.
-            if( FWP.facets[ rule.field.substr( 7 ) ] ){                
-                comparefield = FWP.facets[ rule.field.substr( 7 ) ];
-            }else{
+        if ('facets-empty' == cond.object) {
+            return FWP.build_query_string().length < 1;
+        }
+        else if ('facets-not-empty' == cond.object) {
+            return FWP.build_query_string().length > 0;
+        }
+        else if ('uri' == cond.object) {
+            compare_field = FWP_HTTP.uri;
+        }
+        else if ('total-rows' == cond.object) {
+            compare_field = FWP.settings.pager.total_rows;
+        }
+        else if ('facet-' == cond.object.substr(0, 6)) {
+            var facet_name = cond.object.substr(6);
+            if ('undefined' === typeof FWP.facets[facet_name]) {
                 return false;
             }
+            compare_field = FWP.facets[facet_name];
+        }
+        else if ('template-' == cond.object.substr(0, 9)) {
+            compare_field = FWP.template;
+            cond.value = cond.object.substr(9);
         }
 
-        switch( rule.compare ) {
-            case 'is':
-            if( comparefield.length){
-                if( comparefield.indexOf(rule.value.toString()) >= 0){
-                    is_valid = true;
-                }
+        // processor
+        if ('is' == cond.compare) {
+            if (is_intersect(cond.value, compare_field)) {
+                is_valid = true;
             }
-            break;
-            case 'isnot':
-            if( comparefield.length){
-                if( comparefield.indexOf(rule.value) < 0){
-                    is_valid = true;
-                }
-            }
-            break;
-            case 'greater':
-            if( comparefield.length){
-                is_valid = parseFloat(  comparefield.reduce(function(a, b) {return a + b;}) ) > parseFloat( rule.value );
-            }
-            break;
-            case 'smaller':
-            if( comparefield.length){
-                is_valid = parseFloat(  comparefield.reduce(function(a, b) {return a + b;}) ) < parseFloat( rule.value );
-            }
-            break;
-            case 'startswith':
-            for( var i = 0; i< comparefield.length; i++){
-                if(  comparefield[i].toLowerCase().substr(0, rule.value.toLowerCase().length ) === rule.value.toLowerCase()){
-                    is_valid = true;
-                }
-            }
-            break;
-            case 'endswith':
-            for( var i = 0; i< comparefield.length; i++){
-                if(  comparefield[i].toLowerCase().substr( comparefield[i].toLowerCase().length - rule.value.toLowerCase().length ) === rule.value.toLowerCase()){
-                    is_valid = true;
-                }
-            }
-            break;
-            case 'contains':
-            for( var i = 0; i< comparefield.length; i++){
-                if(  comparefield[i].toLowerCase().indexOf( rule.value ) >= 0 ){
-                    is_valid = true;
-                }
-            }
-            break;
         }
+        else if ('not' == cond.compare) {
+            if (! is_intersect(cond.value, compare_field)) {
+                is_valid = true;
+            }
+        }
+
         return is_valid;
     }
 
-    var get_opposite = function( value ){
-        if( value === 'show' ){
-            return 'hide'
-        }else if( value === 'hide' ){
-            return 'show';
-        }
+    var is_intersect = function(arr1, arr2) {
+        arr1 = [].concat(arr1); // force array
+        arr2 = [].concat(arr2); // force array
+
+        var result = arr1.filter(function(n) {
+            return arr2.indexOf(n) != -1;
+        });
+        return result.length > 0;
     }
 
-    var do_action = function( action, type, animate ){
+    var do_action = function(action, is_valid) {
         var item;
-        if( action.thing === 'all_facets' ){
-            item = $('.facetwp-facet');
-        }else if( action.thing === 'template' ){
+
+        if ('template' == action.object) {
             item = $('.facetwp-template');
-        }else if( action.thing === '_custom' ){
+        }
+        else if ('facets' == action.object) {
+            item = $('.facetwp-facet');
+        }
+        else if ('facet-' == action.object.substr(0, 6)) {
+            item = $('.facetwp-facet-' + action.object.substr(6));
+        }
+        else if ('custom' == action.object) {
             var lines = action.selector.lines.split("\n");
             var selectors = [];
-            for( var i = 0; i < lines.length; i++ ){
-                var selector = lines[i].replace(/^\s+|\s+$/gm,'');
-                if( selector.length ){
-                    selectors.push( selector );
+            for(var i = 0; i < lines.length; i++){
+                var selector = lines[i].replace(/^\s+|\s+$/gm, '');
+                if (selector.length) {
+                    selectors.push(selector);
                 }
             }
-            item = $( selectors.join(',') );
-        }else{
-            item = $('.facetwp-facet-' + action.thing );
+            item = $(selectors.join(','));
         }
-        if( ! item.length ){
+
+        if (! item.length) {
             return;
         }
 
-        switch( type ){
-            case 'hide':
-                switch( animate ){
-                    case 'fade':
-                        item.stop().fadeOut();
-                    break;
-                    case 'slide':
-                        item.stop().slideUp();
-                    break;
-                    default:
-                        item.stop().hide();
-                    break;
-                }                
-            break;
-            case 'show':
-                switch( animate ){
-                    case 'fade':
-                        item.stop().fadeIn();
-                    break;
-                    case 'slide':
-                       item.stop().slideDown();
-                    break;
-                    default:
-                        item.stop().show();
-                    break;
-                }
-
-            break;
+        // toggle
+        if ('show' == action.toggle || ('hide' == action.toggle && ! is_valid)) {
+            item.stop().show();
         }
-        item.addClass('fwpcl-applied-logic');
+        else {
+            item.stop().hide();
+        }
     }
 
-    $(document).on('page-loaded facetwp-loaded facetwp-refresh', function( e ) {
+    $(document).on('facetwp-loaded', function(e) {
 
-        $('.fwpcl-applied-logic').removeClass('fwpcl-applied-logic');
-        // each set
-        for( var set in FWPCL.ruleset ){
-            // each condition
-            if( !FWPCL.ruleset[ set ].action || FWPCL.ruleset[ set ].disabled ){
-                continue;
-            }
-            // found a condition and action
-            // can this happen in this event?
-            //facetwp-loaded facetwp-refresh
-            if( e.type !== FWPCL.ruleset[ set ].event && FWPCL.ruleset[ set ].event !== '_all_' ){
-                continue;
-            }
+        // foreach ruleset
+        $.each(FWPCL, function(idx, ruleset) {
+            var is_valid = false;
 
-            var result = [];
-            for( var condition in FWPCL.ruleset[ set ].condition ){
-                var this_result = evaluate_condition( FWPCL.ruleset[ set ].condition[ condition ] );                
-                if( FWPCL.ruleset[ set ].condition[ condition ].or ){
-                    for( var or in FWPCL.ruleset[ set ].condition[ condition ].or ){
-                        var this_or_result = evaluate_condition( FWPCL.ruleset[ set ].condition[ condition ].or[ or ] );
-                        if( true === this_or_result ){
-                            this_result = true;
-                            break;
-                        }
+            // foreach condition group
+            $.each(ruleset.conditions, function(idx_1, cond_group) {
+                is_valid = false;
+
+                // foreach "OR" condition
+                $.each(cond_group, function(idx_2, cond_or) {
+                    if (evaluate_condition(cond_or)) {
+                        is_valid = true;
+                        return false; // exit loop
                     }
-                }
-                result.push( this_result );
-            }
-            // yup- do the actions
-            for( var action in FWPCL.ruleset[ set ].action ){                
-                var type = FWPCL.ruleset[ set ].action[ action ].do,
-                    animate = FWPCL.ruleset[ set ].animate ? FWPCL.ruleset[ set ].animate : 'appear';
+                });
+            });
 
-                if( result.indexOf( false ) > -1 ){
-                    type = get_opposite( type );
-                }
-                do_action( FWPCL.ruleset[ set ].action[ action ], type, animate );
-            }
-        }
-
+            // apply actions
+            $.each(ruleset.actions, function(idx_1, action) {
+                do_action(action, is_valid);
+            });
+        });
     });
-
-    $(document).trigger( 'page-loaded' );
-
 })(jQuery);
