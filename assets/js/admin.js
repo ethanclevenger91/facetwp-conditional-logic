@@ -186,7 +186,7 @@ var FWPCL = FWPCL || {
             axis: 'y',
             items: '.ruleset',
             placeholder: 'sortable-placeholder',
-            handle: '.dashicons-menu'
+            handle: '.toggle'
         });
     });
 
@@ -238,7 +238,7 @@ var FWPCL = FWPCL || {
     });
 
 
-    $(document).on('click', '.header-bar .dashicons-trash', function() {
+    $(document).on('click', '.header-bar td.delete', function() {
         if (confirm('Delete this ruleset?')) {
             $(this).closest('.ruleset').remove();
         }

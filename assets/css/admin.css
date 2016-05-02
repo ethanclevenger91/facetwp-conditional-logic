@@ -99,7 +99,6 @@ table.header-bar td.delete {
 }
 
 table.header-bar td.toggle {
-    color: #a9a9a9;
     border-right: 1px solid #ddd;
     cursor: move;
 }
@@ -109,6 +108,7 @@ table.header-bar td.edit {
 }
 
 table.header-bar td.delete {
+    color: #a00;
     border-left: 1px solid #ddd;
 }
 
@@ -133,7 +133,7 @@ table.header-bar td.delete {
 
 .header-bar .title {
     line-height: 20px;
-    padding: 6px;
+    padding: 6px 6px 6px 12px;
 }
 
 .header-bar .title:after {
@@ -181,6 +181,7 @@ table.condition td.drop,
 table.action td.drop {
     width: 32px;
     vertical-align: middle;
+    color: #a00;
 }
 
 table.condition td.type,

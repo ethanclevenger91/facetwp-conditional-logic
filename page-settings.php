@@ -46,7 +46,7 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                     <tr>
                         <td class="toggle"><span class="dashicons dashicons-menu"></span></td>
                         <td class="title"><span class="ruleset-label" contenteditable="true">Edit me</span></td>
-                        <td class="delete"><span class="dashicons dashicons-trash"></span></td>
+                        <td class="delete"><span class="dashicons dashicons-no-alt"></span></td>
                     </tr>
                 </table>
                 <table class="logic-row">
