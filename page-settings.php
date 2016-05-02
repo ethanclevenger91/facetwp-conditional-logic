@@ -19,7 +19,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
     <div class="facetwp-region facetwp-region-rulesets">
         <div class="flexbox">
             <a class="button add-ruleset">Add Ruleset</a>
-            <a class="button-primary facetwp-save" style="margin-left:10px">Save Changes</a>
+            <a class="button facetwp-save" style="margin-left:10px">Save Changes</a>
             <span class="fwpcl-response dashicons"></span>
         </div>
 

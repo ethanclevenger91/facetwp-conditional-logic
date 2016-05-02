@@ -104,16 +104,12 @@ table.header-bar td.delete {
     border-left: 1px solid #ddd;
 }
 
-.ruleset td.conditions-col,
-.ruleset td.actions-col {
-    line-height: 32px;
-}
-
 .ruleset .td-label {
     padding: 6px 12px;
-    background-color: #fff;
+    background-color: #906FBC;
     border: 1px solid #ddd;
     border-bottom: none;
+    color: #fff;
 }
 
 .ruleset .condition-wrap,
