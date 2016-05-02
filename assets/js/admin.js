@@ -210,7 +210,7 @@ var FWPCL = FWPCL || {
 
         // Create rule group
         $ruleset.find('.condition-wrap').append('<div class="condition-group" />');
-        var $group = $('.condition-group:last');
+        var $group = $ruleset.find('.condition-group:last');
         $group.append($clone.html());
         $group.find('.condition-object').trigger('change');
 
