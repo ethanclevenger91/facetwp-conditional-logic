@@ -1,5 +1,6 @@
 var FWPCL = FWPCL || {
-    is_loading: false
+    is_loading: false,
+    action_el: null
 };
 
 
@@ -56,7 +57,7 @@ var FWPCL = FWPCL || {
 
                 var $last = $('.facetwp-region-rulesets .action:last');
                 $last.find('.action-toggle').val(action.toggle);
-                $last.find('.action-object').val(action.object);
+                $last.find('.action-object').val(action.object).trigger('change');
             });
 
             // set the conditions
@@ -71,7 +72,7 @@ var FWPCL = FWPCL || {
                     }
 
                     var $last = $('.facetwp-region-rulesets .condition:last');
-                    $last.find('.condition-object').val(cond.object);
+                    $last.find('.condition-object').val(cond.object).trigger('change');
                     $last.find('.condition-compare').val(cond.compare);
                     $last.find('.condition-value').val(cond.value);
                 });
@@ -114,7 +115,7 @@ var FWPCL = FWPCL || {
                 var action = {
                     'toggle': $(this).find('.action-toggle').val(),
                     'object': $(this).find('.action-object').val(),
-                    'selector': ''
+                    'selector': $(this).find('.action-selector').val()
                 };
 
                 rules[rule_num]['actions'].push(action);
@@ -123,6 +124,30 @@ var FWPCL = FWPCL || {
 
         return rules;
     }
+
+
+    $(document).on('change', '.condition-object', function() {
+        var $condition = $(this).closest('.condition');
+        var val = $(this).val();
+
+        $condition.find('.condition-value').show();
+        $condition.find('.condition-compare').show();
+        var is_template = ( 'template-' == val.substr(0, 9));
+        if ('facets-empty' == val || 'facets-not-empty' == val || is_template) {
+            $condition.find('.condition-compare').hide();
+            $condition.find('.condition-value').hide();
+        }
+    });
+
+
+    $(document).on('change', '.action-object', function() {
+        if ('custom' == $(this).val()) {
+            $(this).closest('.action').find('.action-selector-btn').show();
+        }
+        else {
+            $(this).closest('.action').find('.action-selector-btn').hide();
+        }
+    });
 
 
     $(document).on('click', '.facetwp-save', function() {
@@ -161,20 +186,6 @@ var FWPCL = FWPCL || {
             placeholder: 'sortable-placeholder',
             handle: '.dashicons-menu'
         });
-    });
-
-
-    $(document).on('change', '.condition-object', function() {
-        var $wrap = $(this).closest('.condition');
-        var val = $(this).val();
-
-        $wrap.find('.condition-value').show();
-        $wrap.find('.condition-compare').show();
-        var is_template = ( 'template-' == val.substr(0, 9));
-        if ('facets-empty' == val || 'facets-not-empty' == val || is_template) {
-            $wrap.find('.condition-compare').hide();
-            $wrap.find('.condition-value').hide();
-        }
     });
 
 
@@ -243,6 +254,28 @@ var FWPCL = FWPCL || {
         var $wrap = $(this).closest('.action-wrap');
         $(this).closest('.action').remove();
         $wrap.find('.action:first .type').text('THEN');
+    });
+
+
+    $(document).on('click', '.action-selector-btn', function() {
+        FWPCL.action_el = $(this).closest('.action');
+        var val = FWPCL.action_el.find('.action-selector').val();
+        $('.action-selector-input').val(val);
+        $('.media-modal').show();
+        $('.media-modal-backdrop').show();
+    });
+
+
+    $(document).on('click', '.selector-save', function() {
+        var val = $('.action-selector-input').val();
+        FWPCL.action_el.find('.action-selector').val(val);
+        $('.media-modal-close').trigger('click');
+    });
+
+
+    $(document).on('click', '.media-modal-close', function() {
+        $('.media-modal').hide();
+        $('.media-modal-backdrop').hide();
     });
 
 })(jQuery);

@@ -130,6 +130,8 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                                 <option value="custom">Selector</option>
                             </optgroup>
                         </select>
+                        <textarea class="action-selector hidden"></textarea>
+                        <button class="button action-selector-btn"><span class="dashicons dashicons-editor-code"></span></button>
                     </td>
                 </tr>
             </table>
@@ -139,3 +141,29 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
     <!-- [End] Clone HTML -->
 
 </div>
+
+<!-- Modal window -->
+
+<div class="media-modal">
+    <button class="button-link media-modal-close"><span class="media-modal-icon"></span></button>
+    <div class="media-modal-content">
+        <div class="media-frame">
+            <div class="media-frame-title">
+                <h1><?php _e( 'Custom Selectors', 'fwp' ); ?></h1>
+            </div>
+            <div class="media-frame-router">
+                <div class="media-router">
+                    <?php _e( 'Which selectors would you like to include (one per line)?', 'fwp' ); ?>
+                </div>
+            </div>
+            <div class="media-frame-content">
+                <div class="modal-content-wrap">
+                    <textarea class="action-selector-input"></textarea>
+                    <input type="button" class="button selector-save" value="Save Changes" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="media-modal-backdrop"></div>

@@ -4,6 +4,7 @@
 .facetwp-region .ruleset-label {
     display: inline-block;
     min-width: 40px;
+    outline: none;
     cursor: text;
 }
 
@@ -195,9 +196,56 @@ table.action td.logic {
     padding: 6px 12px;
 }
 
+table.action .action-selector-btn {
+    padding: 0 3px;
+}
+
+table.action .action-selector-btn .dashicons {
+    padding: 3px 0 0 0;
+}
+
 table.condition td.btn {
     width: 48px;
     text-align: center;
     border-left: 1px solid #ddd;
     vertical-align: middle;
+}
+
+/* Query builder */
+
+.media-modal,
+.media-modal-backdrop {
+    display: none;
+}
+
+.media-frame-title,
+.media-frame-content {
+    left: 0;
+}
+
+.media-frame-router {
+    left: 10px;
+}
+
+.media-frame-content {
+    bottom: 0;
+    overflow: auto;
+}
+
+.media-modal-close {
+    cursor: pointer;
+    /* < WP 4.3 */
+    background: none;
+    border: 0;
+}
+
+.modal-content-wrap {
+    padding: 16px;
+}
+
+.media-modal .action-selector-input {
+    width: 100%;
+    height: 200px;
+    white-space: pre;
+    font-family: 'Courier New', sans-serif;
 }

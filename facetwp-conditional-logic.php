@@ -94,6 +94,7 @@ class FacetWP_Conditional_Logic_Addon
     function enqueue_scripts( $hook ) {
         if ( 'settings_page_fwpcl-admin' == $hook ) {
             wp_enqueue_script( 'jquery-ui-sortable' );
+            wp_enqueue_style( 'media-views' );
         }
     }
 
