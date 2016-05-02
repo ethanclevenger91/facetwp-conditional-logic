@@ -26,6 +26,10 @@ var FWPCL = FWPCL || {};
             $(this).select();
         });
 
+        $(document).on('click', '.ruleset .title', function() {
+            $(this).closest('.ruleset').toggleClass('collapsed');
+        });
+
         // Trigger click
         $('.facetwp-header-nav a:first').click();
     });
@@ -130,6 +134,12 @@ var FWPCL = FWPCL || {};
         var $clone = $('.clone').clone();
         var $rule = $clone.find('.clone-ruleset');
         $('.facetwp-region-rulesets .facetwp-content-wrap').append($rule.html());
+        $('.facetwp-region-rulesets .facetwp-content-wrap').sortable({
+            axis: 'y',
+            items: '.ruleset',
+            placeholder: 'sortable-placeholder',
+            handle: '.dashicons-menu'
+        });
     });
 
 
@@ -148,31 +158,55 @@ var FWPCL = FWPCL || {};
 
 
     $(document).on('click', '.condition-or', function() {
-        var html = $('.clone-condition').html();
-        $(this).closest('.condition-group').append(html);
+        var $clone = $('.clone-condition').clone();
+        $clone.find('.condition').addClass('type-or');
+        $clone.find('.condition .type').text('OR');
+        $clone.find('.condition .btn').html('');
+        $(this).closest('.condition-group').append($clone.html());
+        $(this).closest('.condition-group').find('.condition:last .condition-object').trigger('change');
     });
 
 
     $(document).on('click', '.condition-and', function() {
-        var $clone = $('.clone').clone();
-        var $condition = $clone.find('.clone-condition');
+        var $clone = $('.clone-condition').clone();
         var $ruleset = $(this).closest('.conditions-col');
 
+        // Set the type label
+        $clone.find('.condition .type').text('AND');
+
+        // Create rule group
         $ruleset.find('.condition-wrap').append('<div class="condition-group" />');
         var $group = $('.condition-group:last');
-        $group.append($condition.html());
+        $group.append($clone.html());
         $group.find('.condition-object').trigger('change');
+
+        // The first label should be "IF"
+        $(this).closest('.conditions-col').find('.condition:first .type').text('IF');
     });
 
 
     $(document).on('click', '.condition-drop', function() {
-        var count = $(this).closest('.condition-group').find('.condition').length;
+        var $wrap = $(this).closest('.condition-wrap');
+        var $cond = $(this).closest('.condition');
+        var index = $(this).closest('.condition-group').find('.condition').index($cond);
+        var siblings = $cond.siblings().length;
 
-        if (1 == count) {
+        // Remove group if it's the first or only item
+        if (0 === siblings || 0 === index) {
             $(this).closest('.condition-group').remove(); // remove group
         }
         else {
             $(this).closest('.condition').remove(); // remove condition
+        }
+
+        // The first label should be "IF"
+        $wrap.find('.condition:first .type').text('IF');
+    });
+
+
+    $(document).on('click', '.header-bar .dashicons-trash', function() {
+        if (confirm('Delete this ruleset?')) {
+            $(this).closest('.ruleset').remove();
         }
     });
 
@@ -180,11 +214,14 @@ var FWPCL = FWPCL || {};
     $(document).on('click', '.action-and', function() {
         var html = $('.clone-action').html();
         $(this).siblings('.action-wrap').append(html);
+        $(this).siblings('.action-wrap').find('.action:first .type').text('THEN');
     });
 
 
     $(document).on('click', '.action-drop', function() {
+        var $wrap = $(this).closest('.action-wrap');
         $(this).closest('.action').remove();
+        $wrap.find('.action:first .type').text('THEN');
     });
 
 })(jQuery);

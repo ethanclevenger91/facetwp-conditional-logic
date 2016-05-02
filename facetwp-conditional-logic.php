@@ -39,7 +39,6 @@ class FacetWP_Conditional_Logic_Addon
         define( 'FWPCL_BASENAME', plugin_basename( __FILE__ ) );
 
         add_action( 'init', array( $this, 'init' ), 12 );
-        add_action( 'admin_menu', array( $this, 'admin_menu' ) );
     }
 
 
@@ -47,9 +46,11 @@ class FacetWP_Conditional_Logic_Addon
         if ( ! function_exists( 'FWP' ) ) {
             return;
         }
-
+        
         add_action( 'wp_footer', array( $this, 'render_js' ), 25 );
         add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+        add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
         $this->facets = FWP()->helper->get_facets();
         $this->templates = FWP()->helper->get_templates();
@@ -59,9 +60,6 @@ class FacetWP_Conditional_Logic_Addon
     }
 
 
-    /**
-     * Save rules
-     */
     function save_rules() {
         if ( current_user_can( 'manage_options' ) ) {
             $rules = stripslashes( $_POST['data'] );
@@ -80,140 +78,20 @@ class FacetWP_Conditional_Logic_Addon
     }
 
 
-    /**
-     * Register the FacetWP settings page
-     */
     function admin_menu() {
         add_options_page( 'FacetWP Logic', 'FacetWP Logic', 'manage_options', 'fwpcl-admin', array( $this, 'settings_page' ) );
     }
 
 
+    function enqueue_scripts( $hook ) {
+        if ( 'settings_page_fwpcl-admin' == $hook ) {
+            wp_enqueue_script( 'jquery-ui-sortable' );
+        }
+    }
+
+
     function settings_page() {
         include( dirname( __FILE__ ) . '/page-settings.php' );
-    }
-
-
-    function render_js() {
-        $if_statements = array();
-        $group_or = array();
-        $actions = array();
-
-        foreach ( $this->rules as $rule_num => $ruleset ) {
-            foreach ( $ruleset['conditions'] as $or_num => $group ) {
-                $group_and = array();
-
-                foreach ( $group as $condition ) {
-                    $group_and[] = $this->build_if_clause( $condition );
-                }
-
-                $group_or[ $rule_num ][ $or_num ] = implode( ' && ', $group_and );
-            }
-
-            foreach ( $ruleset['actions'] as $action ) {
-                $actions[ $rule_num ][] = $this->build_action( $action );
-            }
-
-            $if_statements[ $rule_num ] = array(
-                'if'    => implode( ' || ', $group_or[ $rule_num ] ),
-                'then'  => $actions[ $rule_num ]
-            );
-        }
-?>
-
-<!-- BEGIN: FacetWP Conditional Logic -->
-
-<style type="text/css">
-.fwp-hidden { display: none !important; }
-</style>
-
-<script>
-function is_intersect(array1, array2) {
-    var result = array1.filter(function(n) {
-        return array2.indexOf(n) != -1;
-    });
-    return result.length > 0;
-}
-
-(function($) {
-    $(document).on('facetwp-loaded', function() {
-<?php
-foreach ( $if_statements as $clause ) :
-?>
-        if (<?php echo $clause['if']; ?>) {
-            <?php echo implode( "\n            ", $clause['then'] ); ?>
-
-        }
-<?php endforeach; ?>
-    });
-})(jQuery);
-</script>
-
-<!-- END: FacetWP Conditional Logic -->
-
-<?php
-    }
-
-
-    function build_if_clause( $condition ) {
-        $clause = '';
-        $object = $condition['object'];
-        $compare = $condition['compare'];
-        $value = $condition['value'];
-
-        if ( 'uri' == $object ) {
-            $operator = ( 'is' == $compare ) ? '==' : '!=';
-            $clause = "FWP_HTTP.uri $operator '$value'";
-        }
-        elseif ( 'facets-empty' == $object ) {
-            $clause = "FWP.build_query_string() == ''";
-        }
-        elseif ( 'facets-not-empty' == $object ) {
-            $clause = "FWP.build_query_string() != ''";
-        }
-        elseif ( 'facet-' == substr( $object, 0, 6 ) ) {
-            $name = substr( $object, 6 );
-            $values = explode( "\n", trim( $value ) );
-            $values = array_map( 'trim', $values );
-            $values = implode( "','", $values );
-            $values = empty( $values ) ? '' : "'$values'";
-
-            $operator = ( 'is' == $compare ) ? '' : '! ';
-            $clause = "{$operator}is_intersect(FWP.facets['$name'], [$values])";
-        }
-        elseif ( 'template-' == substr( $object, 0, 9 ) ) {
-            $name = substr( $object, 9 );
-            $operator = ( 'is' == $compare ) ? '==' : '!=';
-            $clause = "FWP.template $operator '$name'";
-        }
-
-        return $clause;
-    }
-
-
-    function build_action( $action ) {
-        $selectors = array();
-        $toggle = $action['toggle'];
-        $object = (array) $action['object'];
-
-        foreach ( $object as $item ) {
-            if ( 'template' == $item ) {
-                $selectors[] = '.facetwp-template';
-            }
-            elseif ( 'facets' == $item ) {
-                $selectors[] = '.facetwp-facet';
-            }
-            elseif ( 'facet-' == substr( $item, 0, 6 ) ) {
-                $selectors[] = '.facetwp-' . $item;
-            }
-        }
-
-        if ( ! empty( $selectors ) ) {
-            $selectors = implode( ', ', $selectors );
-            $toggle = ( 'show' == $toggle ) ? 'removeClass' : 'addClass';
-            return "$('$selectors').$toggle('fwp-hidden');";
-        }
-
-        return '';
     }
 }
 

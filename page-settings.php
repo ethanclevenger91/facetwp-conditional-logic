@@ -41,35 +41,36 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
 
     <div class="clone hidden">
         <div class="clone-ruleset">
-            <table class="ruleset" style="width:100%">
-                <tr>
-                    <td colspan="2">
-                        <div class="header-bar">
-                            <span class="dashicons dashicons-menu"></span>
-                            <span class="dashicons dashicons-edit"></span>
-                            <span class="title">The Title</span>
-                            <span class="dashicons dashicons-trash"></span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="conditions-col" style="width:60%">
-                        <div class="td-label">Conditions</div>
-                        <div class="condition-wrap"></div>
-                        <button class="button condition-and">Add Condition</button>
-                    </td>
-                    <td class="actions-col" style="width:40%">
-                        <div class="td-label">Actions</div>
-                        <div class="action-wrap"></div>
-                        <button class="button action-and">Add Action</button>
-                    </td>
-                </tr>
-            </table>
+            <div class="ruleset collapsed">
+                <table class="header-bar">
+                    <tr>
+                        <td class="toggle"><span class="dashicons dashicons-menu"></span></td>
+                        <td class="edit"><span class="dashicons dashicons-edit"></span></td>
+                        <td class="title">The Title</td>
+                        <td class="delete"><span class="dashicons dashicons-trash"></span></td>
+                    </tr>
+                </table>
+                <table class="logic-row">
+                    <tr>
+                        <td class="conditions-col" style="width:60%">
+                            <div class="td-label">Conditions</div>
+                            <div class="condition-wrap"></div>
+                            <button class="button condition-and">Add Condition</button>
+                        </td>
+                        <td class="actions-col" style="width:40%">
+                            <div class="td-label">Actions</div>
+                            <div class="action-wrap"></div>
+                            <button class="button action-and">Add Action</button>
+                        </td>
+                    <tr>
+                </table>
+            </div>
         </div>
 
         <div class="clone-condition">
             <table class="condition">
                 <tr>
+                    <td class="spacer"></td>
                     <td class="drop">
                         <span class="dashicons dashicons-no-alt condition-drop"></span>
                     </td>
@@ -77,10 +78,10 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     <td class="logic">
                         <select class="condition-object">
                             <optgroup label="Basic">
-                                <option value="uri">Page URI</option>
-                                <option value="total-rows">Result count</option>
                                 <option value="facets-empty">Facets empty</option>
                                 <option value="facets-not-empty">Facets not empty</option>
+                                <option value="uri">Page URI</option>
+                                <option value="total-rows">Result count</option>
                             </optgroup>
                             <optgroup label="Facet Value">
 <?php foreach ( $this->facets as $facet ) : ?>
@@ -112,7 +113,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     <td class="drop">
                         <span class="dashicons dashicons-no-alt action-drop"></span>
                     </td>
-                    <td class="type">THEN</td>
+                    <td class="type">AND</td>
                     <td class="logic">
                         <select class="action-toggle">
                             <option value="show">Show</option>

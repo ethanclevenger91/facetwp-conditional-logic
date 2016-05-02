@@ -34,37 +34,90 @@
     color: green;
 }
 
+.sortable-placeholder {
+    border: 1px dashed #333;
+    padding: 10px;
+}
+
 .hidden {
     display: none;
 }
 
-/* Ruleset table */
+/* Ruleset tables */
 
-table.ruleset {
-    border: 1px solid #ddd;
+.facetwp-region-rulesets table {
+    width: 100%;
     border-collapse: collapse;
 }
 
-table.ruleset td {
+.ruleset {
+    border: 1px solid #ddd;
+    margin-bottom: 4px;
+}
+
+.ruleset.collapsed table.logic-row {
+    display: none;
+}
+
+table.logic-row td.conditions-col,
+table.logic-row td.actions-col {
+    padding: 10px;
+}
+
+.ruleset.collapsed .header-bar {
+    border-bottom: none;
+}
+
+.ruleset td {
     vertical-align: top;
     background-color: #f1f1f1;
     padding: 0;
 }
 
-table.ruleset td.conditions-col,
-table.ruleset td.actions-col {
-    padding: 10px;
+table.header-bar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
 }
 
-table.ruleset .td-label {
+table.header-bar td {
+    background-color: #fff;
+}
+
+table.header-bar td.toggle,
+table.header-bar td.edit,
+table.header-bar td.delete {
+    width: 32px;
+}
+
+table.header-bar td.toggle {
+    color: #a9a9a9;
+    border-right: 1px solid #ddd;
+    cursor: move;
+}
+
+table.header-bar td.edit {
+    border-right: 1px solid #ddd;
+}
+
+table.header-bar td.delete {
+    border-left: 1px solid #ddd;
+}
+
+.ruleset td.conditions-col,
+.ruleset td.actions-col {
+    line-height: 32px;
+}
+
+.ruleset .td-label {
     padding: 6px 12px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom: none;
 }
 
-table.ruleset .condition-wrap,
-table.ruleset .action-wrap {
+.ruleset .condition-wrap,
+.ruleset .action-wrap {
     border: 1px solid #ddd;
     border-top: none;
 }
@@ -74,13 +127,7 @@ table.ruleset .action-wrap {
     margin-top: 10px;
 }
 
-.header-bar {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-}
-
 .header-bar .title {
-    display: inline-block;
     line-height: 20px;
     padding: 6px;
 }
@@ -91,26 +138,9 @@ table.ruleset .action-wrap {
     cursor: pointer;
 }
 
-.header-bar .dashicons-menu {
-    cursor: move;
-    color: #a9a9a9;
-}
-
-.header-bar .dashicons-menu,
-.header-bar .dashicons-edit {
-    border-right: 1px solid #ddd;
-}
-
-.header-bar .dashicons-trash {
-    float: right;
-    border-left: 1px solid #ddd;
-}
-
 table.condition,
 table.action {
-    width: 100%;
     border-top: 1px solid #ddd;
-    border-collapse: collapse;
 }
 
 table.condition:last-child,
@@ -123,10 +153,17 @@ table.action td {
     background-color: #fff;
 }
 
+table.condition.type-or td.spacer {
+    width: 32px;
+}
+
+table.condition.type-or td.type {
+    width: 32px;
+}
+
 table.condition td.drop,
 table.action td.drop {
     width: 32px;
-    border-right: 1px solid #ddd;
     vertical-align: middle;
 }
 
@@ -135,6 +172,7 @@ table.action td.type {
     width: 64px;
     text-align: center;
     background-color: #f8f8f8;
+    border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     vertical-align: middle;
 }
