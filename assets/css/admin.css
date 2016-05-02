@@ -134,6 +134,17 @@ table.header-bar td.delete {
     padding: 6px;
 }
 
+.header-bar .title:after {
+    float: right;
+    font-family: dashicons;
+    font-size: 20px;
+    content: "\f142";
+}
+
+.ruleset.collapsed .header-bar .title:after {
+    content: "\f140";
+}
+
 .dashicons {
     line-height: 22px;
     padding: 6px;

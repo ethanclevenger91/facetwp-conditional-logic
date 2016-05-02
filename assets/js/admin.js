@@ -1,4 +1,6 @@
-var FWPCL = FWPCL || {};
+var FWPCL = FWPCL || {
+    is_loading: false
+};
 
 
 (function($) {
@@ -40,6 +42,8 @@ var FWPCL = FWPCL || {};
 
 
     FWPCL.load = function() {
+        FWPCL.is_loading = true;
+
         $.each(FWPCL.rules, function(index, ruleset) {
             $('.add-ruleset').click();
 
@@ -73,6 +77,8 @@ var FWPCL = FWPCL || {};
                 });
             });
         });
+
+        FWPCL.is_loading = false;
     }
 
 
@@ -142,6 +148,12 @@ var FWPCL = FWPCL || {};
     $(document).on('click', '.add-ruleset', function() {
         var $clone = $('.clone').clone();
         var $rule = $clone.find('.clone-ruleset');
+
+        // collapse ruleset on pageload
+        if (FWPCL.is_loading) {
+            $rule.find('.ruleset').addClass('collapsed');
+        }
+
         $('.facetwp-region-rulesets .facetwp-content-wrap').append($rule.html());
         $('.facetwp-region-rulesets .facetwp-content-wrap').sortable({
             axis: 'y',

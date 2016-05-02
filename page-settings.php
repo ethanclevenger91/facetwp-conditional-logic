@@ -41,7 +41,7 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
 
     <div class="clone hidden">
         <div class="clone-ruleset">
-            <div class="ruleset collapsed">
+            <div class="ruleset">
                 <table class="header-bar">
                     <tr>
                         <td class="toggle"><span class="dashicons dashicons-menu"></span></td>
