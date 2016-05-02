@@ -90,10 +90,15 @@
         }
     }
 
-    $(document).on('facetwp-loaded', function(e) {
+    $(document).on('facetwp-refresh facetwp-loaded', function(e) {
 
         // foreach ruleset
         $.each(FWPCL, function(idx, ruleset) {
+
+            if ('refresh-loaded' != ruleset.on && e.type != 'facetwp-' + ruleset.on) {
+                return; // skip iteration
+            }
+
             var is_valid = false;
 
             // foreach condition group

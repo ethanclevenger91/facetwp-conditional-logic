@@ -2,7 +2,7 @@
 <link href="<?php echo FACETWP_URL; ?>/assets/css/admin.css?ver=<?php echo FACETWP_VERSION; ?>" rel="stylesheet">
 <link href="<?php echo FWPCL_URL; ?>/assets/css/admin.css?ver=<?php echo FWPCL_VERSION; ?>" rel="stylesheet">
 <script>
-FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
+FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
 </script>
 
 <div class="facetwp-header">
@@ -53,7 +53,20 @@ FWPCL.rules = <?php echo json_encode( $this->rules ); ?>;
                     <tr>
                         <td class="conditions-col" style="width:60%">
                             <div class="td-label">Conditions</div>
-                            <div class="condition-wrap"></div>
+                            <div class="condition-wrap">
+                                <table class="ruleset-event">
+                                    <tr>
+                                        <td class="type">ON</td>
+                                        <td class="logic">
+                                            <select class="ruleset-on">
+                                                <option value="refresh">Refresh</option>
+                                                <option value="loaded">Loaded</option>
+                                                <option value="refresh-loaded">Refresh &amp; Loaded</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                             <button class="button condition-and">Add Condition</button>
                         </td>
                         <td class="actions-col" style="width:40%">

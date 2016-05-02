@@ -57,8 +57,8 @@ class FacetWP_Conditional_Logic_Addon
         $this->templates = FWP()->helper->get_templates();
 
         // load settings
-        $rules = get_option( 'fwpcl_rules' );
-        $this->rules = empty( $rules ) ? array() : json_decode( $rules, true );
+        $rulesets = get_option( 'fwpcl_rulesets' );
+        $this->rulesets = empty( $rulesets ) ? array() : json_decode( $rulesets, true );
 
         // register frontend script
         wp_register_script( 'fwpcl-front-handler', FWPCL_URL . '/assets/js/front.js', array( 'jquery' ), FWPCL_VERSION, true );
@@ -70,12 +70,12 @@ class FacetWP_Conditional_Logic_Addon
 
     function save_rules() {
         if ( current_user_can( 'manage_options' ) ) {
-            $rules = stripslashes( $_POST['data'] );
-            $json_test = json_decode( $rules, true );
+            $rulesets = stripslashes( $_POST['data'] );
+            $json_test = json_decode( $rulesets, true );
 
             // check for valid JSON
             if ( is_array( $json_test ) ) {
-                update_option( 'fwpcl_rules', $rules );
+                update_option( 'fwpcl_rulesets', $rulesets );
                 echo __( 'Rules saved', 'fwpcl' );
             }
             else {
@@ -109,7 +109,7 @@ class FacetWP_Conditional_Logic_Addon
         //if( true === $this->in_use ){
 
         wp_enqueue_script( 'fwpcl-front-handler' );
-        wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $this->rules );
+        wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $this->rulesets );
 
         //}
     }

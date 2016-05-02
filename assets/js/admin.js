@@ -45,11 +45,12 @@ var FWPCL = FWPCL || {
     FWPCL.load = function() {
         FWPCL.is_loading = true;
 
-        $.each(FWPCL.rules, function(index, ruleset) {
+        $.each(FWPCL.rulesets, function(index, ruleset) {
             $('.add-ruleset').click();
 
-            // set the ruleset label
+            // set the ruleset props
             $('.facetwp-region-rulesets .ruleset:last .ruleset-label').text(ruleset.label);
+            $('.facetwp-region-rulesets .ruleset:last .ruleset-on').val(ruleset.on);
 
             // set the ations
             $.each(ruleset.actions, function(index, action) {
@@ -90,7 +91,7 @@ var FWPCL = FWPCL || {
         $('.facetwp-region-rulesets .ruleset').each(function(rule_num) {
             rules[rule_num] = {
                 'label': $(this).find('.ruleset-label').text(),
-                'event': '',
+                'on': $(this).find('.ruleset-on').val(),
                 'conditions': [],
                 'actions': []
             };
@@ -246,8 +247,11 @@ var FWPCL = FWPCL || {
 
     $(document).on('click', '.action-and', function() {
         var html = $('.clone-action').html();
-        $(this).siblings('.action-wrap').append(html);
-        $(this).siblings('.action-wrap').find('.action:first .type').text('THEN');
+        var $wrap = $(this).siblings('.action-wrap');
+
+        $wrap.append(html);
+        $wrap.find('.action:first .type').text('THEN');
+        $wrap.find('.action:last .action-object').trigger('change');
     });
 
 

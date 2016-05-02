@@ -164,6 +164,7 @@ table.action:last-child {
 }
 
 table.condition td,
+table.ruleset-event td,
 table.action td {
     background-color: #fff;
 }
@@ -183,6 +184,7 @@ table.action td.drop {
 }
 
 table.condition td.type,
+table.ruleset-event td.type,
 table.action td.type {
     width: 64px;
     text-align: center;
@@ -192,7 +194,13 @@ table.action td.type {
     vertical-align: middle;
 }
 
+table.ruleset-event td.type {
+    width: 32px;
+    border-left: none;
+}
+
 table.condition td.logic,
+table.ruleset-event td.logic,
 table.action td.logic {
     padding: 6px 12px;
 }
