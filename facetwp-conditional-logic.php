@@ -47,7 +47,11 @@ class FacetWP_Conditional_Logic_Addon
         if ( ! function_exists( 'FWP' ) ) {
             return;
         }
-        
+
+        // ajax
+        add_action( 'wp_ajax_fwpcl_import', array( $this, 'import' ) );
+
+        // wp hooks
         add_action( 'wp_footer', array( $this, 'render_js' ), 25 );
         add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -68,6 +72,18 @@ class FacetWP_Conditional_Logic_Addon
     }
 
 
+    function import() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        $rulesets = stripslashes( $_POST['import_code'] );
+        update_option( 'fwpcl_rulesets', $rulesets );
+        _e( 'All done!', 'fwpcl' );
+        exit;
+    }
+
+
     function save_rules() {
         if ( current_user_can( 'manage_options' ) ) {
             $rulesets = stripslashes( $_POST['data'] );
@@ -76,10 +92,10 @@ class FacetWP_Conditional_Logic_Addon
             // check for valid JSON
             if ( is_array( $json_test ) ) {
                 update_option( 'fwpcl_rulesets', $rulesets );
-                echo __( 'Rules saved', 'fwpcl' );
+                _e( 'Rules saved', 'fwpcl' );
             }
             else {
-                echo __( 'Error: invalid JSON', 'fwpcl' );
+                _e( 'Error: invalid JSON', 'fwpcl' );
             }
         }
         exit;

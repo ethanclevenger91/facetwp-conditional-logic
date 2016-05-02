@@ -33,7 +33,8 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
             <p class="description" style="margin-top:20px">To import, paste code into the field below.</p>
             <textarea class="import-code"></textarea>
             <p class="description" style="color:red"><strong>NOTE:</strong> importing will replace any existing rulesets.</p>
-            <input type="button" class="button" value="Process Import" />
+            <input type="button" class="button fwpcl-import" value="Process Import" />
+            <span class="fwpcl-import-response"></span>
         </div>
     </div>
 

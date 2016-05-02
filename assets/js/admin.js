@@ -283,4 +283,19 @@ var FWPCL = FWPCL || {
         $('.media-modal-backdrop').hide();
     });
 
+
+    $(document).on('click', '.fwpcl-import', function() {
+        $('.fwpcl-import-response').html('Importing...');
+        $.post(ajaxurl, {
+            action: 'fwpcl_import',
+            import_code: $('.import-code').val(),
+        },
+        function(response) {
+            $('.fwpcl-import-response').html(response);
+            setTimeout(function() {
+                window.location.reload();
+            }, 1500);
+        });
+    });
+
 })(jQuery);
