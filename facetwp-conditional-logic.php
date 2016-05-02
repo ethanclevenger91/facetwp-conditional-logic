@@ -70,7 +70,6 @@ class FacetWP_Conditional_Logic_Addon
             // Check for valid JSON
             if ( is_array( $json_test ) ) {
                 update_option( 'fwpcl_rules', $rules );
-                var_dump( $rules );
                 echo __( 'Rules saved', 'fwpcl' );
             }
             else {
@@ -85,7 +84,7 @@ class FacetWP_Conditional_Logic_Addon
      * Register the FacetWP settings page
      */
     function admin_menu() {
-        add_options_page( 'FacetWP Logic', 'FacetWP Logic', 'manage_options', 'facetwp-logic', array( $this, 'settings_page' ) );
+        add_options_page( 'FacetWP Logic', 'FacetWP Logic', 'manage_options', 'fwpcl-admin', array( $this, 'settings_page' ) );
     }
 
 

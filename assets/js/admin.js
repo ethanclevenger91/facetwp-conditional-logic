@@ -6,7 +6,6 @@ var FWPCL = FWPCL || {};
 
     $(function() {
         FWPCL.load();
-        hide_x();
 
         // Topnav
         $(document).on('click', '.facetwp-tab', function() {
@@ -32,49 +31,32 @@ var FWPCL = FWPCL || {};
     });
 
 
-    function hide_x() {
-
-        $('.ruleset').each(function() {
-            var $this = $(this);
-
-            if (1 < $this.find('.action').length) {
-                $this.find('.action-drop').removeClass('hidden');
-            }
-            else {
-                $this.find('.action-drop').addClass('hidden');
-            }
-        });
-    }
-
-
     FWPCL.load = function() {
         $.each(FWPCL.rules, function(index, ruleset) {
             $('.add-ruleset').click();
 
             $.each(ruleset.actions, function(index, action) {
-                if (0 < index) {
-                    $('.facetwp-region-rulesets .action-and:last').click();
-                }
+                $('.facetwp-region-rulesets .action-and:last').click();
 
                 var $last = $('.facetwp-region-rulesets .action:last');
                 $last.find('.action-toggle').val(action.toggle);
                 $last.find('.action-object').val(action.object);
             });
 
-            $.each(ruleset.conditions, function(index, cond_or) {
-                if (0 < index) {
-                    $('.facetwp-region-rulesets .condition-or:last').click();
-                }
+            $.each(ruleset.conditions, function(index, cond_group) {
+                $('.facetwp-region-rulesets .condition-and:last').click();
 
-                $.each(cond_or, function(index, cond_and) {
+                $.each(cond_group, function(index, cond) {
+
+                    // Skip first item ("AND")
                     if (0 < index) {
-                        $('.facetwp-region-rulesets .condition-and:last').click();
+                        $('.facetwp-region-rulesets .condition-or:last').click();
                     }
 
                     var $last = $('.facetwp-region-rulesets .condition:last');
-                    $last.find('.condition-object').val(cond_and.object);
-                    $last.find('.condition-compare').val(cond_and.compare);
-                    $last.find('.condition-value').val(cond_and.value);
+                    $last.find('.condition-object').val(cond.object);
+                    $last.find('.condition-compare').val(cond.compare);
+                    $last.find('.condition-value').val(cond.value);
                 });
             });
         });
@@ -92,8 +74,8 @@ var FWPCL = FWPCL || {};
                 'actions': []
             };
 
-            // Get conditions
-            $(this).find('.group-wrap').each(function(group_num) {
+            // Get conditions (and preserve groups)
+            $(this).find('.condition-group').each(function(group_num) {
                 var conditions = [];
 
                 $(this).find('.condition').each(function() {
@@ -125,8 +107,9 @@ var FWPCL = FWPCL || {};
 
 
     $(document).on('click', '.facetwp-save', function() {
-        $('.facetwp-response').html('Saving...');
-        $('.facetwp-response').show();
+        $('.fwpcl-response').removeClass('dashicons-yes');
+        $('.fwpcl-response').addClass('dashicons-image-rotate')
+        $('.fwpcl-response').show();
 
         var data = FWPCL.parse_data();
 
@@ -134,7 +117,11 @@ var FWPCL = FWPCL || {};
             'action': 'fwpcl_save',
             'data': JSON.stringify(data)
         }, function(response) {
-            $('.facetwp-response').html(response);
+            $('.fwpcl-response').removeClass('dashicons-image-rotate');
+            $('.fwpcl-response').addClass('dashicons-yes');
+            setTimeout(function() {
+                $('.fwpcl-response').stop().fadeOut();
+            }, 4000);
         });
     });
 
@@ -142,17 +129,7 @@ var FWPCL = FWPCL || {};
     $(document).on('click', '.add-ruleset', function() {
         var $clone = $('.clone').clone();
         var $rule = $clone.find('.clone-ruleset');
-
-        var $group = $clone.find('.clone-condition-group');
-        var $condition = $clone.find('.clone-condition');
-        var $action = $clone.find('.clone-action');
-
-        $group.find('.condition-wrap').html($condition.html());
-        $rule.find('.left-side').html($group.html());
-        $rule.find('.right-side').html($action.html());
         $('.facetwp-region-rulesets .facetwp-content-wrap').append($rule.html());
-
-        hide_x();
     });
 
 
@@ -163,45 +140,36 @@ var FWPCL = FWPCL || {};
         $wrap.find('.condition-value').show();
         $wrap.find('.condition-compare').show();
         var is_template = ( 'template-' == val.substr(0, 9));
-        if ('pageload' == val || 'refresh' == val || 'facets-empty' == val || 'facets-not-empty' == val || is_template) {
+        if ('facets-empty' == val || 'facets-not-empty' == val || is_template) {
             $wrap.find('.condition-compare').hide();
             $wrap.find('.condition-value').hide();
         }
-
-        hide_x();
-    });
-
-
-    $(document).on('click', '.condition-and', function() {
-        var html = $('.clone-condition').html();
-        $(this).closest('.condition-wrap').append(html);
-
-        hide_x();
     });
 
 
     $(document).on('click', '.condition-or', function() {
-        var $rule = $(this).closest('.left-side');
-        var $clone = $('.clone').clone();
-        var $group = $clone.find('.clone-condition-group');
-        var $condition = $clone.find('.clone-condition');
+        var html = $('.clone-condition').html();
+        $(this).closest('.condition-group').append(html);
+    });
 
-        $group.find('.condition-wrap').html($condition.html());
-        $rule.find('.condition-or').remove();
-        $rule.append($group.html());
-        $rule.find('.condition-object').trigger('change');
+
+    $(document).on('click', '.condition-and', function() {
+        var $clone = $('.clone').clone();
+        var $condition = $clone.find('.clone-condition');
+        var $ruleset = $(this).closest('.conditions-col');
+
+        $ruleset.find('.condition-wrap').append('<div class="condition-group" />');
+        var $group = $('.condition-group:last');
+        $group.append($condition.html());
+        $group.find('.condition-object').trigger('change');
     });
 
 
     $(document).on('click', '.condition-drop', function() {
-        var group_count = $(this).closest('.left-side').find('.group-wrap').length;
-        var count = $(this).closest('.condition-wrap').find('.condition').length;
-        /*
-        if (1 == group_count && 1 == count) {
-            $(this).closest('.flexbox').remove(); // remove ruleset
-        }
-        else */if (1 == count) {
-            $(this).closest('.group-wrap').remove(); // remove group
+        var count = $(this).closest('.condition-group').find('.condition').length;
+
+        if (1 == count) {
+            $(this).closest('.condition-group').remove(); // remove group
         }
         else {
             $(this).closest('.condition').remove(); // remove condition
@@ -211,15 +179,12 @@ var FWPCL = FWPCL || {};
 
     $(document).on('click', '.action-and', function() {
         var html = $('.clone-action').html();
-        $(this).closest('.right-side').append(html);
-
-        hide_x();
+        $(this).siblings('.action-wrap').append(html);
     });
 
 
     $(document).on('click', '.action-drop', function() {
         $(this).closest('.action').remove();
-        hide_x();
     });
 
 })(jQuery);

@@ -24,23 +24,129 @@
     white-space: normal;
 }
 
-/* Drop buttons */
-
-.btn-drop {
-    display: inline-block;
-    vertical-align: top;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    color: #a00;
+.fwpcl-response {
+    margin-left: 10px;
+    line-height: 28px;
 }
 
-.btn-drop:before {
-    content: '\f335';
-    font: 400 20px/1 dashicons;
-    vertical-align: middle;
+.dashicons-yes {
+    font-size: 24px;
+    color: green;
 }
 
 .hidden {
     display: none;
+}
+
+/* Ruleset table */
+
+table.ruleset {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+table.ruleset td {
+    vertical-align: top;
+    background-color: #f1f1f1;
+    padding: 0;
+}
+
+table.ruleset td.conditions-col,
+table.ruleset td.actions-col {
+    padding: 10px;
+}
+
+table.ruleset .td-label {
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom: none;
+}
+
+table.ruleset .condition-wrap,
+table.ruleset .action-wrap {
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+.button.condition-and,
+.button.action-and {
+    margin-top: 10px;
+}
+
+.header-bar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-bar .title {
+    display: inline-block;
+    line-height: 20px;
+    padding: 6px;
+}
+
+.dashicons {
+    line-height: 22px;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.header-bar .dashicons-menu {
+    cursor: move;
+    color: #a9a9a9;
+}
+
+.header-bar .dashicons-menu,
+.header-bar .dashicons-edit {
+    border-right: 1px solid #ddd;
+}
+
+.header-bar .dashicons-trash {
+    float: right;
+    border-left: 1px solid #ddd;
+}
+
+table.condition,
+table.action {
+    width: 100%;
+    border-top: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+table.condition:last-child,
+table.action:last-child {
+    border-bottom: none;
+}
+
+table.condition td,
+table.action td {
+    background-color: #fff;
+}
+
+table.condition td.drop,
+table.action td.drop {
+    width: 32px;
+    border-right: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+table.condition td.type,
+table.action td.type {
+    width: 64px;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-right: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+table.condition td.logic,
+table.action td.logic {
+    padding: 6px 12px;
+}
+
+table.condition td.btn {
+    width: 48px;
+    text-align: center;
+    border-left: 1px solid #ddd;
+    vertical-align: middle;
 }
