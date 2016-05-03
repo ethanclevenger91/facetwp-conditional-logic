@@ -28,7 +28,7 @@
             cond.value = cond.object.substr(9);
         }
 
-        // processor
+        // operators
         if ('is' == cond.compare) {
             if (is_intersect(cond.value, compare_field)) {
                 is_valid = true;
@@ -44,8 +44,15 @@
     }
 
     var is_intersect = function(arr1, arr2) {
-        arr1 = [].concat(arr1); // force array
-        arr2 = [].concat(arr2); // force array
+
+        // force arrays
+        arr1 = [].concat(arr1);
+        arr2 = [].concat(arr2);
+
+        // exact match
+        if (arr1.toString() === arr2.toString()) {
+            return true;
+        }
 
         var result = arr1.filter(function(n) {
             return arr2.indexOf(n) != -1;
@@ -99,7 +106,8 @@
                 return; // skip iteration
             }
 
-            var is_valid = false;
+            // if no conditions, set to TRUE
+            var is_valid = (ruleset.conditions.length < 1);
 
             // foreach condition group
             $.each(ruleset.conditions, function(idx_1, cond_group) {
