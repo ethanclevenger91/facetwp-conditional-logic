@@ -76,7 +76,7 @@
             item = $('.facetwp-facet-' + action.object.substr(6));
         }
         else if ('custom' == action.object) {
-            var lines = action.selector.lines.split("\n");
+            var lines = action.selector.split("\n");
             var selectors = [];
             for(var i = 0; i < lines.length; i++){
                 var selector = lines[i].replace(/^\s+|\s+$/gm, '');
