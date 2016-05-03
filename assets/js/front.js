@@ -110,20 +110,26 @@
             }
 
             // if no conditions, set to TRUE
-            var is_valid = (ruleset.conditions.length < 1);
+            var this_result = (ruleset.conditions.length < 1);
+            var result = [];
 
             // foreach condition group
             $.each(ruleset.conditions, function(idx_1, cond_group) {
-                is_valid = false;
+                this_result = false;
 
                 // foreach "OR" condition
                 $.each(cond_group, function(idx_2, cond_or) {
                     if (evaluate_condition(cond_or)) {
-                        is_valid = true;
+                        this_result = true;
                         return false; // exit loop
                     }
                 });
+
+                result.push(this_result);
             });
+
+            // make sure no conditions are false
+            var is_valid = (result.indexOf(false) < 0);
 
             // apply actions
             $.each(ruleset.actions, function(idx_1, action) {
