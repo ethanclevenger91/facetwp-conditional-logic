@@ -65,6 +65,8 @@
 
     var do_action = function(action, is_valid) {
         var item;
+        var is_custom = false;
+        var animation = 'hide';
 
         if ('template' == action.object) {
             item = $('.facetwp-template');
@@ -76,27 +78,34 @@
             item = $('.facetwp-facet-' + action.object.substr(6));
         }
         else if ('custom' == action.object) {
+            is_custom = true;
             var lines = action.selector.split("\n");
             var selectors = [];
-            for(var i = 0; i < lines.length; i++){
+            for (var i = 0; i < lines.length; i++){
                 var selector = lines[i].replace(/^\s+|\s+$/gm, '');
                 if (selector.length) {
                     selectors.push(selector);
                 }
             }
-            item = $(selectors.join(','));
+            item = selectors;
         }
 
-        if (! item.length) {
+        if (item.length < 1) {
             return;
         }
 
-        // toggle
         if (('show' == action.toggle && is_valid) || ('hide' == action.toggle && ! is_valid)) {
-            item.show();
+            animation = 'show';
+        }
+
+        // toggle
+        if (is_custom) {
+            $.each(item, function(idx, selector) {
+                eval( selector + '.' + animation + '()' );
+            });
         }
         else {
-            item.hide();
+            ('show' == animation) ? item.show() : item.hide();
         }
     }
 
