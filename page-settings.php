@@ -60,8 +60,8 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                                         <td class="type">ON</td>
                                         <td class="logic">
                                             <select class="ruleset-on">
-                                                <option value="refresh">Refresh</option>
                                                 <option value="loaded">Loaded</option>
+                                                <option value="refresh">Refresh</option>
                                                 <option value="refresh-loaded">Refresh &amp; Loaded</option>
                                             </select>
                                         </td>

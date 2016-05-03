@@ -82,11 +82,11 @@
         }
 
         // toggle
-        if ('show' == action.toggle || ('hide' == action.toggle && ! is_valid)) {
-            item.stop().show();
+        if (('show' == action.toggle && is_valid) || ('hide' == action.toggle && ! is_valid)) {
+            item.show();
         }
         else {
-            item.stop().hide();
+            item.hide();
         }
     }
 
