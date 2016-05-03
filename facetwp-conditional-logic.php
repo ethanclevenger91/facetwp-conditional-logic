@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: FacetWP - Conditional Logic
-Plugin URI: https://facetwp.com/
-Description: Show / hide facets depending on certain conditions
-Version: 0.1
-Author: Matt Gibbs
+Description: Toggle facets based on certain conditions
+Version: 0.2
+Author: FacetWP, LLC
+Author URI: https://facetwp.com/
 
-Copyright 2016 Matt Gibbs
+Copyright 2016 FacetWP, LLC
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -34,7 +34,7 @@ class FacetWP_Conditional_Logic_Addon
 
     function __construct() {
 
-        define( 'FWPCL_VERSION', '0.1' );
+        define( 'FWPCL_VERSION', '0.2' );
         define( 'FWPCL_DIR', dirname( __FILE__ ) );
         define( 'FWPCL_URL', plugins_url( '', __FILE__ ) );
         define( 'FWPCL_BASENAME', plugin_basename( __FILE__ ) );
@@ -121,13 +121,8 @@ class FacetWP_Conditional_Logic_Addon
 
 
     function render_js() {
-
-        //if( true === $this->in_use ){
-
         wp_enqueue_script( 'fwpcl-front-handler' );
         wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $this->rulesets );
-
-        //}
     }
 }
 
