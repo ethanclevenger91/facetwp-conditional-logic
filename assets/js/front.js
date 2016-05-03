@@ -14,6 +14,9 @@
             compare_field = FWP_HTTP.uri;
         }
         else if ('total-rows' == cond.object) {
+            if ('undefined' === typeof FWP.settings.pager) {
+                return false;
+            }
             compare_field = FWP.settings.pager.total_rows;
         }
         else if ('facet-' == cond.object.substr(0, 6)) {
