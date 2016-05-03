@@ -167,12 +167,12 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
             </div>
             <div class="media-frame-router">
                 <div class="media-router">
-                    <?php _e( 'Which selectors would you like to include (one per line)?', 'fwp' ); ?>
+                    <?php _e( 'Which jQuery selectors would you like to use (one per line)?', 'fwp' ); ?>
                 </div>
             </div>
             <div class="media-frame-content">
                 <div class="modal-content-wrap">
-                    <textarea class="action-selector-input"></textarea>
+                    <textarea class="action-selector-input" placeholder="$('.facetwp-facet-categories')"></textarea>
                     <input type="button" class="button selector-save" value="Save Changes" />
                 </div>
             </div>
