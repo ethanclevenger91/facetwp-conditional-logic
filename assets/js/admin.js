@@ -48,21 +48,27 @@ var FWPCL = FWPCL || {
         $.each(FWPCL.rulesets, function(index, ruleset) {
             $('.add-ruleset').click();
 
-            // set the ruleset props
+            // Set the ruleset props
             $('.facetwp-region-rulesets .ruleset:last .ruleset-label').text(ruleset.label);
             $('.facetwp-region-rulesets .ruleset:last .ruleset-on').val(ruleset.on);
 
-            // set the ations
+            // Set the ations
             $.each(ruleset.actions, function(index, action) {
                 $('.facetwp-region-rulesets .action-and:last').click();
 
                 var $last = $('.facetwp-region-rulesets .action:last');
+
+                // Add <option> if needed
+                if ($last.find('.action-object option[value="' + action.object + '"]').length < 1) {
+                    $last.find('.action-object').append('<option value="' + action.object + '">' + action.object + '</option>');
+                }
+
                 $last.find('.action-toggle').val(action.toggle);
                 $last.find('.action-object').val(action.object).trigger('change');
                 $last.find('.action-selector').val(action.selector);
             });
 
-            // set the conditions
+            // Set the conditions
             $.each(ruleset.conditions, function(index, cond_group) {
                 $('.facetwp-region-rulesets .condition-and:last').click();
 
@@ -74,6 +80,12 @@ var FWPCL = FWPCL || {
                     }
 
                     var $last = $('.facetwp-region-rulesets .condition:last');
+
+                    // Add <option> if needed
+                    if ($last.find('.condition-object option[value="' + cond.object + '"]').length < 1) {
+                        $last.find('.condition-object').append('<option value="' + cond.object + '">' + cond.object + '</option>');
+                    }
+
                     $last.find('.condition-object').val(cond.object).trigger('change');
                     $last.find('.condition-compare').val(cond.compare);
                     $last.find('.condition-value').val(cond.value);
@@ -130,7 +142,7 @@ var FWPCL = FWPCL || {
 
     $(document).on('change', '.condition-object', function() {
         var $condition = $(this).closest('.condition');
-        var val = $(this).val();
+        var val = $(this).val() || '';
 
         $condition.find('.condition-value').show();
         $condition.find('.condition-compare').show();
@@ -176,7 +188,7 @@ var FWPCL = FWPCL || {
         var $clone = $('.clone').clone();
         var $rule = $clone.find('.clone-ruleset');
 
-        // collapse ruleset on pageload
+        // Collapse ruleset on pageload
         if (FWPCL.is_loading) {
             $rule.find('.ruleset').addClass('collapsed');
         }
