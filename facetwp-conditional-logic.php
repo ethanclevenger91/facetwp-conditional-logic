@@ -10,8 +10,6 @@ GitHub URI: facetwp/facetwp-conditional-logic
 
 defined( 'ABSPATH' ) or exit;
 
-include( dirname( __FILE__ ) . '/github-updater.php' );
-
 class FacetWP_Conditional_Logic_Addon
 {
 
