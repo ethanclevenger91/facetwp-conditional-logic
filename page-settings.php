@@ -91,8 +91,8 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                     <td class="logic">
                         <select class="condition-object">
                             <optgroup label="Basic">
-                                <option value="facets-empty">Facets empty</option>
-                                <option value="facets-not-empty">Facets not empty</option>
+                                <option value="facets-empty">No facets in use</option>
+                                <option value="facets-not-empty">Some facets in use</option>
                                 <option value="uri">Page URI</option>
                                 <option value="total-rows">Result count</option>
                             </optgroup>

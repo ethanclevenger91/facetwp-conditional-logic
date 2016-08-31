@@ -111,6 +111,13 @@
 
     $(document).on('facetwp-refresh facetwp-loaded', function(e) {
 
+        // store num choices as data attr
+        if ('facetwp-loaded' == e.type) {
+            $.each(FWP.settings.num_choices, function(name, count) {
+                $('.facetwp-facet-' + name).attr('data-choices', count);
+            });
+        }
+
         // foreach ruleset
         $.each(FWPCL, function(idx, ruleset) {
 
