@@ -113,9 +113,11 @@
 
         // store num choices as data attr
         if ('facetwp-loaded' == e.type) {
-            $.each(FWP.settings.num_choices, function(name, count) {
-                $('.facetwp-facet-' + name).attr('data-choices', count);
-            });
+            if ('undefined' !== typeof FWP.settings.num_choices) {
+                $.each(FWP.settings.num_choices, function(name, count) {
+                    $('.facetwp-facet-' + name).attr('data-choices', count);
+                });
+            }
         }
 
         // foreach ruleset
