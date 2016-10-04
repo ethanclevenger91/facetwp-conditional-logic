@@ -34,15 +34,6 @@ class FacetWP_Conditional_Logic_Addon
             return;
         }
 
-        // ajax
-        add_action( 'wp_ajax_fwpcl_import', array( $this, 'import' ) );
-
-        // wp hooks
-        add_action( 'wp_footer', array( $this, 'render_js' ), 25 );
-        add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-        add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-
         $this->facets = FWP()->helper->get_facets();
         $this->templates = FWP()->helper->get_templates();
 
@@ -50,11 +41,18 @@ class FacetWP_Conditional_Logic_Addon
         $rulesets = get_option( 'fwpcl_rulesets' );
         $this->rulesets = empty( $rulesets ) ? array() : json_decode( $rulesets, true );
 
-        // register frontend script
-        wp_register_script( 'fwpcl-front-handler', FWPCL_URL . '/assets/js/front.js', array( 'jquery' ), FWPCL_VERSION, true );
+        // register assets
+        wp_register_script( 'fwpcl-front', FWPCL_URL . '/assets/js/front.js', array( 'jquery' ), FWPCL_VERSION, true );
+        wp_register_style( 'fwpcl-front', FWPCL_URL . '/assets/css/front.css', array(), FWPCL_VERSION );
 
-        // do rules on front
-        add_action( 'wp_footer', array( $this, 'render_js' ) );
+        // ajax
+        add_action( 'wp_ajax_fwpcl_import', array( $this, 'import' ) );
+
+        // wp hooks
+        add_action( 'wp_footer', array( $this, 'render_assets' ) );
+        add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+        add_action( 'admin_menu', array( $this, 'admin_menu' ) );
     }
 
 
@@ -106,9 +104,10 @@ class FacetWP_Conditional_Logic_Addon
     }
 
 
-    function render_js() {
-        wp_enqueue_script( 'fwpcl-front-handler' );
-        wp_localize_script( 'fwpcl-front-handler', 'FWPCL', $this->rulesets );
+    function render_assets() {
+        wp_enqueue_style( 'fwpcl-front' );
+        wp_enqueue_script( 'fwpcl-front' );
+        wp_localize_script( 'fwpcl-front', 'FWPCL', array( 'rulesets' => $this->rulesets ) );
     }
 }
 

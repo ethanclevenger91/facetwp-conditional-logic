@@ -135,6 +135,7 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                         <select class="action-object">
                             <option value="template">Template</option>
                             <option value="facets">All Facets</option>
+                            <option value="empty-facets">Empty Facets</option>
                             <optgroup label="Facets">
 <?php foreach ( $this->facets as $facet ) : ?>
                                 <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>

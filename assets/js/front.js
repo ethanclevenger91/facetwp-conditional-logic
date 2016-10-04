@@ -74,6 +74,19 @@
         else if ('facets' == action.object) {
             item = $('.facetwp-facet');
         }
+        else if ('empty-facets' == action.object) {
+            if ('undefined' !== typeof FWP.settings.num_choices) {
+                $.each(FWP.settings.num_choices, function(name, count) {
+                    if (0 == count && 'hide' == action.toggle) {
+                        $('.facetwp-facet-' + name).addClass('is-hidden');
+                    }
+                    else {
+                        $('.facetwp-facet-' + name).removeClass('is-hidden');
+                    }
+                });
+            }
+            return;
+        }
         else if ('facet-' == action.object.substr(0, 6)) {
             item = $('.facetwp-facet-' + action.object.substr(6));
         }
@@ -100,28 +113,22 @@
 
         // toggle
         if (is_custom) {
+            //console.log(selector);
+            //console.log(FWPCL);
             $.each(item, function(idx, selector) {
-                eval( selector + '.' + animation + '()' );
+                var which = ('show' == animation) ? '.removeClass' : '.addClass';
+                eval( selector + which + "('is-hidden')" );
             });
         }
         else {
-            ('show' == animation) ? item.show() : item.hide();
+            ('show' == animation) ? item.removeClass('is-hidden') : item.addClass('is-hidden');
         }
     }
 
     $(document).on('facetwp-refresh facetwp-loaded', function(e) {
 
-        // store num choices as data attr
-        if ('facetwp-loaded' == e.type) {
-            if ('undefined' !== typeof FWP.settings.num_choices) {
-                $.each(FWP.settings.num_choices, function(name, count) {
-                    $('.facetwp-facet-' + name).attr('data-choices', count);
-                });
-            }
-        }
-
-        // foreach ruleset
-        $.each(FWPCL, function(idx, ruleset) {
+        // each ruleset
+        $.each(FWPCL.rulesets, function(idx, ruleset) {
 
             if ('refresh-loaded' != ruleset.on && e.type != 'facetwp-' + ruleset.on) {
                 return; // skip iteration
