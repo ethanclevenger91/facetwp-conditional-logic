@@ -74,19 +74,6 @@
         else if ('facets' == action.object) {
             item = $('.facetwp-facet');
         }
-        else if ('empty-facets' == action.object) {
-            if ('undefined' !== typeof FWP.settings.num_choices) {
-                $.each(FWP.settings.num_choices, function(name, count) {
-                    if (0 == count && 'hide' == action.toggle) {
-                        $('.facetwp-facet-' + name).addClass('is-hidden');
-                    }
-                    else {
-                        $('.facetwp-facet-' + name).removeClass('is-hidden');
-                    }
-                });
-            }
-            return;
-        }
         else if ('facet-' == action.object.substr(0, 6)) {
             item = $('.facetwp-facet-' + action.object.substr(6));
         }
@@ -113,11 +100,32 @@
 
         // toggle
         if (is_custom) {
-            //console.log(selector);
-            //console.log(FWPCL);
             $.each(item, function(idx, selector) {
-                var which = ('show' == animation) ? '.removeClass' : '.addClass';
-                eval( selector + which + "('is-hidden')" );
+                if ('$EMPTY' == selector.substr(0, 6)) {
+                    var tmp = { 'empty': [], 'nonempty': [] };
+                    $.each(FWP.settings.num_choices, function(key, val) {
+                        (0 === val) ?
+                            tmp['empty'].push('.facetwp-facet-' + key) :
+                            tmp['nonempty'].push('.facetwp-facet-' + key);
+                    });
+
+                    var $EMPTY = $(tmp['empty'].join(', '));
+                    var $NONEMPTY = $(tmp['nonempty'].join(', '));
+                    var opposite = selector.replace('$EMPTY', '$NONEMPTY');
+
+                    if ('show' == animation) {
+                        eval(selector + ".removeClass('is-hidden')");
+                        eval(opposite + ".addClass('is-hidden')");
+                    }
+                    else {
+                        eval(selector + ".addClass('is-hidden')");
+                        eval(opposite + ".removeClass('is-hidden')");
+                    }
+                }
+                else {
+                    var which = ('show' == animation) ? '.removeClass' : '.addClass';
+                    eval(selector + which + "('is-hidden')");
+                }
             });
         }
         else {
@@ -129,7 +137,6 @@
 
         // each ruleset
         $.each(FWPCL.rulesets, function(idx, ruleset) {
-
             if ('refresh-loaded' != ruleset.on && e.type != 'facetwp-' + ruleset.on) {
                 return; // skip iteration
             }

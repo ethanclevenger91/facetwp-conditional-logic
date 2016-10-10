@@ -135,7 +135,6 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                         <select class="action-object">
                             <option value="template">Template</option>
                             <option value="facets">All Facets</option>
-                            <option value="empty-facets">Empty Facets</option>
                             <optgroup label="Facets">
 <?php foreach ( $this->facets as $facet ) : ?>
                                 <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>
@@ -168,7 +167,7 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
             </div>
             <div class="media-frame-router">
                 <div class="media-router">
-                    <?php _e( 'Which jQuery selectors would you like to use (one per line)?', 'fwp' ); ?>
+                    Add jQuery selectors (one per line). You can also use <strong>$EMPTY</strong> to select empty facets.
                 </div>
             </div>
             <div class="media-frame-content">
