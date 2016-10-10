@@ -2,7 +2,7 @@
 /*
 Plugin Name: FacetWP - Conditional Logic
 Description: Toggle facets based on certain conditions
-Version: 1.1.1
+Version: 1.2
 Author: FacetWP, LLC
 Author URI: https://facetwp.com/
 GitHub URI: facetwp/facetwp-conditional-logic
@@ -20,7 +20,7 @@ class FacetWP_Conditional_Logic_Addon
 
     function __construct() {
 
-        define( 'FWPCL_VERSION', '1.1.1' );
+        define( 'FWPCL_VERSION', '1.2' );
         define( 'FWPCL_DIR', dirname( __FILE__ ) );
         define( 'FWPCL_URL', plugins_url( '', __FILE__ ) );
         define( 'FWPCL_BASENAME', plugin_basename( __FILE__ ) );
@@ -47,10 +47,10 @@ class FacetWP_Conditional_Logic_Addon
 
         // ajax
         add_action( 'wp_ajax_fwpcl_import', array( $this, 'import' ) );
+        add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
 
         // wp hooks
         add_action( 'wp_footer', array( $this, 'render_assets' ) );
-        add_action( 'wp_ajax_fwpcl_save', array( $this, 'save_rules' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );
     }
