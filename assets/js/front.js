@@ -1,13 +1,16 @@
 (function($) {
 
     var facets_in_use = function() {
+        var in_use = false;
+
         $.each(FWP.facets, function(name, val) {
             if (0 < val.length && 'paged' !== name) {
-                return true;
+                in_use = true;
+                return true; // skip iteration
             }
         });
 
-        return false;
+        return in_use;
     }
 
     var evaluate_condition = function(cond) {
@@ -70,6 +73,7 @@
         var result = arr1.filter(function(n) {
             return arr2.indexOf(n) != -1;
         });
+
         return result.length > 0;
     }
 
