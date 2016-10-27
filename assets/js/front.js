@@ -1,14 +1,24 @@
 (function($) {
 
+    var facets_in_use = function() {
+        $.each(FWP.facets, function(name, val) {
+            if (0 < val.length && 'paged' !== name) {
+                return true;
+            }
+        });
+
+        return false;
+    }
+
     var evaluate_condition = function(cond) {
         var is_valid = false;
         var compare_field;
 
         if ('facets-empty' == cond.object) {
-            return FWP.build_query_string().length < 1;
+            return false === facets_in_use();
         }
         else if ('facets-not-empty' == cond.object) {
-            return FWP.build_query_string().length > 0;
+            return true === facets_in_use();
         }
         else if ('uri' == cond.object) {
             compare_field = FWP_HTTP.uri;
