@@ -6,7 +6,7 @@
         $.each(FWP.facets, function(name, val) {
             if (0 < val.length && 'paged' !== name) {
                 in_use = true;
-                return true; // skip iteration
+                return false; // exit loop
             }
         });
 
