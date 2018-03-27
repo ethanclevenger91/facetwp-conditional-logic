@@ -51,6 +51,7 @@ var FWPCL = FWPCL || {
             // Set the ruleset props
             $('.facetwp-region-rulesets .ruleset:last .ruleset-label').text(ruleset.label);
             $('.facetwp-region-rulesets .ruleset:last .ruleset-on').val(ruleset.on);
+            $('.facetwp-region-rulesets .ruleset:last .action-else').val(ruleset.else);
 
             // Set the ations
             $.each(ruleset.actions, function(index, action) {
@@ -105,7 +106,8 @@ var FWPCL = FWPCL || {
                 'label': $(this).find('.ruleset-label').text(),
                 'on': $(this).find('.ruleset-on').val(),
                 'conditions': [],
-                'actions': []
+                'actions': [],
+                'else': $(this).find('.action-else').val()
             };
 
             // Get conditions (and preserve groups)
@@ -165,9 +167,8 @@ var FWPCL = FWPCL || {
 
 
     $(document).on('click', '.facetwp-save', function() {
-        $('.fwpcl-response').removeClass('dashicons-yes');
-        $('.fwpcl-response').addClass('dashicons-image-rotate')
-        $('.fwpcl-response').show();
+        $('.fwpcl-response').html('Saving...');
+        $('.fwpcl-response').css({ display: 'inline-block' });
 
         var data = FWPCL.parse_data();
 
@@ -175,8 +176,7 @@ var FWPCL = FWPCL || {
             'action': 'fwpcl_save',
             'data': JSON.stringify(data)
         }, function(response) {
-            $('.fwpcl-response').removeClass('dashicons-image-rotate');
-            $('.fwpcl-response').addClass('dashicons-yes');
+            $('.fwpcl-response').html('Changes saved');
             setTimeout(function() {
                 $('.fwpcl-response').stop().fadeOut();
             }, 4000);

@@ -1,5 +1,8 @@
-
 /* Action buttons */
+
+body.settings_page_fwpcl-admin {
+    background: #fff;
+}
 
 .facetwp-region .ruleset-label {
     display: inline-block;
@@ -36,15 +39,10 @@
     padding: 6px 0 0 6px;
 }
 
-.fwpcl-response.dashicons {
+.fwpcl-response {
     display: none;
     margin-left: 10px;
     padding: 4px 0 0 0;
-}
-
-.dashicons-yes {
-    font-size: 24px;
-    color: green;
 }
 
 .sortable-placeholder {
@@ -58,6 +56,10 @@
 
 /* Ruleset tables */
 
+.facetwp-content-wrap {
+    margin-top: 20px;
+}
+
 .facetwp-region-rulesets table {
     width: 100%;
     border-collapse: collapse;
@@ -65,7 +67,7 @@
 
 .ruleset {
     border: 1px solid #ddd;
-    margin-bottom: 4px;
+    margin-bottom: 20px;
 }
 
 .ruleset.collapsed table.logic-row {
@@ -125,7 +127,8 @@ table.header-bar td.delete {
 }
 
 .ruleset .condition-wrap,
-.ruleset .action-wrap {
+.ruleset .action-wrap,
+.ruleset .action-else-table {
     border: 1px solid #ddd;
     border-top: none;
 }
@@ -158,18 +161,21 @@ table.header-bar td.delete {
 }
 
 table.condition,
-table.action {
+table.action,
+table.action-else-table {
     border-top: 1px solid #ddd;
 }
 
 table.condition:last-child,
-table.action:last-child {
+table.action:last-child,
+table.action-else-table:last-child {
     border-bottom: none;
 }
 
 table.condition td,
 table.ruleset-event td,
-table.action td {
+table.action td,
+table.action-else-table td {
     background-color: #fff;
 }
 
@@ -182,7 +188,8 @@ table.condition.type-or td.type {
 }
 
 table.condition td.drop,
-table.action td.drop {
+table.action td.drop,
+table.action-else-table td.drop {
     width: 32px;
     vertical-align: middle;
     color: #a00;
@@ -190,7 +197,8 @@ table.action td.drop {
 
 table.condition td.type,
 table.ruleset-event td.type,
-table.action td.type {
+table.action td.type,
+table.action-else-table td.type {
     width: 64px;
     text-align: center;
     background-color: #f8f8f8;
@@ -206,7 +214,8 @@ table.ruleset-event td.type {
 
 table.condition td.logic,
 table.ruleset-event td.logic,
-table.action td.logic {
+table.action td.logic,
+table.action-else-table td.logic {
     padding: 6px 12px;
 }
 
@@ -225,37 +234,7 @@ table.condition td.btn {
     vertical-align: middle;
 }
 
-/* Query builder */
-
-.media-modal,
-.media-modal-backdrop {
-    display: none;
-}
-
-.media-frame-title,
-.media-frame-content {
-    left: 0;
-}
-
-.media-frame-router {
-    left: 10px;
-}
-
-.media-frame-content {
-    bottom: 0;
-    overflow: auto;
-}
-
-.media-modal-close {
-    cursor: pointer;
-    /* < WP 4.3 */
-    background: none;
-    border: 0;
-}
-
-.modal-content-wrap {
-    padding: 16px;
-}
+/* Custom selector */
 
 .media-modal .action-selector-input {
     width: 100%;

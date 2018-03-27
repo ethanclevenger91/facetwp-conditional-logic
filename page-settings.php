@@ -20,7 +20,7 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
         <div class="flexbox">
             <a class="button add-ruleset">Add Ruleset</a>
             <a class="button facetwp-save" style="margin-left:10px">Save Changes</a>
-            <span class="fwpcl-response dashicons"></span>
+            <span class="fwpcl-response"></span>
         </div>
 
         <div class="facetwp-content-wrap"></div>
@@ -73,6 +73,18 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                         <td class="actions-col" style="width:40%">
                             <div class="td-label">Actions</div>
                             <div class="action-wrap"></div>
+                            <table class="action-else-table">
+                                <tr>
+                                    <td class="drop"></td>
+                                    <td class="type">ELSE</td>
+                                    <td class="logic">
+                                        <select class="action-else">
+                                            <option value="flip">Do the opposite</option>
+                                            <option value="skip">Do nothing</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
                             <button class="button action-and">Add Action</button>
                         </td>
                     <tr>
@@ -110,6 +122,7 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                         <select class="condition-compare">
                             <option value="is">is</option>
                             <option value="not">is not</option>
+                            <!--<option value="contains">contains</option>-->
                         </select>
                         <input type="text" class="condition-value" placeholder="enter values" title="comma-separate multiple values"></input>
                     </td>

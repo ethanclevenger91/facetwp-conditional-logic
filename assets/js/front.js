@@ -176,10 +176,13 @@
 
             // make sure no conditions are false
             var is_valid = (result.indexOf(false) < 0);
+            var action_else = ('undefined' !== typeof ruleset.else) ? ruleset.else : 'flip';
 
             // apply actions
             $.each(ruleset.actions, function(idx_1, action) {
-                do_action(action, is_valid);
+                if (is_valid || 'flip' === action_else) {
+                    do_action(action, is_valid);
+                }
             });
         });
     });
