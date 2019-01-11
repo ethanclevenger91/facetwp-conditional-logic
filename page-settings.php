@@ -1,15 +1,8 @@
-<script src="<?php echo FWPCL_URL; ?>/assets/js/admin.js?ver=<?php echo FWPCL_VERSION; ?>"></script>
-<link href="<?php echo FACETWP_URL; ?>/assets/css/admin.css?ver=<?php echo FACETWP_VERSION; ?>" rel="stylesheet">
-<link href="<?php echo FWPCL_URL; ?>/assets/css/admin.css?ver=<?php echo FWPCL_VERSION; ?>" rel="stylesheet">
-<script>
-FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
-</script>
-
 <div class="facetwp-header">
     <span class="facetwp-logo" title="FacetWP">&nbsp;</span>
     <span class="facetwp-header-nav">
-        <a class="facetwp-tab" rel="rulesets"><?php _e( 'Rulesets', 'fwp' ); ?></a>
-        <a class="facetwp-tab" rel="settings"><?php _e( 'Settings', 'fwp' ); ?></a>
+        <a class="facetwp-tab" rel="rulesets"><?php _e( 'Rulesets', 'facetwp-conditional-logic' ); ?></a>
+        <a class="facetwp-tab" rel="settings"><?php _e( 'Settings', 'facetwp-conditional-logic' ); ?></a>
     </span>
 </div>
 
@@ -18,8 +11,8 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
 
     <div class="facetwp-region facetwp-region-rulesets">
         <div class="flexbox">
-            <a class="button add-ruleset">Add Ruleset</a>
-            <a class="button facetwp-save" style="margin-left:10px">Save Changes</a>
+            <a class="button add-ruleset"><?php _e( 'Add Ruleset', 'facetwp-conditional-logic' ); ?></a>
+            <a class="button facetwp-save" style="margin-left:10px"><?php _e( 'Save Changes', 'facetwp-conditional-logic' ); ?></a>
             <span class="fwpcl-response"></span>
         </div>
 
@@ -28,11 +21,20 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
 
     <div class="facetwp-region facetwp-region-settings">
         <div class="facetwp-content-wrap">
-            <p class="description">To export, copy the code below.</p>
+            <p class="description"><?php _e( 'To export, copy the code below.', 'facetwp-conditional-logic' ); ?></p>
             <input type="text" class="export-code" readonly="readonly" />
-            <p class="description" style="margin-top:20px">To import, paste code into the field below.</p>
+            <p class="description" style="margin-top:20px"><?php _e( 'To import, paste code into the field below.', 'facetwp-conditional-logic' ); ?></p>
             <textarea class="import-code"></textarea>
-            <p class="description" style="color:red"><strong>NOTE:</strong> importing will replace any existing rulesets.</p>
+            <p class="description" style="color:red">
+              <?php
+                printf(
+                  /* translators: placeholder are <strong> HTML entities */
+                  esc_html__( '%1$s NOTE: %2$s importing will replace any existing rulesets.', 'facetwp-conditional-logic' ),
+                  '<strong>',
+                  '</strong>'
+                );
+              ?>
+            </p>
             <input type="button" class="button fwpcl-import" value="Process Import" />
             <span class="fwpcl-import-response"></span>
         </div>
@@ -46,46 +48,46 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                 <table class="header-bar">
                     <tr>
                         <td class="toggle"><span class="dashicons dashicons-menu"></span></td>
-                        <td class="title"><span class="ruleset-label" contenteditable="true">Edit me</span></td>
+                        <td class="title"><span class="ruleset-label" contenteditable="true"><?php _e( 'Edit me', 'facetwp-conditional-logic' ); ?></span></td>
                         <td class="delete"><span class="dashicons dashicons-no-alt"></span></td>
                     </tr>
                 </table>
                 <table class="logic-row">
                     <tr>
                         <td class="conditions-col" style="width:60%">
-                            <div class="td-label">Conditions</div>
+                            <div class="td-label"><?php _e( 'Conditions', 'facetwp-conditional-logic' ); ?></div>
                             <div class="condition-wrap">
                                 <table class="ruleset-event">
                                     <tr>
-                                        <td class="type">ON</td>
+                                        <td class="type"><?php _e( 'ON', 'facetwp-conditional-logic' ); ?></td>
                                         <td class="logic">
                                             <select class="ruleset-on">
-                                                <option value="loaded">Loaded</option>
-                                                <option value="refresh">Refresh</option>
-                                                <option value="refresh-loaded">Refresh &amp; Loaded</option>
+                                                <option value="loaded"><?php _e( 'Loaded', 'facetwp-conditional-logic' ) ; ?></option>
+                                                <option value="refresh"><?php _e( 'Refresh', 'facetwp-conditional-logic' ); ?></option>
+                                                <option value="refresh-loaded"><?php _e( 'Refresh &amp; Loaded', 'facetwp-conditional-logic' ); ?></option>
                                             </select>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
-                            <button class="button condition-and">Add Condition</button>
+                            <button class="button condition-and"><?php _e( 'Add Condition', 'facetwp-conditional-logic' ); ?></button>
                         </td>
                         <td class="actions-col" style="width:40%">
-                            <div class="td-label">Actions</div>
+                            <div class="td-label"><?php _e( 'Actions', 'facetwp-conditional-logic' ); ?></div>
                             <div class="action-wrap"></div>
                             <table class="action-else-table">
                                 <tr>
                                     <td class="drop"></td>
-                                    <td class="type">ELSE</td>
+                                    <td class="type"><?php _e( 'ELSE', 'facetwp-conditional-logic' ); ?></td>
                                     <td class="logic">
                                         <select class="action-else">
-                                            <option value="flip">Do the opposite</option>
-                                            <option value="skip">Do nothing</option>
+                                            <option value="flip"><?php _e( 'Do the opposite', 'facetwp-conditional-logic' ); ?></option>
+                                            <option value="skip"><?php _e( 'Do nothing', 'facetwp-conditional-logic' ); ?></option>
                                         </select>
                                     </td>
                                 </tr>
                             </table>
-                            <button class="button action-and">Add Action</button>
+                            <button class="button action-and"><?php _e( 'Add Action', 'facetwp-conditional-logic' ); ?></button>
                         </td>
                     <tr>
                 </table>
@@ -99,35 +101,35 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                     <td class="drop">
                         <span class="dashicons dashicons-no-alt condition-drop"></span>
                     </td>
-                    <td class="type">IF</td>
+                    <td class="type"><?php _e( 'IF', 'facetwp-conditional-logic' ); ?></td>
                     <td class="logic">
                         <select class="condition-object">
                             <optgroup label="Basic">
-                                <option value="facets-empty">No facets in use</option>
-                                <option value="facets-not-empty">Some facets in use</option>
-                                <option value="uri">Page URI</option>
-                                <option value="total-rows">Result count</option>
+                                <option value="facets-empty"><?php _e( 'No facets in use', 'facetwp-conditional-logic' ); ?></option>
+                                <option value="facets-not-empty"><?php _e( 'Some facets in use', 'facetwp-conditional-logic' ); ?></option>
+                                <option value="uri"><?php _e( 'Page URI', 'facetwp-conditional-logic' ); ?></option>
+                                <option value="total-rows"><?php _e( 'Result count', 'facetwp-conditional-logic' ); ?></option>
                             </optgroup>
                             <optgroup label="Facet Value">
 <?php foreach ( $this->facets as $facet ) : ?>
-                                <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>
+                                <option value="facet-<?php echo $facet['name']; ?>"><?php _e( 'Facet:', 'facetwp-conditional-logic' ); ?> <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                             </optgroup>
                             <optgroup label="Template">
 <?php foreach ( $this->templates as $template ) : ?>
-                                <option value="template-<?php echo $template['name']; ?>">Template: <?php echo $template['label']; ?></option>
+                                <option value="template-<?php echo $template['name']; ?>"><?php _e( 'Template:', 'facetwp-conditional-logic' ); ?> <?php echo $template['label']; ?></option>
 <?php endforeach; ?>
                             </optgroup>
                         </select>
                         <select class="condition-compare">
-                            <option value="is">is</option>
-                            <option value="not">is not</option>
+                            <option value="is"><?php _e( 'is', 'facetwp-conditional-logic' ); ?></option>
+                            <option value="not"><?php _e( 'is not', 'facetwp-conditional-logic' ); ?></option>
                             <!--<option value="contains">contains</option>-->
                         </select>
-                        <input type="text" class="condition-value" placeholder="enter values" title="comma-separate multiple values"></input>
+                        <input type="text" class="condition-value" placeholder="<?php _e( 'enter values', 'facetwp-conditional-logic' ); ?>" title="comma-separate multiple values"></input>
                     </td>
                     <td class="btn">
-                        <button class="button condition-or">OR</button>
+                        <button class="button condition-or"><?php _e( 'OR', 'facetwp-conditional-logic' ); ?></button>
                     </td>
                 </tr>
             </table>
@@ -139,22 +141,22 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
                     <td class="drop">
                         <span class="dashicons dashicons-no-alt action-drop"></span>
                     </td>
-                    <td class="type">AND</td>
+                    <td class="type"><?php _e( 'AND', 'facetwp-conditional-logic' ); ?></td>
                     <td class="logic">
                         <select class="action-toggle">
-                            <option value="show">Show</option>
-                            <option value="hide">Hide</option>
+                            <option value="show"><?php _e( 'Show', 'facetwp-conditional-logic' ); ?></option>
+                            <option value="hide"><?php _e( 'Hide', 'facetwp-conditional-logic' ); ?></option>
                         </select>
                         <select class="action-object">
-                            <option value="template">Template</option>
-                            <option value="facets">All Facets</option>
+                            <option value="template"><?php _e( 'Template', 'facetwp-conditional-logic' ); ?></option>
+                            <option value="facets"><?php _e( 'All Facets', 'facetwp-conditional-logic' ); ?></option>
                             <optgroup label="Facets">
 <?php foreach ( $this->facets as $facet ) : ?>
-                                <option value="facet-<?php echo $facet['name']; ?>">Facet: <?php echo $facet['label']; ?></option>
+                                <option value="facet-<?php echo $facet['name']; ?>"><?php _e( 'Facet:', 'facetwp-conditional-logic' ); ?> <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                             </optgroup>
                             <optgroup label="Custom">
-                                <option value="custom">Selector</option>
+                                <option value="custom"><?php _e( 'Selector', 'facetwp-conditional-logic' ); ?></option>
                             </optgroup>
                         </select>
                         <textarea class="action-selector hidden"></textarea>
@@ -176,17 +178,23 @@ FWPCL.rulesets = <?php echo json_encode( $this->rulesets ); ?>;
     <div class="media-modal-content">
         <div class="media-frame">
             <div class="media-frame-title">
-                <h1><?php _e( 'Custom Selectors', 'fwp' ); ?></h1>
+                <h1><?php _e( 'Custom Selectors', 'facetwp-conditional-logic' ); ?></h1>
             </div>
             <div class="media-frame-router">
                 <div class="media-router">
-                    Add jQuery selectors (one per line). You can also use <strong>$EMPTY</strong> to select empty facets.
+                <?php
+                  printf(
+                    /* translators: Code placeholder for empty facets  */
+                    esc_html__( 'Add jQuery selectors (one per line). You can also use %s, to select empty facets.', 'facetwp-conditional-logic' ),
+                    '<strong>$EMPTY</strong>'
+                  );
+                ?>
                 </div>
             </div>
             <div class="media-frame-content">
                 <div class="modal-content-wrap">
                     <textarea class="action-selector-input" placeholder="$('.facetwp-facet-categories')"></textarea>
-                    <input type="button" class="button selector-save" value="Save Changes" />
+                    <input type="button" class="button selector-save" value="<?php _e( 'Save Changes', 'facetwp-conditional-logic' ); ?>" />
                 </div>
             </div>
         </div>

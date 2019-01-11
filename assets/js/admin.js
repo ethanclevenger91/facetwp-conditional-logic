@@ -29,7 +29,7 @@ var FWPCL = FWPCL || {
             $(this).select();
         });
 
-        $(document).on('click', '.ruleset-label', function() {
+        $(document).on('click', '.ruleset-label', function(e) {
             e.preventDefault();
         });
 
@@ -40,6 +40,10 @@ var FWPCL = FWPCL || {
         // Trigger click
         $('.facetwp-header-nav a:first').click();
     });
+
+    FWPCL.__ = function(str) {
+        return ('undefined' !== typeof FWPCL.i18n[str]) ? FWPCL.i18n[str] : str;
+    };
 
 
     FWPCL.load = function() {
@@ -167,7 +171,7 @@ var FWPCL = FWPCL || {
 
 
     $(document).on('click', '.facetwp-save', function() {
-        $('.fwpcl-response').html('Saving...');
+        $('.fwpcl-response').html(FWPCL.__('Saving...'));
         $('.fwpcl-response').css({ display: 'inline-block' });
 
         var data = FWPCL.parse_data();
@@ -176,7 +180,7 @@ var FWPCL = FWPCL || {
             'action': 'fwpcl_save',
             'data': JSON.stringify(data)
         }, function(response) {
-            $('.fwpcl-response').html('Changes saved');
+            $('.fwpcl-response').html(FWPCL.__('Changes saved'));
             setTimeout(function() {
                 $('.fwpcl-response').stop().fadeOut();
             }, 4000);
@@ -206,7 +210,7 @@ var FWPCL = FWPCL || {
     $(document).on('click', '.condition-or', function() {
         var $clone = $('.clone-condition').clone();
         $clone.find('.condition').addClass('type-or');
-        $clone.find('.condition .type').text('OR');
+        $clone.find('.condition .type').text(FWPCL.__('OR'));
         $clone.find('.condition .btn').html('');
         $(this).closest('.condition-group').append($clone.html());
         $(this).closest('.condition-group').find('.condition:last .condition-object').trigger('change');
@@ -218,7 +222,7 @@ var FWPCL = FWPCL || {
         var $ruleset = $(this).closest('.conditions-col');
 
         // Set the type label
-        $clone.find('.condition .type').text('AND');
+        $clone.find('.condition .type').text(FWPCL.__('AND'));
 
         // Create rule group
         $ruleset.find('.condition-wrap').append('<div class="condition-group" />');
@@ -227,7 +231,7 @@ var FWPCL = FWPCL || {
         $group.find('.condition-object').trigger('change');
 
         // The first label should be "IF"
-        $(this).closest('.conditions-col').find('.condition:first .type').text('IF');
+        $(this).closest('.conditions-col').find('.condition:first .type').text(FWPCL.__('IF'));
     });
 
 
@@ -246,12 +250,12 @@ var FWPCL = FWPCL || {
         }
 
         // The first label should be "IF"
-        $wrap.find('.condition:first .type').text('IF');
+        $wrap.find('.condition:first .type').text(FWPCL.__('IF'));
     });
 
 
     $(document).on('click', '.header-bar td.delete', function() {
-        if (confirm('Delete this ruleset?')) {
+        if (confirm(FWPCL.__('Delete this ruleset?'))) {
             $(this).closest('.ruleset').remove();
         }
     });
@@ -262,7 +266,7 @@ var FWPCL = FWPCL || {
         var $wrap = $(this).siblings('.action-wrap');
 
         $wrap.append(html);
-        $wrap.find('.action:first .type').text('THEN');
+        $wrap.find('.action:first .type').text(FWPCL.__('THEN'));
         $wrap.find('.action:last .action-object').trigger('change');
     });
 
@@ -270,7 +274,7 @@ var FWPCL = FWPCL || {
     $(document).on('click', '.action-drop', function() {
         var $wrap = $(this).closest('.action-wrap');
         $(this).closest('.action').remove();
-        $wrap.find('.action:first .type').text('THEN');
+        $wrap.find('.action:first .type').text(FWPCL.__('THEN'));
     });
 
 
@@ -297,7 +301,7 @@ var FWPCL = FWPCL || {
 
 
     $(document).on('click', '.fwpcl-import', function() {
-        $('.fwpcl-import-response').html('Importing...');
+        $('.fwpcl-import-response').html(FWPCL.__('Importing...'));
         $.post(ajaxurl, {
             action: 'fwpcl_import',
             import_code: $('.import-code').val(),

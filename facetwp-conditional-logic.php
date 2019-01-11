@@ -34,6 +34,8 @@ class FacetWP_Conditional_Logic_Addon
             return;
         }
 
+        load_plugin_textdomain( 'facetwp-conditional-logic', false, basename( FWPCL_DIR ) . '/languages' );
+
         $this->facets = FWP()->helper->get_facets();
         $this->templates = FWP()->helper->get_templates();
 
@@ -41,9 +43,25 @@ class FacetWP_Conditional_Logic_Addon
         $rulesets = get_option( 'fwpcl_rulesets' );
         $this->rulesets = empty( $rulesets ) ? array() : json_decode( $rulesets, true );
 
-        // register assets
+        $this->admin_i18n = array(
+          'Saving...'            => __( 'Saving...',             'facetwp-conditional-logic' ),
+          'Importing...'         => __( 'Importing...',          'facetwp-conditional-logic' ),
+          'Changes saved'        => __( 'Changes saved',         'facetwp-conditional-logic' ),
+          'OR'                   => __( 'OR',                    'facetwp-conditional-logic' ),
+          'IF'                   => __( 'IF',                    'facetwp-conditional-logic' ),
+          'AND'                  => __( 'AND',                   'facetwp-conditional-logic' ),
+          'THEN'                 => __( 'THEN',                  'facetwp-conditional-logic' ),
+          'Delete this ruleset?' => __( 'Delete this ruleset?' , 'facetwp-conditional-logic' ),
+        );
+
+        // register front assets
         wp_register_script( 'fwpcl-front', FWPCL_URL . '/assets/js/front.js', array( 'jquery' ), FWPCL_VERSION, true );
-        wp_register_style( 'fwpcl-front', FWPCL_URL . '/assets/css/front.css', array(), FWPCL_VERSION );
+        wp_register_style( 'fwpcl-front',  FWPCL_URL . '/assets/css/front.css', array(), FWPCL_VERSION );
+
+        // register admin assets
+        wp_register_script( 'fwpcl-admin', FWPCL_URL . '/assets/js/admin.js', array( 'jquery' ), FWPCL_VERSION, false );
+        wp_register_style( 'fwpcl-admin',  FWPCL_URL . '/assets/css/admin.css', array(), FWPCL_VERSION );
+        wp_register_style( 'fwp-admin',    FACETWP_URL . '/assets/css/admin.css', array(), FACETWP_VERSION );
 
         // ajax
         add_action( 'wp_ajax_fwpcl_import', array( $this, 'import' ) );
@@ -63,7 +81,7 @@ class FacetWP_Conditional_Logic_Addon
 
         $rulesets = stripslashes( $_POST['import_code'] );
         update_option( 'fwpcl_rulesets', $rulesets );
-        _e( 'All done!', 'fwpcl' );
+        _e( 'All done!', 'facetwp-conditional-logic' );
         exit;
     }
 
@@ -76,10 +94,10 @@ class FacetWP_Conditional_Logic_Addon
             // check for valid JSON
             if ( is_array( $json_test ) ) {
                 update_option( 'fwpcl_rulesets', $rulesets );
-                _e( 'Rules saved', 'fwpcl' );
+                _e( 'Rules saved', 'facetwp-conditional-logic' );
             }
             else {
-                _e( 'Error: invalid JSON', 'fwpcl' );
+                _e( 'Error: invalid JSON', 'facetwp-conditional-logic' );
             }
         }
         exit;
@@ -93,8 +111,12 @@ class FacetWP_Conditional_Logic_Addon
 
     function enqueue_scripts( $hook ) {
         if ( 'settings_page_fwpcl-admin' == $hook ) {
+            wp_enqueue_script( 'fwpcl-admin' );
             wp_enqueue_script( 'jquery-ui-sortable' );
             wp_enqueue_style( 'media-views' );
+            wp_enqueue_style( 'fwp-admin' );
+            wp_enqueue_style( 'fwpcl-admin' );
+            wp_localize_script( 'fwpcl-admin', 'FWPCL', array( 'rulesets' => $this->rulesets, 'i18n' => $this->admin_i18n ) );
         }
     }
 
