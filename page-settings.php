@@ -124,7 +124,6 @@
                         <select class="condition-compare">
                             <option value="is"><?php _e( 'is', 'facetwp-conditional-logic' ); ?></option>
                             <option value="not"><?php _e( 'is not', 'facetwp-conditional-logic' ); ?></option>
-                            <!--<option value="contains">contains</option>-->
                         </select>
                         <input type="text" class="condition-value" placeholder="<?php _e( 'enter values', 'facetwp-conditional-logic' ); ?>" title="comma-separate multiple values"></input>
                     </td>
@@ -159,8 +158,7 @@
                                 <option value="custom"><?php _e( 'Selector', 'facetwp-conditional-logic' ); ?></option>
                             </optgroup>
                         </select>
-                        <textarea class="action-selector hidden"></textarea>
-                        <button class="button action-selector-btn"><span class="dashicons dashicons-editor-code"></span></button>
+                        <textarea class="action-selector hidden" placeholder="$('.facetwp-facet-categories')"></textarea>
                     </td>
                 </tr>
             </table>
@@ -170,35 +168,3 @@
     <!-- [End] Clone HTML -->
 
 </div>
-
-<!-- Modal window -->
-
-<div class="media-modal">
-    <button class="button-link media-modal-close"><span class="media-modal-icon"></span></button>
-    <div class="media-modal-content">
-        <div class="media-frame">
-            <div class="media-frame-title">
-                <h1><?php _e( 'Custom Selectors', 'facetwp-conditional-logic' ); ?></h1>
-            </div>
-            <div class="media-frame-router">
-                <div class="media-router">
-                <?php
-                  printf(
-                    /* translators: Code placeholder for empty facets  */
-                    esc_html__( 'Add jQuery selectors (one per line). You can also use %s, to select empty facets.', 'facetwp-conditional-logic' ),
-                    '<strong>$EMPTY</strong>'
-                  );
-                ?>
-                </div>
-            </div>
-            <div class="media-frame-content">
-                <div class="modal-content-wrap">
-                    <textarea class="action-selector-input" placeholder="$('.facetwp-facet-categories')"></textarea>
-                    <input type="button" class="button selector-save" value="<?php _e( 'Save Changes', 'facetwp-conditional-logic' ); ?>" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="media-modal-backdrop"></div>

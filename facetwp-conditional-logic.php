@@ -44,24 +44,24 @@ class FacetWP_Conditional_Logic_Addon
         $this->rulesets = empty( $rulesets ) ? array() : json_decode( $rulesets, true );
 
         $this->admin_i18n = array(
-          'Saving...'            => __( 'Saving...',             'facetwp-conditional-logic' ),
-          'Importing...'         => __( 'Importing...',          'facetwp-conditional-logic' ),
-          'Changes saved'        => __( 'Changes saved',         'facetwp-conditional-logic' ),
-          'OR'                   => __( 'OR',                    'facetwp-conditional-logic' ),
-          'IF'                   => __( 'IF',                    'facetwp-conditional-logic' ),
-          'AND'                  => __( 'AND',                   'facetwp-conditional-logic' ),
-          'THEN'                 => __( 'THEN',                  'facetwp-conditional-logic' ),
-          'Delete this ruleset?' => __( 'Delete this ruleset?' , 'facetwp-conditional-logic' ),
+          'Saving...' => __( 'Saving...', 'facetwp-conditional-logic' ),
+          'Importing...' => __( 'Importing...', 'facetwp-conditional-logic' ),
+          'Changes saved' => __( 'Changes saved', 'facetwp-conditional-logic' ),
+          'OR' => __( 'OR', 'facetwp-conditional-logic' ),
+          'IF' => __( 'IF', 'facetwp-conditional-logic' ),
+          'AND' => __( 'AND', 'facetwp-conditional-logic' ),
+          'THEN' => __( 'THEN', 'facetwp-conditional-logic' ),
+          'Delete this ruleset?' => __( 'Delete this ruleset?', 'facetwp-conditional-logic' ),
         );
 
         // register front assets
         wp_register_script( 'fwpcl-front', FWPCL_URL . '/assets/js/front.js', array( 'jquery' ), FWPCL_VERSION, true );
-        wp_register_style( 'fwpcl-front',  FWPCL_URL . '/assets/css/front.css', array(), FWPCL_VERSION );
+        wp_register_style( 'fwpcl-front', FWPCL_URL . '/assets/css/front.css', array(), FWPCL_VERSION );
 
         // register admin assets
         wp_register_script( 'fwpcl-admin', FWPCL_URL . '/assets/js/admin.js', array( 'jquery' ), FWPCL_VERSION, false );
-        wp_register_style( 'fwpcl-admin',  FWPCL_URL . '/assets/css/admin.css', array(), FWPCL_VERSION );
-        wp_register_style( 'fwp-admin',    FACETWP_URL . '/assets/css/admin.css', array(), FACETWP_VERSION );
+        wp_register_style( 'fwpcl-admin', FWPCL_URL . '/assets/css/admin.css', array(), FWPCL_VERSION );
+        wp_register_style( 'fwp-admin', FACETWP_URL . '/assets/css/admin.css', array(), FACETWP_VERSION );
 
         // ajax
         add_action( 'wp_ajax_fwpcl_import', array( $this, 'import' ) );

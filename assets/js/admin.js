@@ -161,12 +161,9 @@ var FWPCL = FWPCL || {
 
 
     $(document).on('change', '.action-object', function() {
-        if ('custom' == $(this).val()) {
-            $(this).closest('.action').find('.action-selector-btn').show();
-        }
-        else {
-            $(this).closest('.action').find('.action-selector-btn').hide();
-        }
+        var $this = $(this);
+        var hidden = ('custom' == $this.val());
+        $this.closest('.action').find('.action-selector').toggleClass('hidden', !hidden);
     });
 
 
@@ -191,11 +188,6 @@ var FWPCL = FWPCL || {
     $(document).on('click', '.add-ruleset', function() {
         var $clone = $('.clone').clone();
         var $rule = $clone.find('.clone-ruleset');
-
-        // Collapse ruleset on pageload
-        if (FWPCL.is_loading) {
-            $rule.find('.ruleset').addClass('collapsed');
-        }
 
         $('.facetwp-region-rulesets .facetwp-content-wrap').append($rule.html());
         $('.facetwp-region-rulesets .facetwp-content-wrap').sortable({
@@ -275,28 +267,6 @@ var FWPCL = FWPCL || {
         var $wrap = $(this).closest('.action-wrap');
         $(this).closest('.action').remove();
         $wrap.find('.action:first .type').text(FWPCL.__('THEN'));
-    });
-
-
-    $(document).on('click', '.action-selector-btn', function() {
-        FWPCL.action_el = $(this).closest('.action');
-        var val = FWPCL.action_el.find('.action-selector').val();
-        $('.action-selector-input').val(val);
-        $('.media-modal').show();
-        $('.media-modal-backdrop').show();
-    });
-
-
-    $(document).on('click', '.selector-save', function() {
-        var val = $('.action-selector-input').val();
-        FWPCL.action_el.find('.action-selector').val(val);
-        $('.media-modal-close').trigger('click');
-    });
-
-
-    $(document).on('click', '.media-modal-close', function() {
-        $('.media-modal').hide();
-        $('.media-modal-backdrop').hide();
     });
 
 
