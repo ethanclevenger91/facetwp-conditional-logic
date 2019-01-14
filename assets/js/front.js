@@ -122,17 +122,33 @@
         // toggle
         if (is_custom) {
             $.each(item, function(idx, selector) {
-                if ('$EMPTY' == selector.substr(0, 6)) {
-                    var tmp = { 'empty': [], 'nonempty': [] };
-                    $.each(FWP.settings.num_choices, function(key, val) {
-                        (0 === val) ?
-                            tmp['empty'].push('.facetwp-facet-' + key) :
-                            tmp['nonempty'].push('.facetwp-facet-' + key);
-                    });
+                if (0 === selector.indexOf('$EMPTY') || 0 === selector.indexOf('$ACTIVE')) {
+                    var prefix = '.facetwp-facet-';
+                    var type = (0 === selector.indexOf('$EMPTY')) ? 'empty' : 'active';
+                    var tmp = { 'empty': [], 'nonempty': [], 'active': [], 'inactive': [] };
 
-                    var $EMPTY = $(tmp['empty'].join(', '));
-                    var $NONEMPTY = $(tmp['nonempty'].join(', '));
-                    var opposite = selector.replace('$EMPTY', '$NONEMPTY');
+                    if ('empty' == type) {
+                        $.each(FWP.settings.num_choices, function(key, val) {
+                            (0 === val) ?
+                                tmp['empty'].push(prefix + key) :
+                                tmp['nonempty'].push(prefix + key);
+                        });
+
+                        var $EMPTY = $(tmp['empty'].join(', '));
+                        var $NONEMPTY = $(tmp['nonempty'].join(', '));
+                        var opposite = selector.replace('$EMPTY', '$NONEMPTY');
+                    }
+                    else {
+                        $.each(FWP.facets, function(key, val) {
+                            (val && 0 < val.length) ?
+                                tmp['active'].push(prefix + key) :
+                                tmp['inactive'].push(prefix + key);
+                        });
+
+                        var $ACTIVE = $(tmp['active'].join(', '));
+                        var $INACTIVE = $(tmp['inactive'].join(', '));
+                        var opposite = selector.replace('$ACTIVE', '$INACTIVE');
+                    }
 
                     if ('show' == animation) {
                         eval(selector + ".removeClass('is-hidden')");
