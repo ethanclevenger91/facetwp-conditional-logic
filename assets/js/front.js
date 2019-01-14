@@ -188,6 +188,13 @@
                     do_action(action, is_valid);
                 }
             });
+
+            // custom hooks
+            FWP.hooks.addAction('facetwp/ruleset/apply', {
+                ruleset: ruleset,
+                is_valid: is_valid,
+                action_else: action_else
+            });
         });
     });
 })(jQuery);
