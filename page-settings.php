@@ -1,5 +1,6 @@
 <div class="facetwp-header">
     <span class="facetwp-logo" title="FacetWP">&nbsp;</span>
+    <span class="facetwp-version">v<?php echo FWPCL_VERSION; ?></span>
     <span class="facetwp-header-nav">
         <a class="facetwp-tab" rel="rulesets"><?php _e( 'Rulesets', 'facetwp-conditional-logic' ); ?></a>
         <a class="facetwp-tab" rel="settings"><?php _e( 'Settings', 'facetwp-conditional-logic' ); ?></a>
