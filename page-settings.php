@@ -56,20 +56,7 @@
                     <tr>
                         <td class="conditions-col" style="width:60%">
                             <div class="td-label"><?php _e( 'Conditions', 'facetwp-conditional-logic' ); ?></div>
-                            <div class="condition-wrap">
-                                <table class="ruleset-event">
-                                    <tr>
-                                        <td class="type"><?php _e( 'ON', 'facetwp-conditional-logic' ); ?></td>
-                                        <td class="logic">
-                                            <select class="ruleset-on">
-                                                <option value="loaded"><?php _e( 'Loaded', 'facetwp-conditional-logic' ) ; ?></option>
-                                                <option value="refresh"><?php _e( 'Refresh', 'facetwp-conditional-logic' ); ?></option>
-                                                <option value="refresh-loaded"><?php _e( 'Refresh &amp; Loaded', 'facetwp-conditional-logic' ); ?></option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                            <div class="condition-wrap"></div>
                             <button class="button condition-and"><?php _e( 'Add Condition', 'facetwp-conditional-logic' ); ?></button>
                         </td>
                         <td class="actions-col" style="width:40%">

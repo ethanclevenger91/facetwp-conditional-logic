@@ -54,7 +54,6 @@ var FWPCL = FWPCL || {
 
             // Set the ruleset props
             $('.facetwp-region-rulesets .ruleset:last .ruleset-label').text(ruleset.label);
-            $('.facetwp-region-rulesets .ruleset:last .ruleset-on').val(ruleset.on);
             $('.facetwp-region-rulesets .ruleset:last .action-else').val(ruleset.else);
 
             // Set the ations
@@ -108,7 +107,6 @@ var FWPCL = FWPCL || {
         $('.facetwp-region-rulesets .ruleset').each(function(rule_num) {
             rules[rule_num] = {
                 'label': $(this).find('.ruleset-label').text(),
-                'on': $(this).find('.ruleset-on').val(),
                 'conditions': [],
                 'actions': [],
                 'else': $(this).find('.action-else').val()

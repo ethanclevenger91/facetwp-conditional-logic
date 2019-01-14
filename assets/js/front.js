@@ -25,6 +25,13 @@
         }
         else if ('uri' == cond.object) {
             compare_field = FWP_HTTP.uri;
+            if ('*' === cond.value.slice(-1)) {
+                var len = cond.value.length - 1; // minus the "*"
+                var temp_val = cond.value.substr(0, len);
+                if (temp_val === compare_field.substr(0, len)) {
+                    compare_field = cond.value = temp_val;
+                }
+            }
         }
         else if ('total-rows' == cond.object) {
             if ('undefined' === typeof FWP.settings.pager) {
@@ -147,13 +154,10 @@
         }
     }
 
-    $(document).on('facetwp-refresh facetwp-loaded', function(e) {
+    $(document).on('facetwp-loaded', function(e) {
 
         // each ruleset
         $.each(FWPCL.rulesets, function(idx, ruleset) {
-            if ('refresh-loaded' != ruleset.on && e.type != 'facetwp-' + ruleset.on) {
-                return; // skip iteration
-            }
 
             // if no conditions, set to TRUE
             var this_result = (ruleset.conditions.length < 1);
