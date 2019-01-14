@@ -11,7 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-01-14 01:58+0000\n"
+"POT-Creation-Date: 2019-01-14 14:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: facetwp-conditional-logic\n"
@@ -30,15 +30,15 @@ msgstr ""
 msgid "Changes saved"
 msgstr ""
 
-#: facetwp-conditional-logic.php:50 page-settings.php:111
+#: facetwp-conditional-logic.php:50 page-settings.php:112
 msgid "OR"
 msgstr ""
 
-#: facetwp-conditional-logic.php:51 page-settings.php:84
+#: facetwp-conditional-logic.php:51 page-settings.php:85
 msgid "IF"
 msgstr ""
 
-#: facetwp-conditional-logic.php:52 page-settings.php:123
+#: facetwp-conditional-logic.php:52 page-settings.php:124
 msgid "AND"
 msgstr ""
 
@@ -62,115 +62,115 @@ msgstr ""
 msgid "Error: invalid JSON"
 msgstr ""
 
-#: page-settings.php:4
+#: page-settings.php:5
 msgid "Rulesets"
 msgstr ""
 
-#: page-settings.php:5
+#: page-settings.php:6
 msgid "Settings"
 msgstr ""
 
-#: page-settings.php:14
+#: page-settings.php:15
 msgid "Add Ruleset"
 msgstr ""
 
-#: page-settings.php:15
+#: page-settings.php:16
 msgid "Save Changes"
 msgstr ""
 
-#: page-settings.php:24
+#: page-settings.php:25
 msgid "To export, copy the code below."
 msgstr ""
 
-#: page-settings.php:26
+#: page-settings.php:27
 msgid "To import, paste code into the field below."
 msgstr ""
 
-#: page-settings.php:29
+#: page-settings.php:30
 msgid "Importing will replace any existing rulesets."
 msgstr ""
 
-#: page-settings.php:44
-msgid "Edit me"
+#: page-settings.php:45
+msgid "Change me"
 msgstr ""
 
-#: page-settings.php:51
+#: page-settings.php:52
 msgid "Conditions"
 msgstr ""
 
-#: page-settings.php:53
+#: page-settings.php:54
 msgid "Add Condition"
 msgstr ""
 
-#: page-settings.php:56
+#: page-settings.php:57
 msgid "Actions"
 msgstr ""
 
-#: page-settings.php:61
+#: page-settings.php:62
 msgid "ELSE"
 msgstr ""
 
-#: page-settings.php:64
+#: page-settings.php:65
 msgid "Do the opposite"
 msgstr ""
 
-#: page-settings.php:65
+#: page-settings.php:66
 msgid "Do nothing"
 msgstr ""
 
-#: page-settings.php:70
+#: page-settings.php:71
 msgid "Add Action"
 msgstr ""
 
-#: page-settings.php:88
+#: page-settings.php:89
 msgid "No facets in use"
 msgstr ""
 
-#: page-settings.php:89
+#: page-settings.php:90
 msgid "Some facets in use"
 msgstr ""
 
-#: page-settings.php:90
+#: page-settings.php:91
 msgid "Page URI"
 msgstr ""
 
-#: page-settings.php:91
+#: page-settings.php:92
 msgid "Result count"
 msgstr ""
 
-#: page-settings.php:95 page-settings.php:134
+#: page-settings.php:96 page-settings.php:135
 msgid "Facet"
 msgstr ""
 
-#: page-settings.php:100 page-settings.php:130
+#: page-settings.php:101 page-settings.php:131
 msgid "Template"
 msgstr ""
 
-#: page-settings.php:105
+#: page-settings.php:106
 msgid "is"
 msgstr ""
 
-#: page-settings.php:106
+#: page-settings.php:107
 msgid "is not"
 msgstr ""
 
-#: page-settings.php:108
+#: page-settings.php:109
 msgid "enter values"
 msgstr ""
 
-#: page-settings.php:126
+#: page-settings.php:127
 msgid "Show"
 msgstr ""
 
-#: page-settings.php:127
+#: page-settings.php:128
 msgid "Hide"
 msgstr ""
 
-#: page-settings.php:131
+#: page-settings.php:132
 msgid "All Facets"
 msgstr ""
 
-#: page-settings.php:138
+#: page-settings.php:139
 msgid "Selector"
 msgstr ""
 

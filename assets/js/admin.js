@@ -37,6 +37,13 @@ var FWPCL = FWPCL || {
             $(this).closest('.ruleset').toggleClass('collapsed');
         });
 
+        // Prevent label newlines
+        $(document).on('keypress', '.ruleset-label', function(e) {
+            if (13 === e.which) {
+                e.preventDefault();
+            }
+        });
+
         // Trigger click
         $('.facetwp-header-nav a:first').click();
     });

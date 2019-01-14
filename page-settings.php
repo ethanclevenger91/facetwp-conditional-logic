@@ -42,7 +42,7 @@
                 <table class="header-bar">
                     <tr>
                         <td class="toggle"><span class="dashicons dashicons-menu"></span></td>
-                        <td class="title"><span class="ruleset-label" contenteditable="true"><?php _e( 'Edit me', 'facetwp-conditional-logic' ); ?></span></td>
+                        <td class="title"><span class="ruleset-label" contenteditable="true"><?php _e( 'Change me', 'facetwp-conditional-logic' ); ?></span></td>
                         <td class="delete"><span class="dashicons dashicons-no-alt"></span></td>
                     </tr>
                 </table>

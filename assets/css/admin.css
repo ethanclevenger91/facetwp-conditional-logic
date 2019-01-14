@@ -7,8 +7,14 @@ body.settings_page_fwpcl-admin {
 .facetwp-region .ruleset-label {
     display: inline-block;
     min-width: 40px;
+    padding: 0 6px;
     outline: none;
     cursor: text;
+}
+
+.facetwp-region .ruleset-label:focus,
+.facetwp-region .ruleset-label:hover {
+    background-color: #ffff00;
 }
 
 .facetwp-region .condition-object,
@@ -140,7 +146,7 @@ table.header-bar td.delete {
 
 .header-bar .title {
     line-height: 20px;
-    padding: 6px 6px 6px 12px;
+    padding: 6px;
 }
 
 .header-bar .title:after {
