@@ -44,8 +44,8 @@ class FacetWP_Conditional_Logic_Addon
         $this->rulesets = empty( $rulesets ) ? array() : json_decode( $rulesets, true );
 
         $this->admin_i18n = array(
-          'Saving...' => __( 'Saving...', 'facetwp-conditional-logic' ),
-          'Importing...' => __( 'Importing...', 'facetwp-conditional-logic' ),
+          'Saving' => __( 'Saving', 'facetwp-conditional-logic' ),
+          'Importing' => __( 'Importing', 'facetwp-conditional-logic' ),
           'Changes saved' => __( 'Changes saved', 'facetwp-conditional-logic' ),
           'OR' => __( 'OR', 'facetwp-conditional-logic' ),
           'IF' => __( 'IF', 'facetwp-conditional-logic' ),

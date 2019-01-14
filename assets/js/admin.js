@@ -166,7 +166,7 @@ var FWPCL = FWPCL || {
 
 
     $(document).on('click', '.facetwp-save', function() {
-        $('.fwpcl-response').html(FWPCL.__('Saving...'));
+        $('.fwpcl-response').html(FWPCL.__('Saving') + '...');
         $('.fwpcl-response').css({ display: 'inline-block' });
 
         var data = FWPCL.parse_data();
@@ -269,7 +269,7 @@ var FWPCL = FWPCL || {
 
 
     $(document).on('click', '.fwpcl-import', function() {
-        $('.fwpcl-import-response').html(FWPCL.__('Importing...'));
+        $('.fwpcl-import-response').html(FWPCL.__('Importing') + '...');
         $.post(ajaxurl, {
             action: 'fwpcl_import',
             import_code: $('.import-code').val(),

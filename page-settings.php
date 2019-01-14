@@ -26,14 +26,7 @@
             <p class="description" style="margin-top:20px"><?php _e( 'To import, paste code into the field below.', 'facetwp-conditional-logic' ); ?></p>
             <textarea class="import-code"></textarea>
             <p class="description" style="color:red">
-              <?php
-                printf(
-                  /* translators: placeholder are <strong> HTML entities */
-                  esc_html__( '%1$s NOTE: %2$s importing will replace any existing rulesets.', 'facetwp-conditional-logic' ),
-                  '<strong>',
-                  '</strong>'
-                );
-              ?>
+                <?php _e( 'Importing will replace any existing rulesets.', 'facetwp-conditional-logic' ); ?>
             </p>
             <input type="button" class="button fwpcl-import" value="Process Import" />
             <span class="fwpcl-import-response"></span>
@@ -99,12 +92,12 @@
                             </optgroup>
                             <optgroup label="Facet Value">
 <?php foreach ( $this->facets as $facet ) : ?>
-                                <option value="facet-<?php echo $facet['name']; ?>"><?php _e( 'Facet:', 'facetwp-conditional-logic' ); ?> <?php echo $facet['label']; ?></option>
+                                <option value="facet-<?php echo $facet['name']; ?>"><?php _e( 'Facet', 'facetwp-conditional-logic' ); ?>: <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                             </optgroup>
                             <optgroup label="Template">
 <?php foreach ( $this->templates as $template ) : ?>
-                                <option value="template-<?php echo $template['name']; ?>"><?php _e( 'Template:', 'facetwp-conditional-logic' ); ?> <?php echo $template['label']; ?></option>
+                                <option value="template-<?php echo $template['name']; ?>"><?php _e( 'Template', 'facetwp-conditional-logic' ); ?>: <?php echo $template['label']; ?></option>
 <?php endforeach; ?>
                             </optgroup>
                         </select>
@@ -138,7 +131,7 @@
                             <option value="facets"><?php _e( 'All Facets', 'facetwp-conditional-logic' ); ?></option>
                             <optgroup label="Facets">
 <?php foreach ( $this->facets as $facet ) : ?>
-                                <option value="facet-<?php echo $facet['name']; ?>"><?php _e( 'Facet:', 'facetwp-conditional-logic' ); ?> <?php echo $facet['label']; ?></option>
+                                <option value="facet-<?php echo $facet['name']; ?>"><?php _e( 'Facet', 'facetwp-conditional-logic' ); ?>: <?php echo $facet['label']; ?></option>
 <?php endforeach; ?>
                             </optgroup>
                             <optgroup label="Custom">
